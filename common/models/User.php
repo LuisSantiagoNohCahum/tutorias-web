@@ -8,7 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-use backend\models\Rol;
+/* use backend\models\Rol; */
 use yii\helpers\ArrayHelper;
 
 /**
@@ -59,8 +59,8 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
-            ['rol_id', 'default', 'value' => 1],
-            [['rol_id'],'in',  'range'=>array_keys($this->getRolLista())],
+            /* ['rol_id', 'default', 'value' => 1], */
+            /* [['rol_id'],'in',  'range'=>array_keys($this->getRolLista())], */
         ];
     }
 
@@ -225,24 +225,24 @@ class User extends ActiveRecord implements IdentityInterface
      * relación get rol
      *
      */
-    public function getRol()
+/*     public function getRol()
     {
         return $this->hasOne(Rol::className(), ['id' => 'rol_id']);
-    }
+    } */
     /**
      * get rol nombre
      *
      */
-    public function getRolNombre()
+/*     public function getRolNombre()
     {
         return $this->rol ? $this->rol->rol_nombre : '- sin rol -';
-    }
+    } */
     /**
      * get lista de roles para lista desplegable
      */
-    public static function getRolLista()
+/*     public static function getRolLista()
     {
         $dropciones = Rol::find()->asArray()->all();
         return ArrayHelper::map($dropciones, 'id', 'rol_nombre');
-    }
+    } */
 }

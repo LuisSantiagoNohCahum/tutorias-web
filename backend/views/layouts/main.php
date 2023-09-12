@@ -18,7 +18,10 @@ AppAsset::register($this);
 
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
+    <link rel="icon" href="./images/tutorias.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- BS ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -30,7 +33,7 @@ AppAsset::register($this);
     <header>
         <?php
         NavBar::begin([
-            'brandLabel' => 'Sistema Ventas On Line', //Yii::$app->name,
+            'brandLabel' => 'SISTEMA DE CONTROL DE TUTORÍAS', //Yii::$app->name,
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
@@ -45,7 +48,7 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
         } else {
             $menuItems[] = [
-                'label' => 'Administración', 'url' => ['site/index'],
+                'label' => 'Tutores', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
@@ -54,31 +57,29 @@ AppAsset::register($this);
                 ],
             ];
             $menuItems[] = [
-                'label' => 'Catalogos', 'url' => ['site/index'],
+                'label' => 'Grupos', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Roles', 'url' => ['rol/index']],
-                    ['label' => 'Clientes', 'url' => ['clientes/index']],
+                    ['label' => 'Carreras', 'url' => ['rol/index']],
+                    ['label' => 'Grupos activos', 'url' => ['clientes/index']],
                 ],
             ];
 
             $menuItems[] = [
-                'label' => 'Movimientos', 'url' => ['site/index'],
+                'label' => 'PAT', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Ventas', 'url' => ['clientes/index']],
-                    ['label' => 'Compras', 'url' => ['clientes/index']],
-                    ['label' => 'Dev/Compras', 'url' => ['clientes/index']],
-                    ['label' => 'Dev/Ventas', 'url' => ['clientes/index']],
+                    ['label' => 'Plantillas', 'url' => ['clientes/index']],
+                    ['label' => 'Administracion del PAT', 'url' => ['clientes/index']],
                 ],
             ];
 
             $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    '<b><i class="bi bi-box-arrow-in-right"></i> Logout (' . Yii::$app->user->identity->username . ')</b>',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -93,7 +94,11 @@ AppAsset::register($this);
     </header>
 
     <main role="main" class="flex-shrink-0">
-        <div class="container">
+        <div class="container main-info">
+
+            <!-- <img class="img-thumbnail" src="<?= dirname(dirname(dirname(__DIR__))).'\uploads\itsva.png'?>" alt=""> -->
+
+            <?= Html::img('@web/images/itsva.png', ['alt'=>'Itsva', 'class'=>'img-thumbnail mb-2 mt-2 border-0', 'width'=>'50%']);?>
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
@@ -104,7 +109,7 @@ AppAsset::register($this);
 
     <footer class="footer mt-auto py-3 text-muted">
         <div class="container">
-            <p class="float-left">&copy; <?= Html::encode('RUSELL IUIT') ?> <?= date('Y') ?></p>
+            <p class="float-left">&copy; <?= Html::encode('ITSVA') ?> <?= date('Y') ?></p>
             <p class="float-right"><?= Yii::powered() ?></p>
         </div>
     </footer>
