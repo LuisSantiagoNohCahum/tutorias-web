@@ -20,6 +20,10 @@ return [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@yii2mod/rbac/messages',
                 ],
+                'kvgrid' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
                 // ...
             ],
         ],
