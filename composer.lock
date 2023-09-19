@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "13c56361078353b315d4f68de8c3aaeb",
+    "content-hash": "f2379ab81f1c9fd7e4d6d63b05cc1d52",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -1536,12 +1536,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "ceb3e20d4380997447616008914e9bf12522eb7c"
+                "reference": "2e0ae231d035c4ce4e4b4b81de995f684cb6765d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ceb3e20d4380997447616008914e9bf12522eb7c",
-                "reference": "ceb3e20d4380997447616008914e9bf12522eb7c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2e0ae231d035c4ce4e4b4b81de995f684cb6765d",
+                "reference": "2e0ae231d035c4ce4e4b4b81de995f684cb6765d",
                 "shasum": ""
             },
             "require": {
@@ -1651,7 +1651,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-04T08:09:49+00:00"
+            "time": "2023-09-13T11:23:21+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
@@ -1759,12 +1759,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-composer.git",
-                "reference": "30d9c84d2544cc46e8b91fbdb321d566b6e4070d"
+                "reference": "2cd6eee19e94b9e98f3516340138041683350fcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/30d9c84d2544cc46e8b91fbdb321d566b6e4070d",
-                "reference": "30d9c84d2544cc46e8b91fbdb321d566b6e4070d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/2cd6eee19e94b9e98f3516340138041683350fcf",
+                "reference": "2cd6eee19e94b9e98f3516340138041683350fcf",
                 "shasum": ""
             },
             "require": {
@@ -1828,7 +1828,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-06T08:19:14+00:00"
+            "time": "2023-09-17T09:06:53+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
@@ -2585,12 +2585,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icons.git",
-                "reference": "59ac20af6f9b02a04e061fa4b55dfc96c7844753"
+                "reference": "a87d8b256743c9b0df05f20de2c76a7975119045"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/59ac20af6f9b02a04e061fa4b55dfc96c7844753",
-                "reference": "59ac20af6f9b02a04e061fa4b55dfc96c7844753",
+                "url": "https://api.github.com/repos/lipis/flag-icons/zipball/a87d8b256743c9b0df05f20de2c76a7975119045",
+                "reference": "a87d8b256743c9b0df05f20de2c76a7975119045",
                 "shasum": ""
             },
             "default-branch": true,
@@ -2619,7 +2619,7 @@
                 "issues": "https://github.com/lipis/flag-icons/issues",
                 "source": "https://github.com/lipis/flag-icons/tree/main"
             },
-            "time": "2023-08-31T11:39:06+00:00"
+            "time": "2023-09-06T08:35:36+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -3052,6 +3052,65 @@
                 }
             ],
             "time": "2019-09-03T03:12:44+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-bootstrap4-dropdown",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-bootstrap4-dropdown.git",
+                "reference": "b65783f2de8ff0733e3787c853a53e9f13bebac1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-bootstrap4-dropdown/zipball/b65783f2de8ff0733e3787c853a53e9f13bebac1",
+                "reference": "b65783f2de8ff0733e3787c853a53e9f13bebac1",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": ">=3.0"
+            },
+            "suggest": {
+                "yiisoft/yii2-bootstrap4": "The Yii 2 Bootstrap 4 extension must be installed separately for this extension to work."
+            },
+            "default-branch": true,
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\bs4dropdown\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Enhanced Bootstrap 4.x dropdown widget for Yii2 with nested submenu support",
+            "homepage": "https://github.com/kartik-v/yii2-bootstrap4-dropdown",
+            "keywords": [
+                "bootstrap",
+                "dropdown",
+                "jquery",
+                "nested",
+                "submenu",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/kartik-v/yii2-bootstrap4-dropdown/issues",
+                "source": "https://github.com/kartik-v/yii2-bootstrap4-dropdown/tree/v1.0.4"
+            },
+            "time": "2022-01-10T04:03:23+00:00"
         },
         {
             "name": "kartik-v/yii2-dialog",
@@ -4964,12 +5023,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "187a9c4c8076d094147f1e78eed2dbe2864d2513"
+                "reference": "622d0186707f39a4ae71df3bcf42d759bb868854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/187a9c4c8076d094147f1e78eed2dbe2864d2513",
-                "reference": "187a9c4c8076d094147f1e78eed2dbe2864d2513",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/622d0186707f39a4ae71df3bcf42d759bb868854",
+                "reference": "622d0186707f39a4ae71df3bcf42d759bb868854",
                 "shasum": ""
             },
             "require": {
@@ -5038,7 +5097,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.34"
             },
             "funding": [
                 {
@@ -5054,7 +5113,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-10T06:22:16+00:00"
+            "time": "2023-09-19T05:20:51+00:00"
         },
         {
             "name": "psr/container",
@@ -6978,12 +7037,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "1181fe9270e373537475e826873b5867b863883c"
+                "reference": "e41bdc93def20eaf3bfc1537c4e0a2b0680a152d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/1181fe9270e373537475e826873b5867b863883c",
-                "reference": "1181fe9270e373537475e826873b5867b863883c",
+                "url": "https://api.github.com/repos/symfony/string/zipball/e41bdc93def20eaf3bfc1537c4e0a2b0680a152d",
+                "reference": "e41bdc93def20eaf3bfc1537c4e0a2b0680a152d",
                 "shasum": ""
             },
             "require": {
@@ -7056,7 +7115,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-28T12:46:07+00:00"
+            "time": "2023-09-13T11:47:41+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -7603,7 +7662,8 @@
     "stability-flags": {
         "yiisoft/yii2-bootstrap4": 20,
         "kartik-v/yii2-grid": 20,
-        "kartik-v/yii2-icons": 20
+        "kartik-v/yii2-icons": 20,
+        "kartik-v/yii2-bootstrap4-dropdown": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
