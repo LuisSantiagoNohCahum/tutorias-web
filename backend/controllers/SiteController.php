@@ -76,6 +76,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
+        /* Poner main para pintar navbar */
         $this->layout = 'blank';
 
         $model = new LoginForm();
