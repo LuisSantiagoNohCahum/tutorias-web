@@ -62,7 +62,7 @@ AppAsset::register($this);
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
                     ['label' => 'Carreras', 'url' => ['carreras/index']],
-                    ['label' => 'Grupos activos', 'url' => ['clientes/index']],
+                    ['label' => 'Grupos activos', 'url' => ['ciclo-escolar/index']],
                 ],
             ];
 
