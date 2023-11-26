@@ -22,6 +22,9 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- BS ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <!-- FONT AWESOME - PARA CARGAR LOS ICONOS DEL GRIDVIEW -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -44,35 +47,87 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
         ];
 
-        if (Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest && Yii::$app->user->can('tutor')) {
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-        } else {
+            
+            //COLOCAR MENSAJE DE QUE NO SE TIENE ACCESO
+
+        } elseif(Yii::$app->user->can('Admin')) {
+
+            
             $menuItems[] = [
-                'label' => 'Tutores', 'url' => ['site/index'],
+                'label' => 'Acceso', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Usuarios', 'url' => ['user/index']],
+                    ['label' => 'Usuarios', 'url' => ['/user/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label'=> 'Asignación de acceso','url'=> ['/rbac/assignment']],
+                    ['label'=> 'Roles','url'=> ['/rbac/role']],
+                    ['label'=> 'Permisos','url'=> ['/rbac/permission']],
+                    ['label'=> 'Rutas','url'=> ['/rbac/route']],
+                    ['label'=> 'Reglas','url'=> ['/rbac/rule']],
                     
                 ],
             ];
+
+            /*
+                                [
+                        'label' => 'RBAC', 
+                        'url' => ['site/index'],
+                        'options' => ['class' => 'dropdown'],
+                        'submenuTemplate' => '<a href="{url}" class="href_class">{label}</a>',
+                        'items'=> [
+                            ['label'=> 'Asignación de acceso','url'=> ['rbac/assignment']],
+                            '<hr class="dropdown-divider">',
+                            ['label'=> 'Roles','url'=> ['rbac/role']],
+                            ['label'=> 'Permisos','url'=> ['rbac/permission']],
+                            ['label'=> 'Rutas','url'=> ['rbac/route']],
+                            ['label'=> 'Reglas','url'=> ['rbac/rule']],
+                        ],
+                    ],
+             */
+            
             $menuItems[] = [
                 'label' => 'Grupos', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Carreras', 'url' => ['carreras/index']],
-                    ['label' => 'Grupos activos', 'url' => ['ciclo-escolar/index']],
+                    ['label' => 'Ciclos y periodos', 'url' => ['/ciclo-escolar/index']],
+                    ['label' => 'Carreras', 'url' => ['/carreras/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label' => 'Grupos Activos', 'url' => ['/grupo-master/index']],
+                    ['label' => 'Grupo Letras', 'url' => ['/grupo-letra/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label'=> 'Semestre','url'=> ['/semestre/index']],
                 ],
             ];
 
             $menuItems[] = [
-                'label' => 'PAT', 'url' => ['site/index'],
+                'label' => 'Tutores', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Plantillas', 'url' => ['clientes/index']],
-                    ['label' => 'Administracion del PAT', 'url' => ['clientes/index']],
+                    ['label' => 'Tutores', 'url' => ['/tutor/index']],
+                ],
+            ];
+
+            $menuItems[] = [
+                'label' => 'Alumnos', 'url' => ['site/index'],
+                'options' => ['class' => 'dropdown'],
+                'template' => '<a href="{url}" class="href_class">{label}</a>',
+                'items' => [
+                    ['label' => 'Alumnos', 'url' => ['/alumno/index']],
+                ],
+            ];
+
+            $menuItems[] = [
+                'label' => 'Administración de tutorias', 'url' => ['site/index'],
+                'options' => ['class' => 'dropdown'],
+                'template' => '<a href="{url}" class="href_class">{label}</a>',
+                'items' => [
+                    //filtros -> select dependientes
+                    ['label' => 'Tutorias grupales', 'url' => ['/alumno/index']],
                 ],
             ];
 

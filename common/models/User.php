@@ -51,6 +51,18 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Usuario',
+            'password_hash' => 'Contraseña Cifrada',
+            'email' => 'Correo Electronico',
+            'status' => 'Estatus',
+            'created_at' => 'Fecha De Creacion',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -219,6 +231,13 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByEmail($email)
     {
         return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    public function getStatusList()  {
+        return [
+            '10' => 'ACTIVO',
+            '9' => 'INACTIVO'
+        ];
     }
 
     /**

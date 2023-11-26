@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        <!-- <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?> -->
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,15 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            //'email:email',
-            //'status',
-            //'created_at',
+            //'auth_key',
+            //'password_hash',
+            //'password_reset_token',
+            'email:email',
+            [
+                'attribute'=> 'status',
+                'content' => function ($model) {
+                    return ($model->status != 10) ? Html::tag('span','INACTIVO', ['class'=> 'badge badge-danger']) : Html::tag('span','ACTIVO', ['class'=> 'badge badge-success']);
+                }
+            ],
+            'created_at:date',
             //'updated_at',
             //'verification_token',
             //'rol_id',

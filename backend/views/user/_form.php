@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList($model->getStatusList(), ['prompt'=> 'Select...', 'class'=> 'form-control form-control-md']) ?>
 
     <!-- $form->field($model, 'rol_id')->textInput() -->
 

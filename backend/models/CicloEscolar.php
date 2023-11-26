@@ -95,6 +95,7 @@ class CicloEscolar extends \yii\db\ActiveRecord
         return $this->hasMany(PeriodoEscolar::class, ['id_ciclo' => 'id']);
     }
 
+    //se pudo poner solo 0 o 1 en el campo sin necesidad de una tabla
     public static function getEstatusList(){
         $estatus = Estatus::find()->all();
         return ArrayHelper::map($estatus, 'id','nombre');

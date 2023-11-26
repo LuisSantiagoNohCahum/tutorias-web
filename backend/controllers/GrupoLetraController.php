@@ -2,19 +2,16 @@
 
 namespace backend\controllers;
 
-use app\models\CicloEscolar;
-use app\models\PeriodoEscolar;
-use backend\models\search\PeriodoEscolarSearch;
-use yii\base\Model;
+use app\models\GrupoLetra;
+use backend\models\search\GrupoLetraSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use Yii;
 
 /**
- * PeriodoEscolarController implements the CRUD actions for PeriodoEscolar model.
+ * GrupoLetraController implements the CRUD actions for GrupoLetra model.
  */
-class PeriodoEscolarController extends Controller
+class GrupoLetraController extends Controller
 {
     /**
      * @inheritDoc
@@ -35,13 +32,13 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Lists all PeriodoEscolar models.
+     * Lists all GrupoLetra models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PeriodoEscolarSearch();
+        $searchModel = new GrupoLetraSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -51,7 +48,7 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Displays a single PeriodoEscolar model.
+     * Displays a single GrupoLetra model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -64,38 +61,17 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Creates a new PeriodoEscolar model.
+     * Creates a new GrupoLetra model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_ciclo ID_CICLO
      * @return string|\yii\web\Response
      */
-    public function actionCreate($id_ciclo)
+    public function actionCreate()
     {
-        $model = new PeriodoEscolar();
-
-        //agregar esta validacion en el update
-        
-        $cicloModel = new CicloEscolar();
-        $cicloModel = CicloEscolar::find()->where(['id'=> $id_ciclo])->one();
-
-        //agregar validacion para no poder actualizar ni crear periodos como activos si hay un periodo activo antes
-
-        //agregar un disparador que se ejecute para actualizar el estatus a inactivo una vez se pasa la fecha del periodo
-        $model->id_ciclo = $id_ciclo;
+        $model = new GrupoLetra();
 
         if ($this->request->isPost) {
-
-            if (
-                count($cicloModel->periodoEscolars)>=2 
-                || !(strtotime($cicloModel->fecha_inicial) < strtotime($_POST['PeriodoEscolar']['date_start'])) 
-                || !(strtotime($cicloModel->fecha_final) > strtotime($_POST['PeriodoEscolar']['date_end']))
-                ) 
-            {
-                throw new NotFoundHttpException(Yii::t('app','Hubo un error con los datos que intento ingresar. Verifique nuevamente'));
-            }
-
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['ciclo-escolar/view', 'id' => $id_ciclo]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -107,7 +83,7 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Updates an existing PeriodoEscolar model.
+     * Updates an existing GrupoLetra model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -127,7 +103,7 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Deletes an existing PeriodoEscolar model.
+     * Deletes an existing GrupoLetra model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -141,15 +117,15 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Finds the PeriodoEscolar model based on its primary key value.
+     * Finds the GrupoLetra model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return PeriodoEscolar the loaded model
+     * @return GrupoLetra the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PeriodoEscolar::findOne(['id' => $id])) !== null) {
+        if (($model = GrupoLetra::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

@@ -27,6 +27,19 @@ return [
                 // ...
             ],
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'santiagocahum25@gmail.com',
+                'password' => 'uoxf blhj ctrq jqlc',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
+        ]
         /* 'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

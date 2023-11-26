@@ -2,19 +2,18 @@
 
 namespace backend\controllers;
 
-use app\models\CicloEscolar;
-use app\models\PeriodoEscolar;
-use backend\models\search\PeriodoEscolarSearch;
-use yii\base\Model;
+use backend\models\Alumno;
+use backend\models\search\AlumnoSearch;
+use app\models\GrupoMaster;
+use backend\models\search\GrupoMasterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use Yii;
 
 /**
- * PeriodoEscolarController implements the CRUD actions for PeriodoEscolar model.
+ * GrupoMasterController implements the CRUD actions for GrupoMaster model.
  */
-class PeriodoEscolarController extends Controller
+class GrupoMasterController extends Controller
 {
     /**
      * @inheritDoc
@@ -35,13 +34,13 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Lists all PeriodoEscolar models.
+     * Lists all GrupoMaster models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PeriodoEscolarSearch();
+        $searchModel = new GrupoMasterSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -51,51 +50,35 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Displays a single PeriodoEscolar model.
+     * Displays a single GrupoMaster model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
+        $searchModelAlumnos = new AlumnoSearch();
+        $dataProviderAlumnos = $searchModelAlumnos->search($this->request->queryParams, $id);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModelAlumnos' => $searchModelAlumnos,
+            'dataProviderAlumnos' => $dataProviderAlumnos,
         ]);
     }
 
     /**
-     * Creates a new PeriodoEscolar model.
+     * Creates a new GrupoMaster model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_ciclo ID_CICLO
      * @return string|\yii\web\Response
      */
-    public function actionCreate($id_ciclo)
+    public function actionCreate()
     {
-        $model = new PeriodoEscolar();
-
-        //agregar esta validacion en el update
-        
-        $cicloModel = new CicloEscolar();
-        $cicloModel = CicloEscolar::find()->where(['id'=> $id_ciclo])->one();
-
-        //agregar validacion para no poder actualizar ni crear periodos como activos si hay un periodo activo antes
-
-        //agregar un disparador que se ejecute para actualizar el estatus a inactivo una vez se pasa la fecha del periodo
-        $model->id_ciclo = $id_ciclo;
+        $model = new GrupoMaster();
 
         if ($this->request->isPost) {
-
-            if (
-                count($cicloModel->periodoEscolars)>=2 
-                || !(strtotime($cicloModel->fecha_inicial) < strtotime($_POST['PeriodoEscolar']['date_start'])) 
-                || !(strtotime($cicloModel->fecha_final) > strtotime($_POST['PeriodoEscolar']['date_end']))
-                ) 
-            {
-                throw new NotFoundHttpException(Yii::t('app','Hubo un error con los datos que intento ingresar. Verifique nuevamente'));
-            }
-
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['ciclo-escolar/view', 'id' => $id_ciclo]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -106,8 +89,24 @@ class PeriodoEscolarController extends Controller
         ]);
     }
 
+    //crear una vista de filtros
+    //porv defecto solo cargar los filtros - al darle click al bopton de buscar nos debe buscar los grupos activos y con tutores
+
+    //ahi añadimos lo botones de ver pat, diagnostico y liberacion
+
+    //mandar los paramteros o inicializarlos en null, si es null returnar darta provider en null y no pintar nada , solo mensaje de que no hay grupos
+
+    //añadir boton de cargar alumnos
+
+    //tambien si abajo de detalles muestro la listab de alumnos cargados
+
+    //añadir ne el grid un boton para añadir alumnos a grupo o eso lo hacemos en el view igual con un boton, y solo si hay alumnos y tutor ues mostramos los botones de pot
+
+    //añadir los botones de control de los alumnos en el grid igual - modificar o crear nuevas acciones de eleiminar y actualizar
+    
+
     /**
-     * Updates an existing PeriodoEscolar model.
+     * Updates an existing GrupoMaster model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -127,7 +126,7 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Deletes an existing PeriodoEscolar model.
+     * Deletes an existing GrupoMaster model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -141,15 +140,15 @@ class PeriodoEscolarController extends Controller
     }
 
     /**
-     * Finds the PeriodoEscolar model based on its primary key value.
+     * Finds the GrupoMaster model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return PeriodoEscolar the loaded model
+     * @return GrupoMaster the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PeriodoEscolar::findOne(['id' => $id])) !== null) {
+        if (($model = GrupoMaster::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
