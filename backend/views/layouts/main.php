@@ -52,7 +52,7 @@ AppAsset::register($this);
             
             //COLOCAR MENSAJE DE QUE NO SE TIENE ACCESO
 
-        } elseif(Yii::$app->user->can('Admin')) {
+        } elseif(Yii::$app->user->can('admin')) {
 
             
             $menuItems[] = [

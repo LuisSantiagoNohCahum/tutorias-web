@@ -98,8 +98,11 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername($username, $is_admin)
     {
+        if ($is_admin) {
+            return static::find()->alias('U')->innerJoin('auth_assignment AA', 'U.id = AA.user_id')->where(['username' => $username, 'status' => self::STATUS_ACTIVE, 'AA.item_name' => 'admin'])->one();
+        }
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 

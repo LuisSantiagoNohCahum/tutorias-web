@@ -36,13 +36,18 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        
     ];
     if (Yii::$app->user->isGuest ) {
+        $menuItems[] = ['label' => 'About', 'url' => ['/site/about']];
+        $menuItems[] = ['label' => 'Contact', 'url' => ['/site/contact']];
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
+    } elseif (Yii::$app->user->can('tutor')) {
+        $menuItems[] = ['label' => 'Perfil', 'url' => ['/site/about']];
+        $menuItems[] = ['label' => 'PAT', 'url' => ['/site/contact']];
+        $menuItems[] = ['label' => 'Diagnostico', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Liberacion', 'url' => ['/site/login']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
