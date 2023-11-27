@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <legend style="all: unset;" class="p-1 font-italic font-weight-bold text-black-50">Acción Tutoral</legend>
 
         <?php if ($model->id_tutor != null) { ?>
-            <?= Html::a("<i class='bi bi-card-checklist'></i> Ver PAT", Url::toRoute(['alumno/import', 'id_grupo' => $model->id]), ['class' => 'btn btn-success']) ?>
+            <?= Html::a("<i class='bi bi-card-checklist'></i> Ver PAT", Url::toRoute(['pat/admin-pat', 'id_grupo' => $model->id]), ['class' => 'btn btn-success']) ?>
 
             <?= Html::a("<i class='bi bi-file-bar-graph-fill'></i> Ver Diagnostico", Url::toRoute(['alumno/import', 'id_grupo' => $model->id]), ['class' => 'btn btn-success']) ?>
 

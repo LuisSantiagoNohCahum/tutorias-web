@@ -127,7 +127,7 @@ AppAsset::register($this);
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
                     //filtros -> select dependientes
-                    ['label' => 'Tutorias grupales', 'url' => ['/alumno/index']],
+                    ['label' => 'PAT', 'url' => ['/pat/index']],
                 ],
             ];
 
