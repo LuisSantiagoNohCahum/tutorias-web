@@ -100,9 +100,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username, $is_admin)
     {
+        /* VALIDAR QUE SEA ADMIN Y TENGA ASIGANDO ROL */
         if ($is_admin) {
             return static::find()->alias('U')->innerJoin('auth_assignment AA', 'U.id = AA.user_id')->where(['username' => $username, 'status' => self::STATUS_ACTIVE, 'AA.item_name' => 'admin'])->one();
         }
+        /* VALIDAR QUE TENGA TUTOR Y GRUPO ASIGNADO ESTE USER */
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 

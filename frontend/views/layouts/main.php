@@ -18,6 +18,11 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- BS ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <!-- FONT AWESOME - PARA CARGAR LOS ICONOS DEL GRIDVIEW -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -44,8 +49,8 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } elseif (Yii::$app->user->can('tutor')) {
-        $menuItems[] = ['label' => 'Perfil', 'url' => ['/site/about']];
-        $menuItems[] = ['label' => 'PAT', 'url' => ['/site/contact']];
+        $menuItems[] = ['label' => 'Perfil', 'url' => ['/tutor/index']];
+        $menuItems[] = ['label' => 'PAT', 'url' => ['/pat/index']];
         $menuItems[] = ['label' => 'Diagnostico', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Liberacion', 'url' => ['/site/login']];
         $menuItems[] = '<li>'
@@ -66,7 +71,8 @@ AppAsset::register($this);
 </header>
 
 <main role="main" class="flex-shrink-0">
-    <div class="container">
+    <div class="container main-info">
+        <?= Html::img('@web/images/itsva.png', ['alt'=>'Itsva', 'class'=>'img-thumbnail mb-2 mt-2 border-0', 'width'=>'50%']);?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
