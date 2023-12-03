@@ -40,9 +40,14 @@ class SemanaReal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_grupomaster', 'id_semana', 'semana_atendida', 'alumnos_atendidos', 'alumnos_faltantes', 'total_alumnos', 'atendidos_hombres', 'atendidos_mujeres', 'total_gatendidos', 'evidencias', 'observaciones'], 'required'],
+            [['id_grupomaster', 'id_semana', 'semana_atendida', 'alumnos_atendidos', 'alumnos_faltantes', 'total_alumnos', 'atendidos_hombres', 'atendidos_mujeres', 'total_gatendidos', 'observaciones'], 'required'],
             [['id_grupomaster', 'id_semana', 'semana_atendida', 'alumnos_atendidos', 'alumnos_faltantes', 'total_alumnos', 'atendidos_hombres', 'atendidos_mujeres', 'total_gatendidos'], 'integer'],
             [['evidencias', 'observaciones', 'alumnos'], 'string'],
+
+            [['evidencias'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif', 'maxFiles' => 10, 'on' => ['create']],
+            [['evidencias'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif', 'maxFiles' => 10, 'on' => ['update']],
+            [['evidencias'], 'safe', 'on' => ['update']],
+
             [['id_grupomaster'], 'exist', 'skipOnError' => true, 'targetClass' => GrupoMaster::class, 'targetAttribute' => ['id_grupomaster' => 'id']],
             [['id_semana'], 'exist', 'skipOnError' => true, 'targetClass' => Semana::class, 'targetAttribute' => ['id_semana' => 'id']],
         ];
@@ -57,16 +62,16 @@ class SemanaReal extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_grupomaster' => 'Id Grupomaster',
             'id_semana' => 'Id Semana',
-            'semana_atendida' => 'Semana Atendida',
+            'semana_atendida' => '¿Se atendio la tutoria?',
             'alumnos_atendidos' => 'Alumnos Atendidos',
             'alumnos_faltantes' => 'Alumnos Faltantes',
-            'total_alumnos' => 'Total Alumnos',
-            'atendidos_hombres' => 'Atendidos Hombres',
-            'atendidos_mujeres' => 'Atendidos Mujeres',
-            'total_gatendidos' => 'Total Gatendidos',
-            'evidencias' => 'Evidencias',
+            'total_alumnos' => 'Total de Alumnos',
+            'atendidos_hombres' => 'Hombres',
+            'atendidos_mujeres' => 'Mujeres',
+            'total_gatendidos' => 'Total',
+            'evidencias' => 'Evidencias de la tutoria',
             'observaciones' => 'Observaciones',
-            'alumnos' => 'Alumnos',
+            'alumnos' => 'Alumnos Individiales Atendidos',
         ];
     }
 

@@ -61,10 +61,15 @@ class SemanaController extends Controller
         ]);
     }
 
-    public function actionViewAddSemana($id)
+    public function actionViewAddSemana($id, $id_grupo)
     {
+        $model = $this->findModel($id);
+
+        $modelSemanaReal = SemanaReal::find()->where(['id_semana' => $model->id, 'id_grupomaster' => $id_grupo])->one();
+
         return $this->render('_viewAddSemana', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'modelSemanaReal' => $modelSemanaReal
         ]);
     }
 
@@ -109,7 +114,7 @@ class SemanaController extends Controller
     public function actionDetailAddSemanaReal($id_grupo) {
         if (isset($_POST['expandRowKey'])) {
             $model = Semana::findOne($_POST['expandRowKey']);
-            $modelSemanaReal = SemanaReal::findOne($model->id);
+            $modelSemanaReal = SemanaReal::findOne(['id_semana'=>$model->id, 'id_grupomaster'=>$id_grupo]);
             return $this->renderPartial('_detailsAddSemanaReal', [
                 'model'=>$model,
                 'id_grupo'=> $id_grupo,

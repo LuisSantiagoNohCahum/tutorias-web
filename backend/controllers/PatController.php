@@ -112,22 +112,36 @@ class PatController extends Controller
 
 
     public function actionAdminPat($id_grupo){
+        /* Inicializamos en null por si hay errores al traer pat */
+        $modelGrupo = $modelPat = $searchModelSemanas = $dataProviderSemanas = $reportParciales = null;
         /* Modelo con los datos del grupo actual */
         $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
 
         /* Verificar que modelo pat no sea null - para buscar semanas con su id*/
         /* Solo filtrar el Pat activo que sea de ese semestre - validar en form si es null */
-        $modelPat = Pat::find()->where(['id_semestre' => $modelGrupo->semestre->id, 'estatus'=> 1])->one();
+        /* lanzar exeption si es null en algunos de ellos y setFlash recibir en index */
+
+        /* Podria ser un operador ternario igual para devolver el null */
+        if ($modelGrupo != null) $modelPat = Pat::find()->where(['id_semestre' => $modelGrupo->semestre->id, 'estatus'=> 1])->one();
 
         /* Buscar semanas, devolver dataprovider de semanas */
-        $searchModelSemanas = new SemanaSearch();
-        $dataProviderSemanas = $searchModelSemanas->search($this->request->queryParams, $modelPat->id);
+        if ($modelPat != null){
+            $searchModelSemanas = new SemanaSearch();
+            $dataProviderSemanas = $searchModelSemanas->search($this->request->queryParams, $modelPat->id);
 
+            $reportParciales=[];
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [1, 6]);
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [7, 11]);
+            //hacer un count de semanas -get models para el ultimo
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [12, 16]);
+        }
+        
         return $this->render('_adminpat', [
             'modelGrupo' => $modelGrupo,
             'modelPat' => $modelPat,
             'searchModelSemanas' => $searchModelSemanas,
-            'dataProviderSemanas' => $dataProviderSemanas
+            'dataProviderSemanas' => $dataProviderSemanas,
+            'reportParciales' => $reportParciales
         ]);
     }
     /**

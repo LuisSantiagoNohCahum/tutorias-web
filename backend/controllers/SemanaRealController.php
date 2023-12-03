@@ -7,12 +7,14 @@ use backend\models\search\SemanaRealSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * SemanaRealController implements the CRUD actions for SemanaReal model.
  */
 class SemanaRealController extends Controller
 {
+    public const UPLOAD_FOLDER = '../../uploads/';
     /**
      * @inheritDoc
      */
@@ -60,6 +62,12 @@ class SemanaRealController extends Controller
         ]);
     }
 
+    public function actionDeleteImage(){
+        //\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //$pathsUpdate = str_replace($imgPath, '', $paths); 
+        
+        return json_encode(true);
+    }
     /**
      * Creates a new SemanaReal model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -73,9 +81,28 @@ class SemanaRealController extends Controller
 
         $model->id_grupomaster = $id_grupo;
 
+        /* Inicializar con empty */
+        //$model->evidencias = '';
+
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+
+                $EvidenciasFullPath = '';
+
+                $evidencias = UploadedFile::getInstances($model, 'evidencias');
+                foreach ($evidencias as $img) {
+                    $imgName = 'Evidencia_'.$img->baseName.'_'.time()  .'.'.$img->extension;
+                    $imagePathSave = $this::UPLOAD_FOLDER . $imgName;
+                    if($img->saveAs($imagePathSave)) $EvidenciasFullPath .= $imagePathSave.';';
+                }
+
+                $EvidenciasFullPath = ltrim(rtrim($EvidenciasFullPath, ';'), ';');
+                $model->evidencias = $EvidenciasFullPath;
+
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                
             }
         } else {
             $model->loadDefaultValues();
@@ -94,15 +121,57 @@ class SemanaRealController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $es_grupal)
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        /* Verificar imagenes antiguas antes de asignar valores de post y reformar cadena de imagenes */
+        /* Por cada imagen de aca verificar si existe con str_contains en la nueva ruta */
+        $strOldImages = $model->evidencias;
+
+        $oldImages = explode(';', $model->evidencias);
+
+        if ($this->request->isPost && $model->load($this->request->post()) ) {
+            $strOldImages = (isset($_POST['oldPathsImages'])) ? $_POST['oldPathsImages']:'';
+            $evidencias = UploadedFile::getInstances($model, 'evidencias');
+
+            if (count($evidencias)>0) {
+                foreach ($evidencias as $img) {
+                    $imgName = 'Evidencia_'.$img->baseName.'_'.time()  .'.'.$img->extension;
+                    $imagePathSave = $this::UPLOAD_FOLDER . $imgName;
+                    if($img->saveAs($imagePathSave)) $strOldImages .= ';' . $imagePathSave;
+                }
+                $EvidenciasFullPath = ltrim(rtrim($strOldImages, ';'), ';');
+                $model->evidencias = $EvidenciasFullPath;
+                
+                //colocar issets
+                //if ($_POST['oldPathsImages'] != $strOldImages) {
+                    
+                //}
+
+            }else{
+                $model->evidencias = $strOldImages;
+            }
+
+            /* Unlink anyware img */
+            if (count($oldImages)>0) {
+                foreach ($oldImages as $uImg) {
+                    if (!str_contains($model->evidencias, $uImg)) {
+                        unlink($uImg);
+                    }
+                }
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            
         }
 
+        $model->evidencias = $strOldImages;
+
         return $this->render('update', [
+            'es_grupal'=>$es_grupal,
             'model' => $model,
         ]);
     }
@@ -116,7 +185,15 @@ class SemanaRealController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+    
+        $oldModel = $this->findModel($id);
+
+        if (!empty($oldModel->evidencias)) {
+            $imagesUnlink = explode(';', $oldModel->evidencias);
+            foreach ($imagesUnlink as $uImg) unlink($uImg);
+        }
+        
+        $oldModel->delete();
 
         return $this->redirect(['index']);
     }
