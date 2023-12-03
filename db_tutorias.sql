@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3308
--- Tiempo de generación: 29-11-2023 a las 04:35:40
+-- Tiempo de generación: 03-12-2023 a las 16:29:47
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.4.9
 
@@ -136,6 +136,7 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('admin', '12', 1701447599),
 ('admin', '9', 1694442604),
 ('tutor', '11', 1701109434);
 
@@ -272,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `ciclo_escolar` (
   `id_estatus` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_estatus` (`id_estatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ciclo_escolar`
@@ -494,7 +495,7 @@ CREATE TABLE IF NOT EXISTS `semana` (
   `id_pat` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_pat` (`id_pat`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `semana`
@@ -502,7 +503,10 @@ CREATE TABLE IF NOT EXISTS `semana` (
 
 INSERT INTO `semana` (`id`, `num_semana`, `nombre`, `tipo_tutoria`, `tematica`, `objetivos`, `justificacion`, `estrategias_tutor`, `acciones`, `estrategias_tutorado`, `id_pat`) VALUES
 (1, 1, 'SEMANA 1', 0, '<p>Bienvenida, presentación por parte del Tutor, Actualización del Expediente.&nbsp;</p><p><font style=\"background-color: rgb(255, 255, 0);\" color=\"#ff0000\"><b>SESIÓN PRESENCIAL CON EL TUTOR PASAR LISTA</b></font></p>', '<p>El docente contactará y se organiganizará con los alumnos para poder brindarles instrucciones&nbsp; de la actualización del Expediente y proporcionarles información relevante a traves del jefe de grupo o por medio de una aplicación web, whatsapp, meet etc..&nbsp;<br></p>', '<p>Es de suma importancia que los alumnos se sientan acompañados a través de su ciclo escolar ya que por eso se les asigna un tutor por grupo y asi los tutores juegan un papel importante como guias, ya que un tutor es necesario en el crecimiento del perfil estudiantil. El tutor tiene la obligación de estar pendiente de cada alumno y transmitirle motivación de continuar día a día cosntruyendo juntos un futuro agradable.<br></p>', '<p>Contactarse con el&nbsp; grupo del salón ó de preferencia con todo el grupo de manera presencial&nbsp; ó a través de una herramienta de redes sociales, para poder brindarle información. Integrar al grupo de una manera amable y coordial.</p><p>Proporcionar Información relevante a los alumnos.PASAR LISTA Y CORROBORAR CON SUS MAESTROS SI ALGUN ALUMNO ESTA FALTANDO O NO SE ESTA CONECTANDO</p>', '<p>El docente se presentó o conectó con el grupo para darles la instrucción y ellos puedan realizar la actualización del expediente, posteriormente se contacto con el jefe de grupo correspondiente para poder enviarle la informarle de noticias relevantes acerca del programa de tutorias, del cual&nbsp;el jefe de grupo se los compartio a sus compañeros de tal modo se estuvo monitoriando con cada uno para poder tener su confirmación de recibido y actualización de su expediente.<br></p>', '<ul><li>Responder en tiempo y en forma para su confirmación de haberse enterado de la información dadá por el tutor&nbsp; a través de un medio de Tecnología.</li><li>Participar&nbsp; y Estar puntual cuando los (as) citen. En Linea y actualizar su expediente</li><li>Participación</li></ul>', 1),
-(2, 2, 'SEMANA 2', 0, '<p>Actualización del Expediente.&nbsp;</p><p><font style=\"background-color: rgb(255, 255, 0);\" color=\"#ff0000\"><b>SESIÓN PRESENCIAL CON EL TUTOR PASAR LISTA</b></font></p>', '<p>El docente asigando como tutor se&nbsp; presentará ó pondrá en contacto a través de una aplicación web con su grupo correspondiente para darle seguimiento a la actualización del expediente, motivarlos y brindarles información neesaria del perfil del tutor&nbsp; &nbsp;&nbsp;<br></p>', '<p>Contar con información actualizada del estudiante, a través de los formularios en línea y a su vez poder contactarlos cuando se requiera por los departamentos de psicología, trayectoría académica, la coordinación o sus tutores.</p><p>Cabe mencionar que es obligatorio que el alumno llene su expediente de manera correcta y completa, de tal forma que si no lo hace, no será liberado del semestre de manera automática.</p>', '<p>Darle seguimiento y que los alumnos actualicen sus expedientes, Brindarle información necesaria del perfil del tutor. PASAR LISTA Y CORROBORAR CON SUS MAESTROS SI ALGUN ALUMNO ESTA FALTANDO O NO SE ESTA CONECTANDO<br></p>', '<p>El docente se presentará&nbsp; en su sesión, de manera f´´isica o virtual&nbsp; a través de una Video Conferencia por medio de la aplicación google meet&nbsp; para transmitir y explicar&nbsp; a los alumnos como realizará la actualización del expediente en la página del Tecnológico Nacional de México Campus Valladolid, los pasos son los siguientes</p><p>Entran a la página principal del ITSVA,&nbsp; en la pestaña estudiantes,&nbsp; pestaña tutoría y&nbsp; actualizar expediente en el link, tienen que tener su correo institucional y su clave es muy importante.&nbsp; Se realizó una captura de pantalla para tener evidencia de la tutoría.&nbsp; &nbsp;</p>', '<p>SE PASARÁN LAS DIAPOSTIVAS FORMADOR DE FORMADORES Y REALIZARAN LOS ALUMNOS EL EJERCICIO, EL MATERIAL ESTA EL EL DRIVE&nbsp;<br></p>', 1);
+(2, 2, 'SEMANA 2', 0, '<p>Actualización del Expediente.&nbsp;</p><p><font style=\"background-color: rgb(255, 255, 0);\" color=\"#ff0000\"><b>SESIÓN PRESENCIAL CON EL TUTOR PASAR LISTA</b></font></p>', '<p>El docente asigando como tutor se&nbsp; presentará ó pondrá en contacto a través de una aplicación web con su grupo correspondiente para darle seguimiento a la actualización del expediente, motivarlos y brindarles información neesaria del perfil del tutor&nbsp; &nbsp;&nbsp;<br></p>', '<p>Contar con información actualizada del estudiante, a través de los formularios en línea y a su vez poder contactarlos cuando se requiera por los departamentos de psicología, trayectoría académica, la coordinación o sus tutores.</p><p>Cabe mencionar que es obligatorio que el alumno llene su expediente de manera correcta y completa, de tal forma que si no lo hace, no será liberado del semestre de manera automática.</p>', '<p>Darle seguimiento y que los alumnos actualicen sus expedientes, Brindarle información necesaria del perfil del tutor. PASAR LISTA Y CORROBORAR CON SUS MAESTROS SI ALGUN ALUMNO ESTA FALTANDO O NO SE ESTA CONECTANDO<br></p>', '<p>El docente se presentará&nbsp; en su sesión, de manera f´´isica o virtual&nbsp; a través de una Video Conferencia por medio de la aplicación google meet&nbsp; para transmitir y explicar&nbsp; a los alumnos como realizará la actualización del expediente en la página del Tecnológico Nacional de México Campus Valladolid, los pasos son los siguientes</p><p>Entran a la página principal del ITSVA,&nbsp; en la pestaña estudiantes,&nbsp; pestaña tutoría y&nbsp; actualizar expediente en el link, tienen que tener su correo institucional y su clave es muy importante.&nbsp; Se realizó una captura de pantalla para tener evidencia de la tutoría.&nbsp; &nbsp;</p>', '<p>SE PASARÁN LAS DIAPOSTIVAS FORMADOR DE FORMADORES Y REALIZARAN LOS ALUMNOS EL EJERCICIO, EL MATERIAL ESTA EL EL DRIVE&nbsp;<br></p>', 1),
+(3, 3, 'SEMANA 3', 0, '<p>Difusión de&nbsp; tutoría, psicologia Trayectoria, Reforzamiento, Talento Emprendedor, Curso Mooc, Modelo de Educación Dual y Bolsa de Trabajo&nbsp;(video o diapositivas que compartiran&nbsp;Las responsables son las encargadas de difundir la información de la sesión.&nbsp;NO HAY SESIÓN VIRTUAL CON EL TUTOR&nbsp;&nbsp;</p>', '<p>Dar a conocer&nbsp; el programa tutoría,&nbsp; asesorías de reforzamiento, psicología y trayectoria académica&nbsp; y&nbsp; a las responsables, adjunto al catálogo de maestros que apoyarán a dicho programa, la presentación de las responsables del área de psicología.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p><p>Explicar de manera clara y detallada el formato de liberación del semestre al tutorado(a)&nbsp;</p>', '<p>Es importante que el alumno conozca los servicios que brinda la institución sobre todo en el área académica, ya que podría ser una herramienta de apoyo en el reforzamiento&nbsp; de alguna materia que esté reprobando o que requiera ayuda.</p><p>De la misma manera que conozca las actividades que realizan los departamentos de psicología y Trayectoria académica y acudir a ellas cuando lo requiera.</p>', '<p>Que el alumno conozca los programas y utilizar los servicios cuando lo requiera.</p><p>Que el alumno conozca los lineamientos del formado de evaluación para poder liberarlo el semestre.&nbsp; &nbsp;&nbsp;</p><p>Todos los alumnos se conectarán en la fecha que se les proporcionará, adjuntando el horario y el enlace se encontrará en la sección de tutorías de la página de la institución. PASAR LISTA Y CORROBORAR CON SUS MAESTROS SI ALGUN ALUMNO ESTA FALTANDO O NO SE ESTA CONECTANDO</p>', '<p>Se presentó&nbsp; a través de una Video Conferencia por medio del google meet el programa de tutorías, reforzamiento académico y psicología, Talendo emprendedor, curso Mooc, Modelos de Educación Dual y Bolsa de Trabajo, en donde se les explicó a los alumnos la manera en cómo opera dichos programas.&nbsp;<span style=\"font-size: 1rem;\">La coordinadora de tutoría&nbsp; compartió información a todos los jefes de grupo y alumnos.&nbsp;</span><span style=\"font-size: 1rem;\">Al final se realizó una serie de preguntas y aclaración de dudas.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p>', '<ul><li>Asistencia</li><li>Puntualidad</li><li>Participación</li></ul>', 1),
+(4, 7, 'SEMANA 7', 0, '<p>Competencias laborales<br></p>', '<p>Fomentar las competencias que un profesionista en el área de ingeniería debe tener para ejecutar tareas efectivas.<br></p>', '<p>Actualmente el modelo de educación de educación superior esta basado en el modelo educativo del XXI formación y desarrollo de competencias profesionales razón de ser del tema de esta sesión aunado al deseo del estudiante en conocer más sobre su carrera y en especial para fortalecer los esfuerzos que día a día se lleva en cada una de las temáticas de los planes de estudio, únicamente que desde el área tutorias estas competencias se han de fomentar con diversas herramientas de trabajo.<br></p>', '<p>Se analiza el perfil de egreso del tutorado previamente y se planea en base a las oportunidades y debilidades del grupo, para ello el tutor puede elegir varias opciones por ejemplo, trabajar sobre las competencias que requieren mayor atención o reforzar los que ya se tienen, o iniciar las que no se tiene&nbsp; aún.<br></p>', '<p>El tutor presenta el material y analiza cada estudiante a qué nivel tiene estos rasgos elaborando en su libreta de apuntes una lista de verificación para autoevaluarse, también describe acciones que requiere reforzar y su opinión sobre la utilidad de la información para su formación profesional. Los datos de costumbre, nombre fecha, carrera semestre y grupo para evidencia, se comparte y esta actividad puede ser al aire libre, el tutor puede solicitar al departamento de tutoría el material impreso.<br></p>', '<ul><li>Asistencia</li><li>Puntualidad</li><li>Participación</li></ul>', 1),
+(5, 12, 'SEMANA 12', 0, '<p>Introspección / empatía<br></p>', '<p>Reflexionar sobre los comportamientos del día a día en el rol que el estudiante desempeña y principalmente en su actual vida académica, para coadyuvar el logro de sus objetivos profesionales.&nbsp;<br></p>', '<p>La introspección es útil para reflexionar sobre lo que se puede mejorar y para qué.&nbsp; Permitirá identificar patrones y etapas (capítulos) de su vida hasta el día de hoy. Identifica lo que tiene que construir en el siguiente capítulo de su vida. Tomar conciencia de qué recursos, capacidades y cualidades conforman sus fortalezas principales. Identifica qué es lo que está frenando e imponiendo límites en el siguiente capítulo de su vida. Tener claridad sobre los recursos, capacidades y cualidades de su fuerza interna. Identifica los riesgos implicados en el próximo capítulo de su vida. Ser consciente de los retos a futuro. Identifica las oportunidades en el próximo capítulo de su vida. Ser consciente de las nuevas oportunidades y posibilidades que se presentan.<br></p>', '<p>Utilizar las actividades del cuaderno del estudiante de ttoría para propiciar la relfexión de cada estudiante sobre sus fortalezas, su meta de vida, sus debilidades y las amenazas que puedieran existir con el propósito de potenciar sus capacidades y enfocar sus esfuerzos al logro de sus objetivos.<br></p>', '<p>El tutor presenta el video https://www.youtube.com/watch?v=JOXfNwLTyMc, se solicita a los estudiantes formar equipos y compartir sus comentarios y en una hoja escribir propuestas creativas para la solución d elos casos analizados en el vídeo, esta es una actividad en la que interviene la empatía, las emociones, la solidaridad y la reflexión se requiere de entusiamo para comprender que se trata de ser mejores cada día para con uno mismo y los demás. Se entrega la hoja y un equipo o dos comparten sus experiencias o el tutor puede solicitar la participación de algunos voluntarios.&nbsp;<br></p>', '<ul><li>Asistencia</li><li>Puntualidad</li><li>Participación</li></ul>', 1);
 
 -- --------------------------------------------------------
 
@@ -528,7 +532,16 @@ CREATE TABLE IF NOT EXISTS `semana_real` (
   PRIMARY KEY (`id`),
   KEY `idx_grupomaster` (`id_grupomaster`),
   KEY `idx_semana` (`id_semana`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `semana_real`
+--
+
+INSERT INTO `semana_real` (`id`, `id_grupomaster`, `id_semana`, `semana_atendida`, `alumnos_atendidos`, `alumnos_faltantes`, `total_alumnos`, `atendidos_hombres`, `atendidos_mujeres`, `total_gatendidos`, `evidencias`, `observaciones`, `alumnos`) VALUES
+(7, 1, 1, 1, 1, 1, 1, 1, 1, 1, '../../uploads/Evidencia_tstrepo_1701383152.png', '<p>Se dio la tutoria</p>', NULL),
+(8, 1, 4, 1, 1, 1, 1, 1, 1, 1, '', '<p>D</p>', NULL),
+(9, 1, 5, 0, 0, 0, 0, 0, 0, 0, '', '<p>D</p>', NULL);
 
 -- --------------------------------------------------------
 
@@ -573,14 +586,15 @@ CREATE TABLE IF NOT EXISTS `tutor` (
   `id_user` smallint(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tutor`
 --
 
 INSERT INTO `tutor` (`id`, `nombre`, `apellido`, `correo`, `telefono`, `genero`, `id_user`) VALUES
-(1, 'LUIS SANTIAGO', 'NOH CAHUM', 'l19070049@valladolid.tecnm.mx', '9851142361', 0, 11);
+(1, 'LUIS SANTIAGO', 'NOH CAHUM', 'l19070049@valladolid.tecnm.mx', '9851142361', 0, 11),
+(2, 'Martha Elena', 'Manrique Rodriguez', 'l19070041@valladolid.tecnm.mx', '9851142361', 1, 12);
 
 -- --------------------------------------------------------
 
@@ -631,7 +645,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `user`
@@ -639,7 +653,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
 (9, 'root', 'El4u2OFmro6HdVohznDGhv45RhYiBoe8', '$2y$13$b3MlkEF5WmnTFIfdTzyTV.XTSCttIOBcKInVnAp9GlkDPZ0hFas0C', NULL, 'rusell.im@valladolid.tecnm.mx', 10, 1653351873, 1701108543, 'QnphEMrAbjb3aM5EGodGe7pCW1PPuhsl_1653351873'),
-(11, 'luis.nc', 'm3XEmH6t_-_cyYRFoZywJ_rNP5IF1-rI', '$2y$13$TY5V6KQV1IkBBYd5ldZPNeqlmxC76/QPZR0KrVAEwjLqObF2txBjG', NULL, 'l19070049@valladolid.tecnm.mx', 10, 1700430159, 1700452464, 'Iv7z2nBrWJkL65PR8Ec6O6uO7_ryGXd6_1700430159');
+(11, 'luis.nc', 'm3XEmH6t_-_cyYRFoZywJ_rNP5IF1-rI', '$2y$13$TY5V6KQV1IkBBYd5ldZPNeqlmxC76/QPZR0KrVAEwjLqObF2txBjG', NULL, 'l19070049@valladolid.tecnm.mx', 10, 1700430159, 1700452464, 'Iv7z2nBrWJkL65PR8Ec6O6uO7_ryGXd6_1700430159'),
+(12, 'martha.mr', 'ff04RFnYeYQ7U4ROw5xHrdjENz67K21i', '$2y$13$0.GB6l16XneGQt.hA0QZP.spNeDuiLpS8R483uJNadipAJSVewkRO', NULL, 'l19070041@valladolid.tecnm.mx', 10, 1701446225, 1701447515, 'oD0eTSwkScpLzfOg5gUiCouvNJNKCQ0Y_1701446225');
 
 --
 -- Restricciones para tablas volcadas
