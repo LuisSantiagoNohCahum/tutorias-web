@@ -128,6 +128,8 @@ AppAsset::register($this);
                 'items' => [
                     //filtros -> select dependientes
                     ['label' => 'PAT', 'url' => ['/pat/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label' => 'Criterios', 'url' => ['/criterios/index']],
                 ],
             ];
 
