@@ -40,7 +40,7 @@ class AlumnoSearch extends Alumno
     public function search($params, $id_grupo=null)
     {
         if ($id_grupo != null) {
-            $query = Alumno::find()->where(['id_grupo'=>$id_grupo]);
+            $query = Alumno::find()->alias('A')->where(['A.id_grupo'=>$id_grupo])->orderBy('A.apellidop ASC, A.apellidom ASC, A.nombres');
         }else{
             $query = Alumno::find();
         }

@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= Html::a("<i class='bi bi-file-bar-graph-fill'></i> Ver Diagnostico", Url::toRoute(['alumno/import', 'id_grupo' => $model->id]), ['class' => 'btn btn-success']) ?>
 
-            <?= Html::a("<i class='bi bi-person-check-fill'></i> Ver Liberacion", Url::toRoute(['alumno/import', 'id_grupo' => $model->id]), ['class' => 'btn btn-success']) ?>
+            <?= Html::a("<i class='bi bi-person-check-fill'></i> Ver Liberacion", Url::toRoute(['evaluacion/admin-evaluacion', 'id_grupo' => $model->id]), ['class' => 'btn btn-success']) ?>
 
         <?php } else { ?>
             <div class="alert alert-danger" role="alert">
@@ -119,6 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'options'=> ['class' => 'table table-sm table-stripped'],
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
+                /* ['class' => '\kartik\grid\CheckboxColumn'], */
                 [
                     'attribute'=> 'matricula',
                     'hAlign'=>'center',
@@ -127,13 +128,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value'=> function($model){
                         return '<b>'.$model->matricula.'</b>';
                     },
-                    'filterInputOptions' => [
-                        'class' => 'form-control form-control-sm',
-                        'placeholder' => 'Buscar...',
-                    ],
-                ],
-                [
-                    'attribute'=> 'nombres',
                     'filterInputOptions' => [
                         'class' => 'form-control form-control-sm',
                         'placeholder' => 'Buscar...',
@@ -153,6 +147,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'placeholder' => 'Buscar...',
                     ],
                 ],
+                [
+                    'attribute'=> 'nombres',
+                    'filterInputOptions' => [
+                        'class' => 'form-control form-control-sm',
+                        'placeholder' => 'Buscar...',
+                    ],
+                ],
+                
                 //'correo',
                 //'telefono',
                 //'fecha_nac',

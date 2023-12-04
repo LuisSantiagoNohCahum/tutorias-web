@@ -24,6 +24,7 @@ use yii\db\Expression;
  * @property string $updated_at
  * @property int $id_grupo
  *
+ * @property Evaluacion[] $evaluacions
  * @property GrupoMaster $grupo
  */
 class Alumno extends \yii\db\ActiveRecord
@@ -42,7 +43,7 @@ class Alumno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombres', 'apellidop', 'apellidom', 'matricula', 'correo', 'telefono', 'fecha_nac', 'ciudad', 'genero', 'created_at', 'updated_at', 'id_grupo'], 'required'],
+            [['nombres', 'apellidop', 'apellidom', 'matricula', 'correo', 'telefono', 'fecha_nac', 'ciudad', 'genero', 'id_grupo'], 'required'], //'created_at', 'updated_at'
             [['fecha_nac', 'created_at', 'updated_at'], 'safe'],
             [['genero', 'id_grupo'], 'integer'],
             [['nombres'], 'string', 'max' => 100],
@@ -84,6 +85,16 @@ class Alumno extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'id_grupo' => 'Id Grupo',
         ];
+    }
+
+    /**
+     * Gets query for [[Evaluacions]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEvaluacions()
+    {/* validar traer solo con idgrupo */
+        return $this->hasMany(Evaluacion::class, ['id_alumno' => 'id']);
     }
 
     /**

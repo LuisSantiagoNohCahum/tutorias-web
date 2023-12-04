@@ -7,7 +7,9 @@ use backend\models\search\EvaluacionsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\GrupoMaster;
+use backend\models\search\CriteriosSearch;
+use backend\models\search\AlumnoSearch;
 /**
  * EvaluacionController implements the CRUD actions for Evaluacion model.
  */
@@ -79,6 +81,54 @@ class EvaluacionController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionAdminEvaluacion($id_grupo)
+    {
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        $searchModelCriterios = new CriteriosSearch();
+        $dataProviderCriterios = $searchModelCriterios->search($this->request->queryParams);
+
+        $searchModelAlumnos = new AlumnoSearch();
+        $dataProviderAlumnos = $searchModelAlumnos->search($this->request->queryParams, $id_grupo);
+
+        return $this->render('_adminevaluacion', [
+            'modelGrupo' => $modelGrupo,
+            'dataProviderCriterios' => $dataProviderCriterios,
+            'dataProviderAlumnos' => $dataProviderAlumnos,
+        ]);
+    }
+
+    public function actionBulkEvaluar($id_grupo)
+    {
+        if ($this->request->isPost) {
+            $totalCriterios = $_POST["totalCriterios"];
+            $totalTutorados = $_POST["totalTutorados"];
+
+            for($i = 0; $i < $totalTutorados; $i++ ){
+                for($j = 0; $j< $totalCriterios; $j++){
+                    $calificacion = $_POST['al'.$i.'cal'.$j];
+                    $idTutorado = $_POST['tutorado'.$i];
+                    $idCriterio = $_POST['criterio'.$j];
+                    $model = new Evaluacion();
+                    $model->calificacion = $calificacion;
+                    $model->id_alumno = $idTutorado;
+                    $model->id_criterio = $idCriterio;
+                    $id_calificacion = (isset($_POST['Cal'.$i.'Id'.$j])) ? intval($_POST['Cal'.$i.'Id'.$j]) : 0;
+                    if ($id_calificacion != 0) {
+                        $model = $this->findModel($id_calificacion);
+                        $model->calificacion = intval($calificacion);
+                        $model->save();
+                    }else{
+                        $model->save();
+                    }
+                }
+            }
+        }
+        return $this->redirect(['admin-evaluacion', 
+            'id_grupo' => $id_grupo
         ]);
     }
 
