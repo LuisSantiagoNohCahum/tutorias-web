@@ -328,8 +328,39 @@ blockquote::after{
     border-color: #c7535e;
 }
 
+/* Fondo del details view container main en pat */
 .detail-row-grid{
     background-color: #f7f7f7;
+}
+
+/* Botones de accion para Grupos */
+#btn-show {
+    background-color: #486481;
+    color: whitesmoke;
+    /* height: 25px; */
+    padding: 0 !important;
+}
+
+#btn-show:hover {
+    cursor: pointer;
+    background-color: #607f9f;
+}
+
+.btn-action-basics {
+    color: #486481;
+    border-color: #486481;
+}
+
+.btn-action-basics:hover {
+    color: #fff;
+    background-color: #607f9f;
+    border-color: #607f9f;
+}
+
+.btn-disabled {
+    pointer-events: none;
+    cursor: none;
+    opacity: 0.65;
 }
 
 @media only screen and (max-width: 768px) {
