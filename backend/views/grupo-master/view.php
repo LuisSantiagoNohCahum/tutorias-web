@@ -8,6 +8,10 @@ use kartik\grid\GridView;
 use kartik\grid\ActionColumn;
 use app\models\Alumno;
 use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Modal;
+use yii\web\View;
+use yii\widgets\Pjax;
+
 
 /** @var yii\web\View $this */
 /** @var app\models\GrupoMaster $model */
@@ -177,140 +181,141 @@ $this->params['breadcrumbs'][] = $this->title;
         -->
 
         <!-- mandar a la accion de renderizar form en ambos casos, por que luego el boton save automaticamente toma l del form renderizado -->
-
+        <?php Pjax::begin() ?>
         <?php $form = ActiveForm::begin(['id' => 'send-alumno-form']); ?>
-        <?= GridView::widget([
-            'dataProvider' => $dataProviderAlumnos,
-            'filterModel' => $searchModelAlumnos,
-            'bordered'=>true,
-            'striped'=>false,
-            'condensed'=>true,
-            'hover'=>false,
-            'options' => [
-                'class'=>'table table-sm'
-            ],
-            'layout' => '{summary}{items}{pager}',//tamplate grid - summary - tabla de datos - paginador [adicional {sorter}{errors}]
-            'summary'=>'Mostrando <b>{begin}</b> - <b>{end}</b> de <b>{totalCount}</b> alumnos', //summaryOptions to add css class
-            'itemLabelSingle' => 'alumno',
-            'itemLabelPlural' => 'alumnos',
-            'panel' => [
-                'type' => GridView::TYPE_LIGHT,
-                'heading' => '<h6 class="panel-title mb-0"><i class="fas fa-user-friends"></i></i> ALUMNOS DE ALTA</h6>',
-                'headingOptions'=>[
-                    'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
+            <?= GridView::widget([
+                'dataProvider' => $dataProviderAlumnos,
+                'filterModel' => $searchModelAlumnos,
+                'bordered'=>true,
+                'striped'=>false,
+                'condensed'=>true,
+                'hover'=>false,
+                'options' => [
+                    'class'=>'table table-sm'
                 ],
-                'before'=>'<b>IMPORTANTE: </b><em>Selecione un alumno antes de realizar alguna acción</em>',
-                'footer' => false,
-            ],
-            'headerContainer' => ['style' => 'top:50px', 'class' => 'kv-table-header'],
-            'toolbar' =>  [
-                'content' =>
-                    Html::a('<i class="fas fa-external-link-alt"></i> Diagnostico', ['create', 'id_grupo' => $model->id], [
-                        'id' => 'create-diagnostic', 
-                        'class' => 'btn-export btn-sm-export btn-action-basics mr-2 btn-disabled',
-                        ]) . ' '.
-                    Html::a('<i class="fas fa-external-link-alt"></i> Canalizar', ['update', 'id' => $model->id], [
-                        'id' => 'create-diagnostic', 
-                        'class' => 'btn-export btn-sm-export btn-action-basics mr-2 btn-disabled',
-                    ]),
-                    
-            ],
-            'columns' => [
-                [
-                    'class' => 'yii\grid\SerialColumn',
-                    'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
-                    'filterOptions'=>[
-                        'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                'layout' => '{summary}{items}{pager}',//tamplate grid - summary - tabla de datos - paginador [adicional {sorter}{errors}]
+                'summary'=>'Mostrando <b>{begin}</b> - <b>{end}</b> de <b>{totalCount}</b> alumnos', //summaryOptions to add css class
+                'itemLabelSingle' => 'alumno',
+                'itemLabelPlural' => 'alumnos',
+                'panel' => [
+                    'type' => GridView::TYPE_LIGHT,
+                    'heading' => '<h6 class="panel-title mb-0"><i class="fas fa-user-friends"></i></i> ALUMNOS DE ALTA</h6>',
+                    'headingOptions'=>[
+                        'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
                     ],
+                    'before'=>'<b>IMPORTANTE: </b><em>Selecione un alumno antes de realizar alguna acción</em>',
+                    'footer' => false,
                 ],
-                [
-                    'class' => '\kartik\grid\CheckboxColumn',
-                    'multiple' => false,
-                    'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
+                'headerContainer' => ['style' => 'top:50px', 'class' => 'kv-table-header'],
+                'toolbar' =>  [
+                    'content' =>
+                        Html::a('<i class="fas fa-external-link-alt"></i> Diagnostico', ['/diagnostico/create', 'id_grupo' => $model->id], [
+                            'id' => 'create-diagnostic', 
+                            'class' => 'btn-export btn-sm-export btn-action-basics mr-2 btn-disabled',
+                            ]) . ' '.
+                        Html::a('<i class="fas fa-external-link-alt"></i> Canalizar', ['/canalizacion/create', 'id_grupo' => $model->id], [
+                            'id' => 'create-diagnostic', 
+                            'class' => 'btn-export btn-sm-export btn-action-basics mr-2 btn-disabled',
+                        ]),
+                        
                 ],
-                [
-                    'attribute' => 'matricula',
-                    'hAlign' => 'center',
-                    'vAlign' => 'middle',
-                    'format' => 'html',
-                    'value' => function ($model) {
-                        return '<b>' . $model->matricula . '</b>';
-                    },
-                    'filterOptions'=>[
-                        'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                'columns' => [
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
+                        'filterOptions'=>[
+                            'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                        ],
                     ],
-                    'filterInputOptions' => [
-                        'class' => 'form-control form-control-sm',
-                        'placeholder' => 'Buscar...',
+                    [
+                        'class' => '\kartik\grid\CheckboxColumn',
+                        'multiple' => false,
+                        'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
                     ],
-                    'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
-                ],
-                [
-                    'attribute' => 'apellidop',
-                    'filterOptions'=>[
-                        'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                    [
+                        'attribute' => 'matricula',
+                        'hAlign' => 'center',
+                        'vAlign' => 'middle',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return '<b>' . $model->matricula . '</b>';
+                        },
+                        'filterOptions'=>[
+                            'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                        ],
+                        'filterInputOptions' => [
+                            'class' => 'form-control form-control-sm',
+                            'placeholder' => 'Buscar...',
+                        ],
+                        'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
                     ],
-                    'filterInputOptions' => [
-                        'class' => 'form-control form-control-sm',
-                        'placeholder' => 'Buscar...',
+                    [
+                        'attribute' => 'apellidop',
+                        'filterOptions'=>[
+                            'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                        ],
+                        'filterInputOptions' => [
+                            'class' => 'form-control form-control-sm',
+                            'placeholder' => 'Buscar...',
+                        ],
+                        'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'],
                     ],
-                    'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'],
-                ],
-                [
-                    'attribute' => 'apellidom',
-                    'filterOptions'=>[
-                        'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                    [
+                        'attribute' => 'apellidom',
+                        'filterOptions'=>[
+                            'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                        ],
+                        'filterInputOptions' => [
+                            'class' => 'form-control form-control-sm',
+                            'placeholder' => 'Buscar...',
+                        ],
+                        'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'],
                     ],
-                    'filterInputOptions' => [
-                        'class' => 'form-control form-control-sm',
-                        'placeholder' => 'Buscar...',
+                    [
+                        'attribute' => 'nombres',
+                        'filterOptions'=>[
+                            'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'
+                        ],
+                        'filterInputOptions' => [
+                            'class' => 'form-control form-control-sm',
+                            'placeholder' => 'Buscar...',
+                        ],
+                        'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'],
                     ],
-                    'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'],
-                ],
-                [
-                    'attribute' => 'nombres',
-                    'filterOptions'=>[
-                        'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'
-                    ],
-                    'filterInputOptions' => [
-                        'class' => 'form-control form-control-sm',
-                        'placeholder' => 'Buscar...',
-                    ],
-                    'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'],
-                ],
 
-                //'correo',
-                //'telefono',
-                //'fecha_nac',
-                //'ciudad',
-                [
-                    'attribute' => 'genero',
-                    'value' => function ($model) {
-                        return ($model->genero != 0) ? 'FEMENINO' : 'MASCULINO';
-                    },
-                    'filterOptions'=>[
-                        'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                    //'correo',
+                    //'telefono',
+                    //'fecha_nac',
+                    //'ciudad',
+                    [
+                        'attribute' => 'genero',
+                        'value' => function ($model) {
+                            return ($model->genero != 0) ? 'FEMENINO' : 'MASCULINO';
+                        },
+                        'filterOptions'=>[
+                            'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                        ],
+                        'filterInputOptions' => [
+                            'class' => 'form-control form-control-sm',
+                            'placeholder' => 'Buscar...',
+                        ],
+                        'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'],
                     ],
-                    'filterInputOptions' => [
-                        'class' => 'form-control form-control-sm',
-                        'placeholder' => 'Buscar...',
+                    //'created_at',
+                    //'updated_at',
+                    //'id_grupo',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, $model, $key, $index, $column) {
+                            return Url::toRoute(['/alumno/' . $action, 'id' => $model->id]);
+                        },
+                        'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
                     ],
-                    'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;text-align:center;'],
                 ],
-                //'created_at',
-                //'updated_at',
-                //'id_grupo',
-                [
-                    'class' => ActionColumn::className(),
-                    'urlCreator' => function ($action, $model, $key, $index, $column) {
-                        return Url::toRoute(['/alumno/' . $action, 'id' => $model->id]);
-                    },
-                    'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
-                ],
-            ],
-        ]); ?>
-
+            ]); ?>
         <?php ActiveForm::end(); ?>
+
+        <?php Pjax::end() ?>
     <?php } else { ?>
         <div class="alert alert-info text-uppercase" role="alert">
             <b>Aun no hay alumnos dados de alta en este grupo!.</b>
@@ -323,6 +328,37 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- Validar que el tutor solo este asignado en un grupo, es decir que si ya se ha asignado anteriormente no se podra asignar nuevamente -->
 </div>
+
+
+<!-- MODALES -->
+
+<?php
+    $this->registerJs(
+        "$(document).on('click', '#create-diagnostic', (function()
+    {
+        $.get(
+            $(this).data('url'),
+            function (data) {
+                $('.modal-body').html(data);
+                $('#modal').modal();
+            }
+        );
+    }));",
+        View::POS_READY,
+        'my-button-handler'
+    ); ?>
+
+    <?php
+    Modal::begin([
+        'id' => 'modal',
+        'title' => '<h4 class="modal-title">Complete</h4>',
+        'footer' => '<a href="#" class="btn btn-primary" datadismiss="modal">Cerrar</a>',
+        'size' => Modal::SIZE_LARGE,
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+    ]);
+    echo "<div class='well'></div>";
+    Modal::end();
+    ?>
 
 <?php
 
