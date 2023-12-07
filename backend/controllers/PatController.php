@@ -220,4 +220,58 @@ class PatController extends Controller
 
         return false;
     }
+
+    public function actionExportPdf($id_grupo){
+        $modelGrupo = $modelPat = $reportParciales = null;
+
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        if ($modelGrupo != null) $modelPat = Pat::find()->where(['id_semestre' => $modelGrupo->semestre->id, 'estatus'=> 1])->one();
+
+        if ($modelPat != null){
+            $reportParciales=[];
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [1, 6]);
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [7, 11]);
+            //hacer un count de semanas -get models para el ultimo
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [12, 16]);
+        }
+
+        $pdf = Yii::$app->pdf;
+        $content = $this->renderPartial('_reportv1', [
+            'modelGrupo' => $modelGrupo,
+            'modelPat' => $modelPat,
+            'reportParciales' => $reportParciales
+        ]);
+        $pdf->content = $content;
+        return $pdf->render();
+    }
+
+    public function actionExportExcel($id_grupo){
+        $modelGrupo = $modelPat = $reportParciales = null;
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+        if ($modelGrupo != null) $modelPat = Pat::find()->where(['id_semestre' => $modelGrupo->semestre->id, 'estatus'=> 1])->one();
+        if ($modelPat != null){
+            $reportParciales=[];
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [1, 6]);
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [7, 11]);
+            //hacer un count de semanas -get models para el ultimo
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [12, 16]);
+        }
+        //$data = ArrayHelper::toArray($dataProvider->getModels());
+        
+        $filename =  time() . ".xls";
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        
+        echo $this->renderPartial('_reportv1', [
+            'modelGrupo' => $modelGrupo,
+            'modelPat' => $modelPat,
+            'reportParciales' => $reportParciales,
+            'rExcel'=>true
+        ]);
+
+        exit;
+    }
+
+    
 }

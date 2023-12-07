@@ -79,6 +79,7 @@ use yii\widgets\Pjax;
     ],
 ]) ?>
 
+<hr class="dropdown-divider">
 <p>Lista de alumnos que estan en diagnóstico continúo</p>
 
 <?= GridView::widget([
@@ -164,7 +165,7 @@ use yii\widgets\Pjax;
     ],
 ]); ?>
 
-
+<hr class="dropdown-divider">
 <p>Desempeño del grupo</p>
 
 

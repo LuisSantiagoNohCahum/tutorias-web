@@ -272,6 +272,18 @@ $this->params['breadcrumbs'][] = $this->title;
             <table class="table-light"><!--class = 'mb-2' style="border: 1px solid #d3d3d3 !important;" -->
                 <tbody>
                     <tr>
+                        <td style="width: min-content; border-right:1px solid #d3d3d3; padding: 5px;vertical-align: middle !important;" class="text-black-50">Exportar </td>
+                        <td style="padding: 5px;">
+                            <?= Html::a('<i class="bi bi-file-earmark-excel-fill"></i> Excel', ['/evaluacion/export-excel', 'id_grupo'=>$modelGrupo->id], [
+                                    'class' => 'btn-export btn-sm-export btn-export-excel text-uppercase',
+                                ]) ?>
+                        </td>
+                        <td style="padding: 5px;">
+                            <?= Html::a('<i class="bi bi-file-earmark-pdf-fill"></i> PDF', ['/evaluacion/export-pdf', 'id_grupo'=>$modelGrupo->id], [
+                                    'class' => 'btn-export btn-sm-export btn-export-pdf text-uppercase',
+                                ]) ?>
+                        </td>
+
                         <td style="width: min-content; border-right:1px solid #d3d3d3; padding: 5px;vertical-align: middle !important;" class="text-black-50">Acciones </td>
                         <td style="padding: 5px; vertical-align: middle !important;"><?= Html::submitButton('Guardar', ['class' => 'btn-export btn-sm-export btn-export-excel']) ?></td>
                     </tr>
@@ -315,6 +327,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                 echo '<input type="hidden" name="totalTutorados" value="' . $dataProviderAlumnos->count . '" >';
                 echo '<input type="hidden" name="totalCriterios" value="' . $dataProviderCriterios->count . '" >';
+                /* Validar si es mayor a 0 si no mostrar una fila con un mensaje  */
                 $models = $dataProviderAlumnos->models;
                 foreach ($models as $indext => $tutorado) {
                     echo '<input type="hidden" name="tutorado' . $indext . '" value="' . $tutorado->id . '" >';

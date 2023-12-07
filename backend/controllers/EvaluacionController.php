@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\GrupoMaster;
 use backend\models\search\CriteriosSearch;
 use backend\models\search\AlumnoSearch;
+use Yii;
 /**
  * EvaluacionController implements the CRUD actions for Evaluacion model.
  */
@@ -180,5 +181,47 @@ class EvaluacionController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionExportPdf($id_grupo){
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        $searchModelCriterios = new CriteriosSearch();
+        $dataProviderCriterios = $searchModelCriterios->search($this->request->queryParams);
+
+        $searchModelAlumnos = new AlumnoSearch();
+        $dataProviderAlumnos = $searchModelAlumnos->search($this->request->queryParams, $id_grupo);
+
+        $pdf = Yii::$app->pdf;
+        $content = $this->renderPartial('_reportv1', [
+            'modelGrupo' => $modelGrupo,
+            'dataProviderCriterios' => $dataProviderCriterios,
+            'dataProviderAlumnos' => $dataProviderAlumnos,
+        ]);
+        $pdf->content = $content;
+        return $pdf->render();
+    }
+
+    public function actionExportExcel($id_grupo){
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        $searchModelCriterios = new CriteriosSearch();
+        $dataProviderCriterios = $searchModelCriterios->search($this->request->queryParams);
+
+        $searchModelAlumnos = new AlumnoSearch();
+        $dataProviderAlumnos = $searchModelAlumnos->search($this->request->queryParams, $id_grupo);
+
+        $filename =  time() . ".xls";
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        
+        echo $this->renderPartial('_reportv1', [
+            'modelGrupo' => $modelGrupo,
+            'dataProviderCriterios' => $dataProviderCriterios,
+            'dataProviderAlumnos' => $dataProviderAlumnos,
+            'rExcel'=>true
+        ]);
+
+        exit;
     }
 }

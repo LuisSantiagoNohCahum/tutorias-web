@@ -184,8 +184,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             <tbody>
                                 <tr>
                                     <td style="width: min-content; border-right:1px solid #d3d3d3; padding: 5px;" class="text-black-50">Exportar </td>
-                                    <td style="padding: 5px;"><a href="" class="btn-export btn-sm-export btn-export-excel text-uppercase"><i class="bi bi-file-earmark-excel-fill"></i> Excel</a></td>
-                                    <td style="padding: 5px;"><a href="" class="btn-export btn-sm-export btn-export-pdf text-uppercase"><i class="bi bi-file-earmark-pdf-fill"></i> PDF</a></td>
+                                    <td style="padding: 5px;">
+                                        <?= Html::a('<i class="bi bi-file-earmark-excel-fill"></i> Excel', ['/pat/export-excel', 'id_grupo'=>$modelGrupo->id], [
+                                                'class' => 'btn-export btn-sm-export btn-export-excel text-uppercase',
+                                            ]) ?>
+                                    </td>
+                                    <td style="padding: 5px;">
+                                        <?= Html::a('<i class="bi bi-file-earmark-pdf-fill"></i> PDF', ['/pat/export-pdf', 'id_grupo'=>$modelGrupo->id], [
+                                                'class' => 'btn-export btn-sm-export btn-export-pdf text-uppercase',
+                                            ]) ?>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
