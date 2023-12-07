@@ -10,20 +10,48 @@ use yii\widgets\ActiveForm;
 
 <div class="performance-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(
+        [
+            'id' => 'performance-form',
+            'enableAjaxValidation' => true,
+            'enableClientScript' => true,
+            'enableClientValidation' => true,
+        ]
+    ); ?>
 
-    <?= $form->field($model, 'id_grupo')->textInput() ?>
+    <?= $form->field($model, 'eDesempeño')->textInput(['type'=>'number']) ?>
 
-    <?= $form->field($model, 'eDesempeño')->textInput() ?>
+    <?= $form->field($model, 'bDesempeño')->textInput(['type'=>'number']) ?>
 
-    <?= $form->field($model, 'bDesempeño')->textInput() ?>
-
-    <?= $form->field($model, 'arDesempeño')->textInput() ?>
+    <?= $form->field($model, 'arDesempeño')->textInput(['type'=>'number']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+    $this->registerJs('
+   // obtener la id del formulario y establecer el manejador de eventos
+        $("form#performance-form").on("beforeSubmit", function(e) {
+            var form = $(this);
+            $.post(
+                form.attr("action")+"&submit=true",
+                form.serialize()
+            )
+            .done(function(result) {
+                form.parent().html(result.message); 
+                $.pjax.reload({container:"#diagnostico-grid"});
+            });
+            return false;
+        }).on("submit", function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return false;
+        });
+    ');
+    ?>

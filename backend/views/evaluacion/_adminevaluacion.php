@@ -176,6 +176,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- validar nulos y objetos vacios que sean mayor a 0 los data provider - validar igual en controller -->
 
 <h4><?= Html::encode($this->title) ?></h4>
+<hr class="dropdown-divider">
+
 <div class="alert alert-warning" role="alert">
     <p>
         <b>IMPORTANTE:</b> Se selecciona el nivel de desempeño alcanzado por el estudiante, por cada uno de los

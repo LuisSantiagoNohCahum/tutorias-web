@@ -46,7 +46,7 @@ class Diagnostico extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_alumno' => 'Id Alumno',
+            'id_alumno' => 'Alumno',
             'motivo' => 'Motivo',
             'asignaturas' => 'Asignaturas',
             'otro' => 'Otro',
@@ -62,5 +62,14 @@ class Diagnostico extends \yii\db\ActiveRecord
     public function getAlumno()
     {
         return $this->hasOne(Alumno::class, ['id' => 'id_alumno']);
+    }
+
+    public function getMotivosList(){
+        return [
+            '1'=>'REPETICIÓN',
+            '2'=>'ATRASADA',
+            '3'=>'ESPECIAL',
+            '4'=>'GLOBAL',
+        ];
     }
 }

@@ -7,6 +7,13 @@ use backend\models\search\DiagnosticoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use app\models\GrupoMaster;
+use app\models\Performance;
+use yii\helpers\ArrayHelper;
+use kartik\mpdf\Pdf;
+use Yii;
 
 /**
  * DiagnosticoController implements the CRUD actions for Diagnostico model.
@@ -65,23 +72,71 @@ class DiagnosticoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id_grupo, $submit = false)
     {
         $model = new Diagnostico();
+        
+        $model->id_alumno = (isset($_POST['selection'])) ? $_POST['selection'][0] : 0;
+
+        if ($model->id_alumno != 0) {
+            if ($this->verifyExistDiagnostic($model->id_alumno)) {
+                Yii::$app->getSession()->setFlash('err', 'Este alumno ya ha sido agregado al diagnostico');
+                return $this->redirect(['grupo-master/view', 'id' => $id_grupo]);
+            }
+        }
+        /* if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()) && $submit == false) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $model->refresh();
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return [
+                    
+                ];
+            } else {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+        }
+
+        return $this->renderAjax('create', [
+            'model' => $model,
+        ]); */
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['grupo-master/view', 'id' => $id_grupo]);
             }
         } else {
             $model->loadDefaultValues();
         }
 
         return $this->render('create', [
+            'id_grupo'=>$id_grupo,
             'model' => $model,
         ]);
     }
 
+
+    public function actionAdminDiagnostico($id_grupo){
+
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        $searchModelDiagnostico = new DiagnosticoSearch();
+        $dataProviderDiagnostico = $searchModelDiagnostico->search($this->request->queryParams, $id_grupo);
+
+        $modelPerformance = Performance::find()->where(['id_grupo'=>$id_grupo])->one();
+
+        return $this->render('_admindiagnostico', [
+            'modelGrupo' => $modelGrupo,
+            'modelPerformance' => $modelPerformance,
+            'searchModelDiagnostico' => $searchModelDiagnostico,
+            'dataProviderDiagnostico' => $dataProviderDiagnostico,
+        ]);
+    }
     /**
      * Updates an existing Diagnostico model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -130,5 +185,78 @@ class DiagnosticoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function verifyExistDiagnostic($id_alumno){
+
+        $res = Diagnostico::find()->where(['id_alumno' => $id_alumno])->one();
+
+        if ($res != null) return true;
+
+        return false;
+    }
+
+    public function actionExportPdf($id_grupo){
+
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        $searchModelDiagnostico = new DiagnosticoSearch();
+        $dataProviderDiagnostico = $searchModelDiagnostico->search($this->request->queryParams, $id_grupo);
+
+        $modelPerformance = Performance::find()->where(['id_grupo'=>$id_grupo])->one();
+
+        $pdf = Yii::$app->pdf;
+        $content = $this->renderPartial('_reportv1', [
+            'modelGrupo' => $modelGrupo,
+            'modelPerformance' => $modelPerformance,
+            'searchModelDiagnostico' => $searchModelDiagnostico,
+            'dataProviderDiagnostico' => $dataProviderDiagnostico,
+        ]);
+        $pdf->content = $content;
+        return $pdf->render();
+    }
+
+    public function actionExportExcel(){
+        $data = array(
+            '0' => array('Name'=> 'Parvez', 'Status' =>'complete', 'Priority'=>'Low', 'Salary'=>'001'),
+            '1' => array('Name'=> 'Alam', 'Status' =>'inprogress', 'Priority'=>'Low', 'Salary'=>'111'),
+            '2' => array('Name'=> 'Sunnay', 'Status' =>'hold', 'Priority'=>'Low', 'Salary'=>'333'),
+            '3' => array('Name'=> 'Amir', 'Status' =>'pending', 'Priority'=>'Low', 'Salary'=>'444'),
+            '4' => array('Name'=> 'Amir1', 'Status' =>'pending', 'Priority'=>'Low', 'Salary'=>'777'),
+            '5' => array('Name'=> 'Amir2', 'Status' =>'pending', 'Priority'=>'Low', 'Salary'=>'777')
+        );
+
+        $searchModel = new DiagnosticoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $data = ArrayHelper::toArray($dataProvider->getModels());
+        
+        $filename =  time() . ".xls";
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+
+        $this->ExportFile($data);
+        
+    }
+
+    protected function ExportFile($records) {
+        $heading = false;
+        /* htmlspecialchars
+        htmlspecialchars_decode
+        htmlentities
+        trim 
+        nl
+        nl-lang*/
+        
+        if(!empty($records))
+            foreach($records as $row) {
+                if(!$heading) {
+                    echo strip_tags(iconv('utf-8', 'latin1',(implode("\t", array_keys($row))))) . "\n";
+                    $heading = true;
+                }
+            echo strip_tags(iconv('utf-8', 'latin1',implode("\t", array_values($row)))) . "\n";
+        }
+            
+        exit;
     }
 }

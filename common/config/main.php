@@ -39,7 +39,14 @@ return [
                 'port' => '587',
                 'encryption' => 'tls',
             ],
-        ]
+        ],
+        'pdf' => [
+            'class' => kartik\mpdf\Pdf::className(),
+            'format' => kartik\mpdf\Pdf::FORMAT_A4,
+            'orientation' => kartik\mpdf\Pdf::ORIENT_PORTRAIT,
+            'destination' => kartik\mpdf\Pdf::DEST_BROWSER,
+            // refer settings section for all configuration options
+        ],
         /* 'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

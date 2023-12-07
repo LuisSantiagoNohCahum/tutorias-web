@@ -132,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?= Html::a("<i class='bi bi-card-checklist'></i> PAT", Url::toRoute(['pat/admin-pat', 'id_grupo' => $model->id]), ['class' => 'btn-export btn-sm-export btn-action-basics']) ?>
                                 </td>
                                 <td style="padding: 5px;">
-                                    <?= Html::a("<i class='bi bi-file-bar-graph-fill'></i> Diagnostico", Url::toRoute(['alumno/import', 'id_grupo' => $model->id]), ['class' => 'btn-export btn-sm-export btn-action-basics']) ?>
+                                    <?= Html::a("<i class='bi bi-file-bar-graph-fill'></i> Diagnostico", Url::toRoute(['diagnostico/admin-diagnostico', 'id_grupo' => $model->id]), ['class' => 'btn-export btn-sm-export btn-action-basics']) ?>
                                 </td>
                                 <td style="padding: 5px;">
                                     <?= Html::a("<i class='bi bi-person-check-fill'></i> Liberacion", Url::toRoute(['evaluacion/admin-evaluacion', 'id_grupo' => $model->id]), ['class' => 'btn-export btn-sm-export btn-action-basics']) ?>
@@ -180,6 +180,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Canalizar', ['update', 'id' => $model->id], ['id' => 'create-diagnostic', 'class' => 'btn btn-success']) ?> 
         -->
 
+        <?php if (Yii::$app->session->hasFlash('err')) { ?>
+            <div class="alert alert-danger" role="alert">
+                <b><?= Yii::$app->session->getFlash('err') ?></b>
+            </div>
+        <?php } ?>
+        
         <!-- mandar a la accion de renderizar form en ambos casos, por que luego el boton save automaticamente toma l del form renderizado -->
         <?php Pjax::begin() ?>
         <?php $form = ActiveForm::begin(['id' => 'send-alumno-form']); ?>
@@ -199,7 +205,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'itemLabelPlural' => 'alumnos',
                 'panel' => [
                     'type' => GridView::TYPE_LIGHT,
-                    'heading' => '<h6 class="panel-title mb-0"><i class="fas fa-user-friends"></i></i> ALUMNOS DE ALTA</h6>',
+                    'heading' => '<h6 class="panel-title mb-0"><i class="fas fa-user-friends"></i> ALUMNOS DE ALTA</h6>',
                     'headingOptions'=>[
                         'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
                     ],
@@ -212,6 +218,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         Html::a('<i class="fas fa-external-link-alt"></i> Diagnostico', ['/diagnostico/create', 'id_grupo' => $model->id], [
                             'id' => 'create-diagnostic', 
                             'class' => 'btn-export btn-sm-export btn-action-basics mr-2 btn-disabled',
+                            /* 'data-toggle' => 'modal',
+                            'data-target' => '#modal',
+                            'data-url' => Url::to(['/diagnostico/create', 'id_grupo' => $model->id]),
+                            'data-pjax' => '0', */
                             ]) . ' '.
                         Html::a('<i class="fas fa-external-link-alt"></i> Canalizar', ['/canalizacion/create', 'id_grupo' => $model->id], [
                             'id' => 'create-diagnostic', 
@@ -333,7 +343,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- MODALES -->
 
 <?php
-    $this->registerJs(
+    /* $this->registerJs(
         "$(document).on('click', '#create-diagnostic', (function()
     {
         $.get(
@@ -346,21 +356,21 @@ $this->params['breadcrumbs'][] = $this->title;
     }));",
         View::POS_READY,
         'my-button-handler'
-    ); ?>
+    ); */ ?>
 
     <?php
-    Modal::begin([
+    /* Modal::begin([
         'id' => 'modal',
         'title' => '<h4 class="modal-title">Complete</h4>',
-        'footer' => '<a href="#" class="btn btn-primary" datadismiss="modal">Cerrar</a>',
         'size' => Modal::SIZE_LARGE,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
     ]);
     echo "<div class='well'></div>";
-    Modal::end();
+    Modal::end(); */
     ?>
 
 <?php
+/* Sirve a menos que se redirija a otra pagina */
 
 $script = <<< JS
 $(document).ready(function() {
@@ -375,7 +385,8 @@ $(document).ready(function() {
     });
 JS;
 
-$this->registerJs($script);
+$this->registerJs($script); 
+
 
 $script = <<< JS
 $(document).ready(function() {

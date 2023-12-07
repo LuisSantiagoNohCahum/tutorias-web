@@ -38,9 +38,14 @@ class DiagnosticoSearch extends Diagnostico
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $id_grupo = null)
     {
-        $query = Diagnostico::find();
+        if($id_grupo != null){
+            $query = Diagnostico::find()->alias('D')->innerJoin('alumno A', 'D.id_alumno = A.id')->where(['A.id_grupo'=>$id_grupo])->orderBy('A.apellidop ASC, A.apellidom ASC, A.nombres');
+        }else{
+            $query = Diagnostico::find();
+        }
+        
 
         // add conditions that should always apply here
 
