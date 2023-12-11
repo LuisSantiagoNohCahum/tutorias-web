@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3308
--- Tiempo de generación: 03-12-2023 a las 16:29:47
+-- Tiempo de generación: 11-12-2023 a las 03:36:01
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.4.9
 
@@ -44,15 +44,30 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `id_grupo` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_grupoMaster` (`id_grupo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `alumno`
 --
 
 INSERT INTO `alumno` (`id`, `nombres`, `apellidop`, `apellidom`, `matricula`, `correo`, `telefono`, `fecha_nac`, `ciudad`, `genero`, `created_at`, `updated_at`, `id_grupo`) VALUES
-(1, 'LUIS SANTIAGO', 'NOH', 'CAHUM', '19070049', 'santiagocahum25@gmail.com', '9851142361', '2001-07-25', 'Tixcacalcupul', 0, '2023-11-19 21:32:19', '2023-11-19 21:32:19', 1),
-(2, 'JESUS ISRAEL', 'GAMBOA', 'AKE', '19070050', '.', '9851013456', '2000-12-23', '.', 0, '2023-11-19 21:32:19', '2023-11-19 21:32:19', 1);
+(3, 'LUIS SANTIAGO', 'NOH', 'CAHUM', '19070049', 'santiagocahum25@gmail.com', '9851142361', '2001-07-25', 'Tixca', 0, '2023-12-03 15:10:22', '2023-12-10 18:18:45', 1),
+(4, 'JESUS ISRAEL', 'GAMBOA', 'AKE', '19070050', '.', '9851013456', '2000-12-23', '.', 0, '2023-12-03 15:10:22', '2023-12-03 15:10:22', 1),
+(5, 'ROGER DAVID', 'ABAN', 'KU', '19070051', 'santiagocahum25@gmail.com', '9851013456', '2000-12-24', '.', 0, '2023-12-03 15:10:22', '2023-12-10 18:18:17', 1),
+(6, 'EDUARDO', 'TEC', 'CANCHE', '19070052', '.', '9851013456', '2000-12-25', '.', 0, '2023-12-03 15:10:22', '2023-12-03 15:10:22', 1),
+(7, 'LUIS ANGEL', 'NOH', 'UH', '19070053', '.', '9851013456', '2000-12-26', '.', 0, '2023-12-03 15:10:22', '2023-12-03 15:10:22', 1),
+(8, 'RIGER', 'CHI', 'GOMEZ', '19070054', '.', '9851013456', '2000-12-27', '.', 0, '2023-12-03 15:10:22', '2023-12-03 15:10:22', 1),
+(9, 'JOSE EMMANUEL', 'ESPADAS', 'ARCEO', '19070055', '.', '9851013456', '2000-12-28', '.', 0, '2023-12-03 15:10:22', '2023-12-03 15:10:22', 1),
+(10, 'MAURICIO', 'BALAM', 'SALVADOR', '19070056', '.', '9851013456', '2000-12-29', '.', 0, '2023-12-03 15:10:22', '2023-12-03 15:10:22', 1),
+(12, 'LUIS SANTIAGO', 'NOH', 'CAHUM', '19070049', 'santiagocahum25@gmail.com', '9851142361', '2001-07-25', 'Tixcacalcupul', 0, '2023-12-03 19:49:34', '2023-12-03 19:49:34', 3),
+(13, 'JESUS ISRAEL', 'GAMBOA', 'AKE', '19070050', '.', '9851013456', '2000-12-23', '.', 0, '2023-12-03 19:49:34', '2023-12-03 19:49:34', 3),
+(14, 'ROGER DAVID', 'ABAN', 'KU', '19070051', '.', '9851013456', '2000-12-24', '.', 0, '2023-12-03 19:49:34', '2023-12-03 19:49:34', 3),
+(15, 'EDUARDO', 'TEC', 'CANCHE', '19070052', '.', '9851013456', '2000-12-25', '.', 0, '2023-12-03 19:49:34', '2023-12-03 19:49:34', 3),
+(16, 'LUIS ANGEL', 'NOH', 'UH', '19070053', '.', '9851013456', '2000-12-26', '.', 0, '2023-12-03 19:49:34', '2023-12-03 19:49:34', 3),
+(17, 'RIGER', 'CHI', 'GOMEZ', '19070054', '.', '9851013456', '2000-12-27', '.', 0, '2023-12-03 19:49:34', '2023-12-03 19:49:34', 3),
+(18, 'JOSE EMMANUEL', 'ESPADAS', 'ARCEO', '19070055', '.', '9851013456', '2000-12-28', '.', 0, '2023-12-03 19:49:34', '2023-12-03 19:49:34', 3),
+(19, 'MAURICIO', 'BALAM', 'SALVADOR', '19070056', '.', '9851013456', '2000-12-29', '.', 0, '2023-12-03 19:49:34', '2023-12-03 19:49:34', 3),
+(20, 'JHONATHAN', 'NOH', 'HERNANDEZ', '19070057', '.', '9851013456', '2000-12-30', '.', 0, '2023-12-03 19:49:34', '2023-12-03 19:49:34', 3);
 
 -- --------------------------------------------------------
 
@@ -239,6 +254,32 @@ CREATE TABLE IF NOT EXISTS `auth_rule` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `canalizacion`
+--
+
+DROP TABLE IF EXISTS `canalizacion`;
+CREATE TABLE IF NOT EXISTS `canalizacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estatus` int(11) NOT NULL,
+  `asunto` text NOT NULL,
+  `cuerpo` text NOT NULL,
+  `id_alumno` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_alumno` (`id_alumno`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `canalizacion`
+--
+
+INSERT INTO `canalizacion` (`id`, `estatus`, `asunto`, `cuerpo`, `id_alumno`, `created_at`, `updated_at`) VALUES
+(3, 1, '<p>Ninguno</p>', '<p>Ninguno</p>', 10, '2023-12-10 18:05:31', '2023-12-10 18:09:06');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `carreras`
 --
 
@@ -247,14 +288,19 @@ CREATE TABLE IF NOT EXISTS `carreras` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `carreras`
 --
 
 INSERT INTO `carreras` (`id`, `nombre`) VALUES
-(1, 'INGENIERIA EN SISTEMAS COMPUTACIONALES');
+(1, 'INGENIERIA EN SISTEMAS COMPUTACIONALES'),
+(2, 'INGENIERIA EN ADMINISTRACION'),
+(3, 'INGENIERIA CIVIL'),
+(4, 'INGENIERIA INDUSTRIAL'),
+(5, 'INGENIERIA AMBIENTAL'),
+(6, 'INGENIERIA EN GESTION EMPRESARIAL');
 
 -- --------------------------------------------------------
 
@@ -280,8 +326,63 @@ CREATE TABLE IF NOT EXISTS `ciclo_escolar` (
 --
 
 INSERT INTO `ciclo_escolar` (`id`, `nombre`, `created_at`, `updated_at`, `fecha_inicial`, `fecha_final`, `id_estatus`) VALUES
-(1, 'CICLO 2023-2024', '2023-11-05 08:11:48', '2023-11-05 08:32:30', '2023-08-30', '2024-06-19', 1),
-(2, 'CICLO 2022-2023', '2023-11-05 10:29:34', '2023-11-05 17:19:48', '2022-08-17', '2023-06-07', 2);
+(1, 'CICLO 2023-2024', '2023-11-05 08:11:48', '2023-12-10 18:45:32', '2023-08-30', '2024-06-19', 2),
+(2, 'CICLO 2022-2023', '2023-11-05 10:29:34', '2023-11-05 17:19:48', '2022-08-17', '2023-06-07', 2),
+(3, 'CICLO 2024-2025', '2023-12-09 21:13:30', '2023-12-09 21:13:30', '2024-08-01', '2025-07-07', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `criterios`
+--
+
+DROP TABLE IF EXISTS `criterios`;
+CREATE TABLE IF NOT EXISTS `criterios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `criterios`
+--
+
+INSERT INTO `criterios` (`id`, `nombre`) VALUES
+(1, '<p>CUMPLE TIEMPO Y FORMA CON LAS ACTIVIDADES ENCOMENDADAS&nbsp;EN EL LLENADO CORRECTO DE&nbsp;LA FICHA DE EXPEDIENTE EN LÍNEA.</p>'),
+(2, '<p>TRABAJA EN EQUIPO Y SE ADAPTA A NUEVAS SITUACIONES<br></p>'),
+(3, '<p>MUESTRA LIDERAZGO EN LAS ACTIVIDADES ENCOMENDADAS&nbsp;<br></p>'),
+(4, '<p>EVALUA A SU TUTOR (A) EN LAS FECHAS ESTABLECIDAS POR LA COORDINACIÓN EN TIEMPO Y EN FORMA&nbsp; &nbsp;ORGANIZA SU TIEMPO Y TRABAJA DE MANERA PROACTIVA<br></p>'),
+(5, '<p>INTERPRETA LA REALIDAD Y SE SENSIBILIZA APORTANDO SOLUCIONES A LA PROBLEMÁTICA CON LA ACTIVIDAD COMPLEMENTARIA</p>'),
+(6, '<p>REALIZA SUGERENCIAS INNOVADORA PARA BENEFICIO O MEJORA DEL PROGRAMA CUMPLE&nbsp;PARTICIPANDO EN LAS SESIONES GRUPALES E INDIVIDUALES&nbsp;</p>'),
+(7, '<p>TIENE INICIATIVA PARA AYUDAR EN LAS ACTIVIDADES ENCOMENDADAS Y MUESTRA ESPÍRITU DE SERVICIO&nbsp;Y MANTUVO LIMPIA SU AULA</p>');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `diagnostico`
+--
+
+DROP TABLE IF EXISTS `diagnostico`;
+CREATE TABLE IF NOT EXISTS `diagnostico` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_alumno` int(11) NOT NULL,
+  `motivo` int(11) NOT NULL,
+  `asignaturas` text NOT NULL,
+  `otro` text NOT NULL,
+  `especifique` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_alumno` (`id_alumno`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `diagnostico`
+--
+
+INSERT INTO `diagnostico` (`id`, `id_alumno`, `motivo`, `asignaturas`, `otro`, `especifique`) VALUES
+(1, 3, 2, '<ul><li>Programacion orientada a objetos</li><li>Programacion Funcional</li></ul>', '<p>Ninguna&nbsp;</p>', '<p>Ninguna</p>'),
+(2, 4, 2, '<ul><li>Algebra Lineal</li><li>Ecuaciones diferenciales</li><li>Calculo Integral</li></ul>', '<p>No participo en actividad complementaria</p>', '<p>Ninguna</p>'),
+(6, 9, 4, '<ul><li>Lenguajes y autómatas I</li></ul>', '<p>Ninguna</p>', '<p>Ninguna</p>'),
+(7, 5, 1, '<ul><li>Agregado hoy</li></ul>', '<p>Ninguna</p>', '<p>Ninguna</p>');
 
 -- --------------------------------------------------------
 
@@ -303,6 +404,85 @@ CREATE TABLE IF NOT EXISTS `estatus` (
 INSERT INTO `estatus` (`id`, `nombre`) VALUES
 (1, 'Activo'),
 (2, 'Inactivo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `evaluacion`
+--
+
+DROP TABLE IF EXISTS `evaluacion`;
+CREATE TABLE IF NOT EXISTS `evaluacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `calificacion` int(11) NOT NULL,
+  `id_alumno` int(11) NOT NULL,
+  `id_criterio` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_alumno` (`id_alumno`),
+  KEY `idx_criterio` (`id_criterio`)
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `evaluacion`
+--
+
+INSERT INTO `evaluacion` (`id`, `calificacion`, `id_alumno`, `id_criterio`) VALUES
+(15, 4, 5, 1),
+(16, 4, 5, 2),
+(17, 4, 5, 3),
+(18, 4, 5, 4),
+(19, 4, 5, 5),
+(20, 4, 5, 6),
+(21, 4, 5, 7),
+(22, 1, 10, 1),
+(23, 1, 10, 2),
+(24, 0, 10, 3),
+(25, 2, 10, 4),
+(26, 1, 10, 5),
+(27, 2, 10, 6),
+(28, 0, 10, 7),
+(29, 3, 8, 1),
+(30, 3, 8, 2),
+(31, 1, 8, 3),
+(32, 4, 8, 4),
+(33, 0, 8, 5),
+(34, 0, 8, 6),
+(35, 0, 8, 7),
+(36, 4, 9, 1),
+(37, 4, 9, 2),
+(38, 2, 9, 3),
+(39, 2, 9, 4),
+(40, 0, 9, 5),
+(41, 4, 9, 6),
+(42, 0, 9, 7),
+(43, 4, 4, 1),
+(44, 2, 4, 2),
+(45, 0, 4, 3),
+(46, 4, 4, 4),
+(47, 2, 4, 5),
+(48, 0, 4, 6),
+(49, 0, 4, 7),
+(50, 1, 3, 1),
+(51, 0, 3, 2),
+(52, 0, 3, 3),
+(53, 0, 3, 4),
+(54, 0, 3, 5),
+(55, 0, 3, 6),
+(56, 0, 3, 7),
+(64, 3, 7, 1),
+(65, 3, 7, 2),
+(66, 3, 7, 3),
+(67, 3, 7, 4),
+(68, 3, 7, 5),
+(69, 3, 7, 6),
+(70, 0, 7, 7),
+(71, 4, 6, 1),
+(72, 4, 6, 2),
+(73, 4, 6, 3),
+(74, 4, 6, 4),
+(75, 3, 6, 5),
+(76, 4, 6, 6),
+(77, 0, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -346,7 +526,7 @@ CREATE TABLE IF NOT EXISTS `grupo_master` (
   KEY `idx_semestre` (`id_semestre`),
   KEY `idx_grupoLetra` (`id_grupoLetra`),
   KEY `idx_tutor` (`id_tutor`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `grupo_master`
@@ -354,7 +534,8 @@ CREATE TABLE IF NOT EXISTS `grupo_master` (
 
 INSERT INTO `grupo_master` (`id`, `id_periodo`, `id_carrera`, `id_semestre`, `id_grupoLetra`, `id_tutor`) VALUES
 (1, 1, 1, 1, 1, 1),
-(2, 1, 1, 3, 1, NULL);
+(2, 1, 1, 3, 1, NULL),
+(3, 4, 1, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -410,7 +591,7 @@ CREATE TABLE IF NOT EXISTS `pat` (
   `estatus` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_semestre` (`id_semestre`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `pat`
@@ -419,6 +600,30 @@ CREATE TABLE IF NOT EXISTS `pat` (
 INSERT INTO `pat` (`id`, `id_semestre`, `nombre`, `descripcion`, `estatus`) VALUES
 (1, 1, 'PAT PRIMER SEMESTRE', 'V1 PAT PARA LOS PRIMEROS SEMESTRES DE TODAS LAS INGENIERIAS', 1),
 (3, 1, 'PAT PRIMER SEMESTRE V3', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `performance`
+--
+
+DROP TABLE IF EXISTS `performance`;
+CREATE TABLE IF NOT EXISTS `performance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_grupo` int(11) NOT NULL,
+  `eDesempeño` int(11) NOT NULL,
+  `bDesempeño` int(11) NOT NULL,
+  `arDesempeño` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_grupo` (`id_grupo`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `performance`
+--
+
+INSERT INTO `performance` (`id`, `id_grupo`, `eDesempeño`, `bDesempeño`, `arDesempeño`) VALUES
+(9, 1, 20, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -440,15 +645,16 @@ CREATE TABLE IF NOT EXISTS `periodo_escolar` (
   PRIMARY KEY (`id`),
   KEY `id_ciclo` (`id_ciclo`),
   KEY `id_estatus` (`id_estatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `periodo_escolar`
 --
 
 INSERT INTO `periodo_escolar` (`id`, `nombre`, `id_estatus`, `letra_periodo`, `date_start`, `date_end`, `id_ciclo`, `created_at`, `updated_at`) VALUES
-(1, '2023B', 1, 'B', '2023-08-30', '2023-12-22', 1, '2023-11-05 15:02:09', '2023-11-19 17:05:50'),
-(3, '2022B', 2, 'B', '2022-08-31', '2022-12-23', 2, '2023-11-05 17:17:49', '2023-11-05 17:17:49');
+(1, '2023B', 1, 'B', '2023-08-30', '2023-12-22', 1, '2023-11-05 15:02:09', '2023-12-03 19:50:39'),
+(3, '2022B', 2, 'B', '2022-08-31', '2022-12-23', 2, '2023-11-05 17:17:49', '2023-11-05 17:17:49'),
+(4, '2024A', 2, 'A', '2024-01-03', '2024-06-01', 1, '2023-12-03 19:48:06', '2023-12-03 19:50:50');
 
 -- --------------------------------------------------------
 
@@ -495,7 +701,7 @@ CREATE TABLE IF NOT EXISTS `semana` (
   `id_pat` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_pat` (`id_pat`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `semana`
@@ -506,7 +712,7 @@ INSERT INTO `semana` (`id`, `num_semana`, `nombre`, `tipo_tutoria`, `tematica`, 
 (2, 2, 'SEMANA 2', 0, '<p>Actualización del Expediente.&nbsp;</p><p><font style=\"background-color: rgb(255, 255, 0);\" color=\"#ff0000\"><b>SESIÓN PRESENCIAL CON EL TUTOR PASAR LISTA</b></font></p>', '<p>El docente asigando como tutor se&nbsp; presentará ó pondrá en contacto a través de una aplicación web con su grupo correspondiente para darle seguimiento a la actualización del expediente, motivarlos y brindarles información neesaria del perfil del tutor&nbsp; &nbsp;&nbsp;<br></p>', '<p>Contar con información actualizada del estudiante, a través de los formularios en línea y a su vez poder contactarlos cuando se requiera por los departamentos de psicología, trayectoría académica, la coordinación o sus tutores.</p><p>Cabe mencionar que es obligatorio que el alumno llene su expediente de manera correcta y completa, de tal forma que si no lo hace, no será liberado del semestre de manera automática.</p>', '<p>Darle seguimiento y que los alumnos actualicen sus expedientes, Brindarle información necesaria del perfil del tutor. PASAR LISTA Y CORROBORAR CON SUS MAESTROS SI ALGUN ALUMNO ESTA FALTANDO O NO SE ESTA CONECTANDO<br></p>', '<p>El docente se presentará&nbsp; en su sesión, de manera f´´isica o virtual&nbsp; a través de una Video Conferencia por medio de la aplicación google meet&nbsp; para transmitir y explicar&nbsp; a los alumnos como realizará la actualización del expediente en la página del Tecnológico Nacional de México Campus Valladolid, los pasos son los siguientes</p><p>Entran a la página principal del ITSVA,&nbsp; en la pestaña estudiantes,&nbsp; pestaña tutoría y&nbsp; actualizar expediente en el link, tienen que tener su correo institucional y su clave es muy importante.&nbsp; Se realizó una captura de pantalla para tener evidencia de la tutoría.&nbsp; &nbsp;</p>', '<p>SE PASARÁN LAS DIAPOSTIVAS FORMADOR DE FORMADORES Y REALIZARAN LOS ALUMNOS EL EJERCICIO, EL MATERIAL ESTA EL EL DRIVE&nbsp;<br></p>', 1),
 (3, 3, 'SEMANA 3', 0, '<p>Difusión de&nbsp; tutoría, psicologia Trayectoria, Reforzamiento, Talento Emprendedor, Curso Mooc, Modelo de Educación Dual y Bolsa de Trabajo&nbsp;(video o diapositivas que compartiran&nbsp;Las responsables son las encargadas de difundir la información de la sesión.&nbsp;NO HAY SESIÓN VIRTUAL CON EL TUTOR&nbsp;&nbsp;</p>', '<p>Dar a conocer&nbsp; el programa tutoría,&nbsp; asesorías de reforzamiento, psicología y trayectoria académica&nbsp; y&nbsp; a las responsables, adjunto al catálogo de maestros que apoyarán a dicho programa, la presentación de las responsables del área de psicología.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p><p>Explicar de manera clara y detallada el formato de liberación del semestre al tutorado(a)&nbsp;</p>', '<p>Es importante que el alumno conozca los servicios que brinda la institución sobre todo en el área académica, ya que podría ser una herramienta de apoyo en el reforzamiento&nbsp; de alguna materia que esté reprobando o que requiera ayuda.</p><p>De la misma manera que conozca las actividades que realizan los departamentos de psicología y Trayectoria académica y acudir a ellas cuando lo requiera.</p>', '<p>Que el alumno conozca los programas y utilizar los servicios cuando lo requiera.</p><p>Que el alumno conozca los lineamientos del formado de evaluación para poder liberarlo el semestre.&nbsp; &nbsp;&nbsp;</p><p>Todos los alumnos se conectarán en la fecha que se les proporcionará, adjuntando el horario y el enlace se encontrará en la sección de tutorías de la página de la institución. PASAR LISTA Y CORROBORAR CON SUS MAESTROS SI ALGUN ALUMNO ESTA FALTANDO O NO SE ESTA CONECTANDO</p>', '<p>Se presentó&nbsp; a través de una Video Conferencia por medio del google meet el programa de tutorías, reforzamiento académico y psicología, Talendo emprendedor, curso Mooc, Modelos de Educación Dual y Bolsa de Trabajo, en donde se les explicó a los alumnos la manera en cómo opera dichos programas.&nbsp;<span style=\"font-size: 1rem;\">La coordinadora de tutoría&nbsp; compartió información a todos los jefes de grupo y alumnos.&nbsp;</span><span style=\"font-size: 1rem;\">Al final se realizó una serie de preguntas y aclaración de dudas.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p>', '<ul><li>Asistencia</li><li>Puntualidad</li><li>Participación</li></ul>', 1),
 (4, 7, 'SEMANA 7', 0, '<p>Competencias laborales<br></p>', '<p>Fomentar las competencias que un profesionista en el área de ingeniería debe tener para ejecutar tareas efectivas.<br></p>', '<p>Actualmente el modelo de educación de educación superior esta basado en el modelo educativo del XXI formación y desarrollo de competencias profesionales razón de ser del tema de esta sesión aunado al deseo del estudiante en conocer más sobre su carrera y en especial para fortalecer los esfuerzos que día a día se lleva en cada una de las temáticas de los planes de estudio, únicamente que desde el área tutorias estas competencias se han de fomentar con diversas herramientas de trabajo.<br></p>', '<p>Se analiza el perfil de egreso del tutorado previamente y se planea en base a las oportunidades y debilidades del grupo, para ello el tutor puede elegir varias opciones por ejemplo, trabajar sobre las competencias que requieren mayor atención o reforzar los que ya se tienen, o iniciar las que no se tiene&nbsp; aún.<br></p>', '<p>El tutor presenta el material y analiza cada estudiante a qué nivel tiene estos rasgos elaborando en su libreta de apuntes una lista de verificación para autoevaluarse, también describe acciones que requiere reforzar y su opinión sobre la utilidad de la información para su formación profesional. Los datos de costumbre, nombre fecha, carrera semestre y grupo para evidencia, se comparte y esta actividad puede ser al aire libre, el tutor puede solicitar al departamento de tutoría el material impreso.<br></p>', '<ul><li>Asistencia</li><li>Puntualidad</li><li>Participación</li></ul>', 1),
-(5, 12, 'SEMANA 12', 0, '<p>Introspección / empatía<br></p>', '<p>Reflexionar sobre los comportamientos del día a día en el rol que el estudiante desempeña y principalmente en su actual vida académica, para coadyuvar el logro de sus objetivos profesionales.&nbsp;<br></p>', '<p>La introspección es útil para reflexionar sobre lo que se puede mejorar y para qué.&nbsp; Permitirá identificar patrones y etapas (capítulos) de su vida hasta el día de hoy. Identifica lo que tiene que construir en el siguiente capítulo de su vida. Tomar conciencia de qué recursos, capacidades y cualidades conforman sus fortalezas principales. Identifica qué es lo que está frenando e imponiendo límites en el siguiente capítulo de su vida. Tener claridad sobre los recursos, capacidades y cualidades de su fuerza interna. Identifica los riesgos implicados en el próximo capítulo de su vida. Ser consciente de los retos a futuro. Identifica las oportunidades en el próximo capítulo de su vida. Ser consciente de las nuevas oportunidades y posibilidades que se presentan.<br></p>', '<p>Utilizar las actividades del cuaderno del estudiante de ttoría para propiciar la relfexión de cada estudiante sobre sus fortalezas, su meta de vida, sus debilidades y las amenazas que puedieran existir con el propósito de potenciar sus capacidades y enfocar sus esfuerzos al logro de sus objetivos.<br></p>', '<p>El tutor presenta el video https://www.youtube.com/watch?v=JOXfNwLTyMc, se solicita a los estudiantes formar equipos y compartir sus comentarios y en una hoja escribir propuestas creativas para la solución d elos casos analizados en el vídeo, esta es una actividad en la que interviene la empatía, las emociones, la solidaridad y la reflexión se requiere de entusiamo para comprender que se trata de ser mejores cada día para con uno mismo y los demás. Se entrega la hoja y un equipo o dos comparten sus experiencias o el tutor puede solicitar la participación de algunos voluntarios.&nbsp;<br></p>', '<ul><li>Asistencia</li><li>Puntualidad</li><li>Participación</li></ul>', 1);
+(5, 12, 'SEMANA 12', 0, '<p>Introspección / empatía<br></p>', '<p>Reflexionar sobre los comportamientos del día a día en el rol que el estudiante desempeña y principalmente en su actual vida académica, para coadyuvar el logro de sus objetivos profesionales.&nbsp;<br></p>', '<p>La introspección es útil para reflexionar sobre lo que se puede mejorar y para qué.&nbsp; Permitirá identificar patrones y etapas (capítulos) de su vida hasta el día de hoy. Identifica lo que tiene que construir en el siguiente capítulo de su vida. Tomar conciencia de qué recursos, capacidades y cualidades conforman sus fortalezas principales. Identifica qué es lo que está frenando e imponiendo límites en el siguiente capítulo de su vida. Tener claridad sobre los recursos, capacidades y cualidades de su fuerza interna. Identifica los riesgos implicados en el próximo capítulo de su vida. Ser consciente de los retos a futuro. Identifica las oportunidades en el próximo capítulo de su vida. Ser consciente de las nuevas oportunidades y posibilidades que se presentan.<br></p>', '<p>Utilizar las actividades del cuaderno del estudiante de ttoría para propiciar la relfexión de cada estudiante sobre sus fortalezas, su meta de vida, sus debilidades y las amenazas que puedieran existir con el propósito de potenciar sus capacidades y enfocar sus esfuerzos al logro de sus objetivos.<br></p>', '<p>El tutor presenta el video https://www.youtube.com/watch?v=JOXfNwLTyMc, se solicita a los estudiantes formar equipos y compartir sus comentarios y en una hoja escribir propuestas creativas para la solución d elos casos analizados en el vídeo, esta es una actividad en la que interviene la empatía, las emociones, la solidaridad y la reflexión se requiere de entusiamo para comprender que se trata de ser mejores cada día para con uno mismo y los demás. Se entrega la hoja y un equipo o dos comparten sus experiencias o el tutor puede solicitar la participación de algunos voluntarios.&nbsp;<br></p>', '<ul><li><font color=\"#000000\" style=\"background-color: rgb(255, 255, 0);\">Asistencia</font></li><li><font color=\"#000000\" style=\"background-color: rgb(255, 255, 0);\">Puntualidad</font></li><li><font color=\"#000000\" style=\"background-color: rgb(255, 255, 0);\">Participación</font></li></ul>', 1);
 
 -- --------------------------------------------------------
 
@@ -532,7 +738,7 @@ CREATE TABLE IF NOT EXISTS `semana_real` (
   PRIMARY KEY (`id`),
   KEY `idx_grupomaster` (`id_grupomaster`),
   KEY `idx_semana` (`id_semana`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `semana_real`
@@ -541,7 +747,8 @@ CREATE TABLE IF NOT EXISTS `semana_real` (
 INSERT INTO `semana_real` (`id`, `id_grupomaster`, `id_semana`, `semana_atendida`, `alumnos_atendidos`, `alumnos_faltantes`, `total_alumnos`, `atendidos_hombres`, `atendidos_mujeres`, `total_gatendidos`, `evidencias`, `observaciones`, `alumnos`) VALUES
 (7, 1, 1, 1, 1, 1, 1, 1, 1, 1, '../../uploads/Evidencia_tstrepo_1701383152.png', '<p>Se dio la tutoria</p>', NULL),
 (8, 1, 4, 1, 1, 1, 1, 1, 1, 1, '', '<p>D</p>', NULL),
-(9, 1, 5, 0, 0, 0, 0, 0, 0, 0, '', '<p>D</p>', NULL);
+(9, 1, 5, 0, 0, 0, 0, 0, 0, 0, '', '<p>D</p>', NULL),
+(10, 1, 2, 1, 23, 2, 25, 10, 13, 23, '', '<p><i style=\"\"><font color=\"#000000\" style=\"background-color: rgb(255, 255, 0);\">Se realizo la actualización de expediente</font></i></p>', NULL);
 
 -- --------------------------------------------------------
 
@@ -586,7 +793,7 @@ CREATE TABLE IF NOT EXISTS `tutor` (
   `id_user` smallint(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tutor`
@@ -594,7 +801,8 @@ CREATE TABLE IF NOT EXISTS `tutor` (
 
 INSERT INTO `tutor` (`id`, `nombre`, `apellido`, `correo`, `telefono`, `genero`, `id_user`) VALUES
 (1, 'LUIS SANTIAGO', 'NOH CAHUM', 'l19070049@valladolid.tecnm.mx', '9851142361', 0, 11),
-(2, 'Martha Elena', 'Manrique Rodriguez', 'l19070041@valladolid.tecnm.mx', '9851142361', 1, 12);
+(2, 'Martha Elena', 'Manrique Rodriguez', 'l19070041@valladolid.tecnm.mx', '9851142361', 1, 12),
+(11, 'Jesus Israel', 'Gamboa Ake', 'santiagocahum25@gmail.com', '9851142361', 0, 23);
 
 -- --------------------------------------------------------
 
@@ -645,7 +853,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `user`
@@ -654,7 +862,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
 (9, 'root', 'El4u2OFmro6HdVohznDGhv45RhYiBoe8', '$2y$13$b3MlkEF5WmnTFIfdTzyTV.XTSCttIOBcKInVnAp9GlkDPZ0hFas0C', NULL, 'rusell.im@valladolid.tecnm.mx', 10, 1653351873, 1701108543, 'QnphEMrAbjb3aM5EGodGe7pCW1PPuhsl_1653351873'),
 (11, 'luis.nc', 'm3XEmH6t_-_cyYRFoZywJ_rNP5IF1-rI', '$2y$13$TY5V6KQV1IkBBYd5ldZPNeqlmxC76/QPZR0KrVAEwjLqObF2txBjG', NULL, 'l19070049@valladolid.tecnm.mx', 10, 1700430159, 1700452464, 'Iv7z2nBrWJkL65PR8Ec6O6uO7_ryGXd6_1700430159'),
-(12, 'martha.mr', 'ff04RFnYeYQ7U4ROw5xHrdjENz67K21i', '$2y$13$0.GB6l16XneGQt.hA0QZP.spNeDuiLpS8R483uJNadipAJSVewkRO', NULL, 'l19070041@valladolid.tecnm.mx', 10, 1701446225, 1701447515, 'oD0eTSwkScpLzfOg5gUiCouvNJNKCQ0Y_1701446225');
+(12, 'martha.mr', 'ff04RFnYeYQ7U4ROw5xHrdjENz67K21i', '$2y$13$0.GB6l16XneGQt.hA0QZP.spNeDuiLpS8R483uJNadipAJSVewkRO', NULL, 'l19070041@valladolid.tecnm.mx', 10, 1701446225, 1701447515, 'oD0eTSwkScpLzfOg5gUiCouvNJNKCQ0Y_1701446225'),
+(23, 'jesus.ga', 'SG8nHrpacBwMhDeTNSoWwV6goMw5gOT2', '$2y$13$NP5CQZ2H2AkAV8rqP1XbIOJCxHbF71U8FihYQXoQG6I.XfAnGz8..', NULL, 'santiagocahum25@gmail.com', 9, 1702250967, 1702250967, '8mbC9NqR7IZGo6zld9M7lB7xRY7M68nw_1702250967');
 
 --
 -- Restricciones para tablas volcadas
@@ -686,10 +895,29 @@ ALTER TABLE `auth_item_child`
   ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `canalizacion`
+--
+ALTER TABLE `canalizacion`
+  ADD CONSTRAINT `fk_Alumno_idAlumno2` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `ciclo_escolar`
 --
 ALTER TABLE `ciclo_escolar`
   ADD CONSTRAINT `fk_Estatus_idEstatus` FOREIGN KEY (`id_estatus`) REFERENCES `estatus` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `diagnostico`
+--
+ALTER TABLE `diagnostico`
+  ADD CONSTRAINT `fk_Alumno_idAlumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `evaluacion`
+--
+ALTER TABLE `evaluacion`
+  ADD CONSTRAINT `fk_Evaluacion_idAlumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Evaluacion_idCriterio` FOREIGN KEY (`id_criterio`) REFERENCES `criterios` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `grupo_master`
@@ -706,6 +934,12 @@ ALTER TABLE `grupo_master`
 --
 ALTER TABLE `pat`
   ADD CONSTRAINT `fk_idSemestrePAT` FOREIGN KEY (`id_semestre`) REFERENCES `semestre` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `performance`
+--
+ALTER TABLE `performance`
+  ADD CONSTRAINT `fk_IdGrupo_GrupoMaster` FOREIGN KEY (`id_grupo`) REFERENCES `grupo_master` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `periodo_escolar`
