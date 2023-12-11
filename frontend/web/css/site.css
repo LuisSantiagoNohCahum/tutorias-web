@@ -185,6 +185,9 @@ blockquote::after{
     content: '';
 }
 
+div.tutoria-info-hover:hover{
+    box-shadow: 5px 5px 13px -4px rgb(131, 131, 131);
+}
 /* Pat buttons */
 .btn-view {
     color: whitesmoke;
