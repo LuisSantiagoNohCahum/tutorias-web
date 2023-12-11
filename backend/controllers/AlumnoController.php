@@ -75,7 +75,7 @@ class AlumnoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->id, 'id_grupo'=>$id_grupo]);
             }
         } else {
             $model->loadDefaultValues();
@@ -144,12 +144,12 @@ class AlumnoController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $id_grupo)
     {
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id, 'id_grupo'=>$id_grupo]);
         }
 
         return $this->render('update', [
@@ -164,11 +164,15 @@ class AlumnoController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $id_grupo)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        try {
+            $this->findModel($id)->delete();
+        } catch (\Throwable $th) {
+            Yii::$app->session->setFlash('err','Este elemento tiene relación con otros elementos en el sistema por lo que no se puede eliminar');
+        }
+        
+        return $this->redirect(['/grupo-master/view', 'id'=>$id_grupo]);
     }
 
     /**

@@ -187,7 +187,7 @@ class SemanaRealController extends Controller
     {
     
         $oldModel = $this->findModel($id);
-
+        $id_grupo = $oldModel->id_grupomaster;
         if (!empty($oldModel->evidencias)) {
             $imagesUnlink = explode(';', $oldModel->evidencias);
             foreach ($imagesUnlink as $uImg) unlink($uImg);
@@ -195,7 +195,7 @@ class SemanaRealController extends Controller
         
         $oldModel->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['pat/admin-pat', 'id_grupo' => $id_grupo]);
     }
 
     /**

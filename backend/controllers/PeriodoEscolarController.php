@@ -135,9 +135,13 @@ class PeriodoEscolarController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 
-        return $this->redirect(['index']);
+        $id_ciclo = $model->id_ciclo;
+
+        $model->delete();
+
+        return $this->redirect(['ciclo-escolar/view', 'id'=>$id_ciclo]);
     }
 
     /**

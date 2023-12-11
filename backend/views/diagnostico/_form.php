@@ -9,13 +9,13 @@ use kartik\editors\Summernote;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="diagnostico-form">
+<div class="diagnostico-form m-3">
 
     <?php $form = ActiveForm::begin(); ?>
     
     <?= $form->field($model, 'id_alumno')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'motivo')->dropDownList($model->getMotivosList(), ['prompt'=> 'Select...', 'class'=> 'form-control form-control-md'])->label('Motivo') ?>
+    <?= $form->field($model, 'motivo')->dropDownList($model->getMotivosList(), ['prompt'=> 'Seleccionar...', 'class'=> 'form-control form-control-md'])->label('Motivo') ?>
 
     <?= $form->field($model, 'asignaturas')->widget(Summernote::class, [
                                                 'useKrajeePresets' => true,
@@ -60,7 +60,7 @@ use kartik\editors\Summernote;
                                             ]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="fas fa-save"></i> Guardar registro', ['class' => 'btn btn-outline-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

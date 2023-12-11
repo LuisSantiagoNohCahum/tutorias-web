@@ -44,7 +44,7 @@ class Performance extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_grupo' => 'Id Grupo',
+            'id_grupo' => 'Grupo',
             'eDesempeño' => 'Exelente Desempeño',
             'bDesempeño' => 'Buen Desempeño',
             'arDesempeño' => 'Alumnos en alto riesgo',

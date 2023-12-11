@@ -51,12 +51,12 @@ class Tutor extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nombre' => 'Nombre',
-            'apellido' => 'Apellido',
+            'nombre' => 'Nombres',
+            'apellido' => 'Apellidos',
             'correo' => 'Correo',
             'telefono' => 'Telefono',
             'genero' => 'Genero',
-            'id_user' => 'Id User',
+            'id_user' => 'Id Usuario',
         ];
     }
 

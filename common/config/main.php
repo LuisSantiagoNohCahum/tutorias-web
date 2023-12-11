@@ -18,11 +18,12 @@ return [
             'translations' => [
                 'yii2mod.rbac' => [
                     'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@yii2mod/rbac/messages',
+                    'basePath' => '@common/messages',
+                    //'basePath' => '@yii2mod/rbac/messages',
                 ],
                 'kvgrid' => [
                     'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@app/messages',
+                    'basePath' => '@kvgrid/messages',
                 ],
                 // ...
             ],
@@ -34,8 +35,8 @@ return [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'santiagocahum25@gmail.com',
-                'password' => 'uoxf blhj ctrq jqlc',
+                'username' => 'sistemacontroltutorias@gmail.com',
+                'password' => 'krsj tcpe rlxz nfbm ',
                 'port' => '587',
                 'encryption' => 'tls',
             ],

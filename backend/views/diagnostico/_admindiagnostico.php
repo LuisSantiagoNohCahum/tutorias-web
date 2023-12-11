@@ -175,7 +175,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'class' => ActionColumn::className(),
             'urlCreator' => function ($action, $model, $key, $index, $column) {
-                return Url::toRoute([$action, 'id' => $model->id]);
+                return Url::toRoute([$action, 'id' => $model->id, 'id_grupo' => Yii::$app->request->get('id_grupo')]);
             },
             'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;;text-align:center;'],
         ],
@@ -225,7 +225,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= Html::a('<i class="fas fa-trash"></i> Eliminar', ['/performance/delete', 'id' => $modelPerformance->id], [
                                     'class' => 'btn-export btn-sm-export btn-export-pdf text-uppercase',
                                     'data' => [
-                                        'confirm' => 'Are you sure you want to delete this item?',
+                                        'confirm' => '¿Esta seguro de eliminar este elemento??',
                                         'method' => 'post',
                                     ],
                                 ]) ?>

@@ -7,6 +7,7 @@ use backend\models\search\CanalizacionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\GrupoMaster;
 
 /**
  * CanalizacionController implements the CRUD actions for Canalizacion model.
@@ -65,23 +66,41 @@ class CanalizacionController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id_grupo)
     {
         $model = new Canalizacion();
-        
+
+        $model->id_alumno = (isset($_POST['selection'])) ? $_POST['selection'][0] : 0;
+
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            
+            if ($model->load($this->request->post())) {
+                
+                $model->save();
+                return $this->redirect(['grupo-master/view', 'id' => $id_grupo]);
             }
         } else {
             $model->loadDefaultValues();
         }
 
         return $this->render('create', [
+            'id_grupo'=>$id_grupo,
             'model' => $model,
         ]);
     }
 
+    public function actionAdminCanalizacion($id_grupo){
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        $searchModelCanalizacion = new CanalizacionSearch();
+        $dataProviderCanalizacion = $searchModelCanalizacion->search($this->request->queryParams, $id_grupo);
+
+        return $this->render('_admincanalizacion', [
+            'modelGrupo' => $modelGrupo,
+            'searchModelCanalizacion' => $searchModelCanalizacion,
+            'dataProviderCanalizacion' => $dataProviderCanalizacion,
+        ]);
+    }
     /**
      * Updates an existing Canalizacion model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -89,12 +108,12 @@ class CanalizacionController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $id_grupo)
     {
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id, 'id_grupo'=>$id_grupo]);
         }
 
         return $this->render('update', [
@@ -109,11 +128,11 @@ class CanalizacionController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $id_grupo)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/canalizacion/admin-canalizacion', 'id_grupo'=>$id_grupo]);
     }
 
     /**

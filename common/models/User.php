@@ -56,10 +56,14 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => 'ID',
             'username' => 'Usuario',
+            'auth_key' => 'Auth Key',
             'password_hash' => 'Contraseña Cifrada',
+            'password_reset_token' => 'Password Reset Token',
             'email' => 'Correo Electronico',
-            'status' => 'Estatus',
-            'created_at' => 'Fecha De Creacion',
+            'status' => 'Estado',
+            'created_at' => 'Fecha De Creación',
+            'updated_at' => 'Fecha De Actualización',
+            'verification_token' => 'Token De Verificación ',
         ];
     }
 

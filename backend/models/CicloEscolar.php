@@ -71,7 +71,7 @@ class CicloEscolar extends \yii\db\ActiveRecord
             'updated_at' => 'Ultima Actualización',
             'fecha_inicial' => 'Fecha Inicio',
             'fecha_final' => 'Fecha Final',
-            'id_estatus' => 'Estatus',
+            'id_estatus' => 'Estado',
         ];
     }
 

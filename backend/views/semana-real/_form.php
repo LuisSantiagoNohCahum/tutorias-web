@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="semana-real-form">
+<div class="semana-real-form m-3">
 
     <?php $form = ActiveForm::begin(['options' => [
         'enctype' => 'multipart/form-data']
@@ -20,7 +20,7 @@ use yii\helpers\Url;
 
     <div class="form-row">
         <div class="col-md-4">
-            <?= $form->field($model, 'semana_atendida')->dropDownList($model->getSemanaAtendidaList(), ['prompt'=> 'Select...', 'class'=> 'form-control form-control-md'])->label('¿Se atendio la tutoria?') ?>
+            <?= $form->field($model, 'semana_atendida')->dropDownList($model->getSemanaAtendidaList(), ['prompt'=> 'Seleccionar...', 'class'=> 'form-control form-control-md'])->label('¿Se atendio la tutoria?') ?>
         </div>
     </div>
     
@@ -81,7 +81,7 @@ use yii\helpers\Url;
                 'overwriteInitial' => false, // Evitar el duplicado de evidencias
                 'showUpload' => false,
                 'showRemove' => false,
-                'uploadUrl'=>'semana-real/index', //añadir url upload para que aparezcan los botones de eliminar
+                //'uploadUrl'=>'semana-real/index', //añadir url upload para que aparezcan los botones de eliminar
                 'maxFileCount'=>20,
                 'fileActionSettings'=>[
                     'showUpload' => false,
@@ -106,7 +106,7 @@ use yii\helpers\Url;
                 
                 'showUpload' => false, // No mostrar el botón de carga
                 'showRemove' => true,
-                'uploadUrl'=>'semana-real/index', //añadir url upload para que aparezcan los botones de eliminar
+                //'uploadUrl'=>'semana-real/index', //añadir url upload para que aparezcan los botones de eliminar
                 'maxFileCount'=>20,
                 'fileActionSettings'=>[
                     'showUpload' => false,
@@ -135,7 +135,7 @@ use yii\helpers\Url;
         <?= $form->field($model, 'alumnos')->textarea(['rows' => 6]) ?>
     <?php }?>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="fas fa-save"></i> Guardar registro', ['class' => 'btn btn-outline-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

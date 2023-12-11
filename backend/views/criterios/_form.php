@@ -9,7 +9,7 @@ use yii\bootstrap4\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="criterios-form">
+<div class="criterios-form m-3">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -28,7 +28,7 @@ use yii\bootstrap4\ActiveForm;
                                             ]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="fas fa-save"></i> Guardar registro', ['class' => 'btn btn-outline-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -73,17 +73,17 @@ class Alumno extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nombres' => 'Nombres',
-            'apellidop' => 'Apellido Paterno',
-            'apellidom' => 'Apellido Materno',
+            'apellidop' => 'Apellido paterno',
+            'apellidom' => 'Apellido materno',
             'matricula' => 'Matricula',
             'correo' => 'Correo',
             'telefono' => 'Telefono',
-            'fecha_nac' => 'Fecha Nacimiento',
+            'fecha_nac' => 'Fecha de nacimiento',
             'ciudad' => 'Ciudad',
             'genero' => 'Genero',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'id_grupo' => 'Id Grupo',
+            'created_at' => 'Fecha de creación',
+            'updated_at' => 'Fecha de actualización',
+            'id_grupo' => 'Grupo',
         ];
     }
 

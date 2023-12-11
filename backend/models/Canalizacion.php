@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "canalizacion".
@@ -27,16 +30,27 @@ class Canalizacion extends \yii\db\ActiveRecord
         return 'canalizacion';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['estatus', 'asunto', 'cuerpo', 'id_alumno', 'created_at', 'updated_at'], 'required'],
+            [['estatus', 'asunto', 'cuerpo', 'id_alumno'], 'required'],
             [['estatus', 'id_alumno'], 'integer'],
             [['asunto', 'cuerpo'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
+            //[['created_at', 'updated_at'], 'safe'],
             [['id_alumno'], 'exist', 'skipOnError' => true, 'targetClass' => Alumno::class, 'targetAttribute' => ['id_alumno' => 'id']],
         ];
     }
@@ -48,7 +62,7 @@ class Canalizacion extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'estatus' => 'Estatus',
+            'estatus' => 'Estado',
             'asunto' => 'Asunto',
             'cuerpo' => 'Cuerpo',
             'id_alumno' => 'Id Alumno',
@@ -65,5 +79,12 @@ class Canalizacion extends \yii\db\ActiveRecord
     public function getAlumno()
     {
         return $this->hasOne(Alumno::class, ['id' => 'id_alumno']);
+    }
+
+    public function getStatusCanalizados(){
+        return [
+            '0'=>'NO CANALIZADO',
+            '1'=>'CANALIZADO'
+        ];
     }
 }

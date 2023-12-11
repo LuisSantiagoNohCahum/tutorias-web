@@ -70,13 +70,13 @@ class PeriodoEscolar extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
-            'id_estatus' => 'Estatus',
+            'id_estatus' => 'Estado',
             'letra_periodo' => 'Periodo',
             'date_start' => 'Inicio',
             'date_end' => 'Fin',
-            'id_ciclo' => 'Id Ciclo',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'id_ciclo' => 'Ciclo',
+            'created_at' => 'Fecha de creación',
+            'updated_at' => 'Fecha de actualización',
         ];
     }
 

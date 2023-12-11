@@ -5,9 +5,10 @@ use app\models\Estatus;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
+use kartik\grid\ActionColumn;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
+
 /** @var yii\web\View $this */
 /** @var backend\models\search\CicloEscolarSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -17,19 +18,41 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ciclo-escolar-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Crear Ciclo Escolar', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'bordered'=>false,
+        'striped'=>false,
+        'condensed'=>false,
+        'hover'=>true,
+        'options' => [
+            'class'=>'table table-md'
+        ],
+        'panel' => [
+            'type' => GridView::TYPE_LIGHT,
+            'heading' => '<h6 class="panel-title mb-0">CICLOS ESCOLARES</h6>',
+            'headingOptions'=>[
+                'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
+            ],
+            'footer' => false,
+        ],
+        'headerContainer' => ['style' => 'top:50px', 'class' => 'kv-table-header'],
+        'toolbar' =>  [
+            'content' =>
+                Html::a('<i class="fas fa-plus"></i> Añadir', ['/ciclo-escolar/create'], [
+                    'class' => 'btn-export btn-sm-export btn-action-basics mr-2',
+                    ])
+        ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
+            ],
 
             //'id',
             [
@@ -38,6 +61,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'form-control form-control-md',
                     'placeholder' => 'Buscar...',
                 ],
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
                 
             ],
             [
@@ -55,6 +82,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'form-control form-control-md',
                     'placeholder' => 'Buscar...',
                 ],
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
                 
             ],
             [
@@ -73,6 +104,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'form-control form-control-md',
                     'placeholder' => 'Buscar...',
                 ],
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
                 
             ],
             [
@@ -95,7 +130,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' => true],
                 ],
-                
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
                 'format' => 'raw'
                 
             ],
@@ -103,7 +141,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, CicloEscolar $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                },
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
             ],
         ],
     ]); ?>

@@ -155,9 +155,13 @@ class SemanaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        
+        $id_pat = $model->id_pat;
 
-        return $this->redirect(['index']);
+        $model->delete();
+
+        return $this->redirect(['pat/view', 'id'=>$id_pat]);
     }
 
     /**

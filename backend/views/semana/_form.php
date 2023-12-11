@@ -9,7 +9,7 @@ use kartik\editors\Summernote;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="semana-form">
+<div class="semana-form m-3">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -17,7 +17,7 @@ use kartik\editors\Summernote;
 
     <?= $form->field($model, 'nombre')->textInput()->label('Nombre') ?>
 
-    <?= $form->field($model, 'tipo_tutoria')->dropDownList($model->getTipoTutoriaList(), ['prompt'=> 'Select...', 'class'=> 'form-control form-control-md'])->label('Tipo de tutoria') ?>
+    <?= $form->field($model, 'tipo_tutoria')->dropDownList($model->getTipoTutoriaList(), ['prompt'=> 'Seleccionar...', 'class'=> 'form-control form-control-md'])->label('Tipo de tutoria') ?>
 
     <?= $form->field($model, 'tematica')->widget(Summernote::class, [
                                                 'useKrajeePresets' => true,
@@ -103,7 +103,7 @@ use kartik\editors\Summernote;
                                             ]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="fas fa-save"></i> Guardar registro', ['class' => 'btn btn-outline-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

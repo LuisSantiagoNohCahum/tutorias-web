@@ -8,7 +8,7 @@ use app\models\PeriodoEscolar;
 use app\models\Semestre;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
+use kartik\grid\ActionColumn;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 
@@ -16,16 +16,10 @@ use yii\helpers\ArrayHelper;
 /** @var backend\models\search\GrupoMasterSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Grupo Masters';
+$this->title = 'Grupos Activos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="grupo-master-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Grupo Master', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -33,8 +27,36 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'bordered'=>false,
+        'striped'=>false,
+        'condensed'=>false,
+        'hover'=>true,
+        'options' => [
+            'class'=>'table table-md'
+        ],
+        'panel' => [
+            'type' => GridView::TYPE_LIGHT,
+            'heading' => '<h6 class="panel-title mb-0">GRUPOS ACTIVOS</h6>',
+            'headingOptions'=>[
+                'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
+            ],
+            'footer' => false,
+        ],
+        'headerContainer' => ['style' => 'top:50px', 'class' => 'kv-table-header'],
+        'toolbar' =>  [
+            'content' =>
+                Html::a('<i class="fas fa-plus"></i> Añadir', ['/grupo-master/create'], [
+                    'class' => 'btn-export btn-sm-export btn-action-basics mr-2',
+                    ])
+        ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
+            ],
 
             //'id',
             [
@@ -53,6 +75,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' => true],
                 ],
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
             ],
             [
                 'attribute'=> 'id_carrera',
@@ -69,6 +95,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' => true],
                 ],
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
             ],
             [
                 'attribute'=> 'id_semestre',
@@ -85,6 +115,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' => true],
                 ],
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
             ],
             [
                 'attribute'=> 'id_grupoLetra',
@@ -102,6 +136,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' => true],
                 ],
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
             ],
             [
                 'attribute'=> 'id_tutor',
@@ -112,13 +150,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 }, */
                 'content' => function ($model) {   
                     return ($model->id_tutor != null) ? Html::tag('span', $model->tutor->nombre . ' '. $model->tutor->apellido, ['class'=> 'text-bold']) : Html::tag('span', "SIN ASIGNAR", ['class'=> 'text-danger font-weight-bold']);
-                }
+                },
+                'filterInputOptions' => [
+                    'class' => 'form-control form-control-md disabled',
+                    'placeholder' => 'Buscar...',
+                    //'readonly'=>'readonly'
+                ],
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
             ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, GrupoMaster $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                },
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth p-2', 'style' => 'font-size:small !important;'],
             ],
         ],
     ]); ?>

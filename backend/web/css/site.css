@@ -363,6 +363,34 @@ blockquote::after{
     opacity: 0.65;
 }
 
+/* FORMS */
+/* ctz-label */
+label{
+    font-weight: bold;
+    color: #2e6297 !important;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+div.form-header{
+    border-radius: 0.25rem 0.25rem 0 0 !important;
+    color: whitesmoke; /* Solo aplica para la descripcion */
+    background-color: #2e6297 !important;
+}
+
+.form-tittle{
+    color :rgb(255 255 255 / 50%) !important;
+}
+
+
+/* GRID CUSTOM */
+
+.table-custom th, .table-custom td {
+    padding: 0.5rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
 @media only screen and (max-width: 768px) {
 
     div.main-login-container > div.left-login-container{

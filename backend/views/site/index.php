@@ -17,38 +17,32 @@ $this->title = 'Index';
 
         <div class="row">
             <div class="col-lg-4">
-                <div class="card">
+                <div class="card" style="height: 14rem;">
                     <div class="card-body">
-                        <b><h5 class="card-title">PAT</h5></b>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                            fugiat nulla pariatur.</p>
-                        <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Administrar PAT &raquo;</a></p>
+                        <b><h5 class="card-title">MISIÓN</h5></b>
+                        <hr class="dropdown-divider">
+                        <p class="card-text">El Programa Institucional de Tutorías (PIT) del ITSVA tiene como misión contribuir para la calidad educativa, el desarrollo integral del estudiante, mediante estrategias que ayuden a mejorar los índices de aprovechamiento escolar, permanencia y eficiencia terminal. </p>
+                        <!-- <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Administrar PAT &raquo;</a></p> -->
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card">
+                <div class="card" style="height: 14rem;">
                     <div class="card-body">
-                        <b><h5 class="card-title">Diagnostico</h5></b>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                            fugiat nulla pariatur.</p>
-                        <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Administrar diagnostico &raquo;</a></p>
+                        <b><h5 class="card-title">VISIÓN</h5></b>
+                        <hr class="dropdown-divider">
+                        <p class="card-text">El PIT del ITSVA se proyecta como un proceso estratégico que impactará positivamente en la calidad educativa, en el desarrollo integral del estudiante, elevando los índices de aprovechamiento escolar, permanencia y eficiencia terminal, a través  del trabajo en equipo entre, directivos, docentes tutores, alumnos, padres de familia y sociedad. </p>
+                        <!-- <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Administrar diagnostico &raquo;</a></p> -->
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card">
+                <div class="card" style="height: 14rem;">
                     <div class="card-body">
-                        <b><h5 class="card-title">Liberación</h5></b>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                            fugiat nulla pariatur.</p>
-                        <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Administrar Liberación de alumnos &raquo;</a></p>
+                        <b><h5 class="card-title">EL OBJETIVO DEL PIT</h5></b>
+                        <hr class="dropdown-divider">
+                        <p class="card-text">Contribuir a través de la acción tutorial, al mejoramiento del rendimiento académico, la disminución de los índices de reprobación, deserción, rezago educativo para favorecer la eficiencia terminal y la formación integral del estudiante del ITSVA. </p>
+                        <!-- <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Administrar Liberación de alumnos &raquo;</a></p> -->
                     </div>
                 </div>
             </div>

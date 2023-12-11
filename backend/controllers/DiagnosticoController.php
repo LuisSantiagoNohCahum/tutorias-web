@@ -144,12 +144,12 @@ class DiagnosticoController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $id_grupo)
     {
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id, 'id_grupo'=>$id_grupo]);
         }
 
         return $this->render('update', [
@@ -164,11 +164,11 @@ class DiagnosticoController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $id_grupo)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/diagnostico/admin-diagnostico', 'id_grupo'=>$id_grupo]);
     }
 
     /**

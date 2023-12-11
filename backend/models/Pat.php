@@ -51,7 +51,7 @@ class Pat extends \yii\db\ActiveRecord
             'id_semestre' => 'Semestre',
             'nombre' => 'Nombre',
             'descripcion' => 'Descripcion',
-            'estatus' => 'Estatus',
+            'estatus' => 'Estado',
         ];
     }
 

@@ -19,7 +19,7 @@ use yii\widgets\Pjax;
 /** @var yii\data\ActiveDataProvider $dataProviderAlumnos */
 
 $this->title = $model->carrera->nombre . ' - ' . $model->semestre->nombre . ' - ' . $model->grupoLetra->letra_key;
-$this->params['breadcrumbs'][] = ['label' => 'Grupo Masters', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Grupos Activos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -137,6 +137,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td style="padding: 5px;">
                                     <?= Html::a("<i class='bi bi-person-check-fill'></i> Liberacion", Url::toRoute(['evaluacion/admin-evaluacion', 'id_grupo' => $model->id]), ['class' => 'btn-export btn-sm-export btn-action-basics']) ?>
                                 </td>
+                                <td style="padding: 5px;">
+                                    <?= Html::a("<i class='bi bi-person-fill'></i> Contacto", Url::toRoute(['canalizacion/admin-canalizacion', 'id_grupo' => $model->id]), ['class' => 'btn-export btn-sm-export btn-action-basics']) ?>
+                                </td>
                             <?php }?>
                         </tr>
                     </tbody>
@@ -224,7 +227,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-pjax' => '0', */
                             ]) . ' '.
                         Html::a('<i class="fas fa-external-link-alt"></i> Canalizar', ['/canalizacion/create', 'id_grupo' => $model->id], [
-                            'id' => 'create-diagnostic', 
+                            'id' => 'create-canalizacion', 
                             'class' => 'btn-export btn-sm-export btn-action-basics mr-2 btn-disabled',
                         ]),
                         
@@ -317,7 +320,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'class' => ActionColumn::className(),
                         'urlCreator' => function ($action, $model, $key, $index, $column) {
-                            return Url::toRoute(['/alumno/' . $action, 'id' => $model->id]);
+                            return Url::toRoute(['/alumno/' . $action, 'id' => $model->id, 'id_grupo' => Yii::$app->request->get('id')]);
                         },
                         'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
                     ],
@@ -387,6 +390,20 @@ JS;
 
 $this->registerJs($script); 
 
+$script = <<< JS
+$(document).ready(function() {
+        $("#create-canalizacion").click(function(e) {
+            e.preventDefault();
+            let submitUrl = $(this).attr('href');
+
+            let form = $("#send-alumno-form").eq(0);
+            form.attr('action', submitUrl);
+            form.submit();
+        });
+    });
+JS;
+
+$this->registerJs($script); 
 
 $script = <<< JS
 $(document).ready(function() {
@@ -403,11 +420,13 @@ $("input:checkbox").on('click', function() {
         box.prop("checked", true);
 
         $("a#create-diagnostic").prop('class',"btn-export btn-sm-export btn-action-basics mr-2")
+        $("a#create-canalizacion").prop('class',"btn-export btn-sm-export btn-action-basics mr-2")
 
     } else {
         box.prop("checked", false);
 
         $("a#create-diagnostic").prop('class',"btn-export btn-sm-export btn-action-basics mr-2 btn-disabled")
+        $("a#create-canalizacion").prop('class',"btn-export btn-sm-export btn-action-basics mr-2 btn-disabled")
     }
 })
 });

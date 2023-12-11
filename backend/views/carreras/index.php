@@ -3,7 +3,7 @@
 use app\models\Carreras;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
+use kartik\grid\ActionColumn;
 use kartik\grid\GridView;
 
 /** @var yii\web\View $this */
@@ -20,59 +20,68 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions' => [
+            'class'=>'table-custom table-md'
+        ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
+            ],
 
             [
                 'attribute' => 'nombre',
+                'filterOptions'=>[
+                    'class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'
+                ],
                 'filterInputOptions' => [
                     'class' => 'form-control form-control-sm',
                     'placeholder' => 'Buscar...',
                 ],
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
                 
             ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Carreras $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'headerOptions' => ['class' => 'cell-data-tittle-nowidth', 'style' => 'font-size:small !important;'],
             ],
         ],
         'panel' => [
-            'after' => '',
-            'heading' => '<i class="fas fa-book"></i>  Carreras',
-            'type' => 'primary',
-            'before' => '<div style="padding-top: 7px;"><em>* Lista de carreras.</em></div>',
+            'type' => GridView::TYPE_LIGHT,
+            'heading' => '<h6 class="panel-title mb-0">CARRERAS</h6>',
+            'headingOptions'=>[
+                'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
+            ],
+            'footer' => false,
         ],
         'toolbar' =>  [
             [
                 'content' =>
-                    Html::a('<i class="bi bi-plus-square"></i>',['carreras/create'], [
-                        'class' => 'btn btn-outline-info',/* border-white */
-                        'title' => Yii::t('kvgrid', 'Agregar Carrera'),
-                        /* 'onclick' => 'alert("This should launch the book creation form.\n\nDisabled for this demo!");' */
-                    ]) . ' '.
-                    Html::a('<i class="bi bi-arrow-clockwise"></i>', ['alumnos/index'], [
-                        'class' => 'btn btn-outline-secondary',
-                        'title'=>Yii::t('kvgrid', 'Actualizar Grid'),
-                        'data-pjax' => 0, 
-                    ]), 
-                'options' => ['class' => 'btn-group mr-2 me-2']
+                    Html::a('<i class="fas fa-plus"></i> Añadir',['carreras/create'], [
+                        'class' => 'btn-export btn-sm-export btn-action-basics mr-2',/* border-white */
+                        //'title' => Yii::t('kvgrid', 'Agregar Carrera'),
+                        'title' => 'Agregar Carrera',
+                    ]),
+                //'options' => ['class' => 'btn-group mr-2 me-2']
             ],
             /* NO FUNCIONA EL MOSTRAR TODO POR QUE ESTA LIMITADO LA CANTIDAD DE REGISTROS QUE SE DEVUELVE EN EL SEARCH DE ALUMNOS POR EL PAGINATION SIZE */
-            '{toggleData}',
+            /* '{toggleData}', */
         ],
         'toggleDataContainer' => ['class' => 'btn-group mr-2 me-2'],
         'persistResize' => false,
         'toggleDataOptions' => ['minCount' => 10],
         'itemLabelSingle' => 'carrera',
         'itemLabelPlural' => 'carreras',
-
         'pageSummaryContainer' => ['class' => 'kv-page-summary-container'],
-        
         'responsive' => false,
-        'bordered' => true,
-        'striped' => true,
+        'bordered' => false,
+        'striped' => false,
         'condensed' => false,
         'hover' => true,
     ]); ?>

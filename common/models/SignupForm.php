@@ -72,18 +72,23 @@ class SignupForm extends Model
                 
             )
             ->setHtmlBody('
-                        <p>
-                            Your account credenciasl in Sistema de control de Tutorias
-                        </p>
-                        <em>Usuario: <b>'.$this->username.'</b></em><br>
-                        <em>Contraseña: <b>'.$this->password.'</b></em>
-                        <p>
-                            Please wait to active you acount for the admin user
-                        </p>
+                        <div class="container bg-white">
+                            <p>
+                                <b>Los datos de su cuenta en Sistema de control de Tutorias son los siguientes</b>
+                            </p>
+                            <em class="text-warning"><b>Usuario: ' . $this->username . '</b></em>
+                            <br>
+                            <em class="text-warning"><b>Contraseña: ' . $this->password . '</b></em>
+                            <p>
+                                Por favor, espera a que el administrador active tu cuenta para poder ingresar al sistema.
+                                <br>
+                                <a href="http://sct.valladolid.tecnm.mx/">http://sct.valladolid.tecnm.mx/</a>
+                            </p>
+                        </div>
                         ')
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name])
             ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
+            ->setSubject('NUEVA CUENTA EN ' . Yii::$app->name)
             ->send();
             //wait to active you acount for the admin user
     }

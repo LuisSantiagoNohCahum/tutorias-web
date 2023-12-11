@@ -42,7 +42,7 @@ class SemanaReal extends \yii\db\ActiveRecord
         return [
             [['id_grupomaster', 'id_semana', 'semana_atendida', 'alumnos_atendidos', 'alumnos_faltantes', 'total_alumnos', 'atendidos_hombres', 'atendidos_mujeres', 'total_gatendidos', 'observaciones'], 'required'],
             [['id_grupomaster', 'id_semana', 'semana_atendida', 'alumnos_atendidos', 'alumnos_faltantes', 'total_alumnos', 'atendidos_hombres', 'atendidos_mujeres', 'total_gatendidos'], 'integer'],
-            [['evidencias', 'observaciones', 'alumnos'], 'string'],
+            [['observaciones', 'alumnos'], 'string'],
 
             [['evidencias'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif', 'maxFiles' => 10, 'on' => ['create']],
             [['evidencias'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif', 'maxFiles' => 10, 'on' => ['update']],

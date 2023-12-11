@@ -3,8 +3,8 @@
 use app\models\Pat;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use kartik\grid\ActionColumn;
+use kartik\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\PatSearch $searchModel */
@@ -14,12 +14,6 @@ $this->title = 'SEGUIMIENTO DE PLAN DE ACCIÓN TUTORIAL (PAT)';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pat-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('<i class="bi bi-file-earmark-text-fill"></i> CREAR NUEVO FORMATO', ['create'], ['class' => 'btn btn-outline-primary']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -32,24 +26,87 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'filterModel' => $searchModel,
+        'bordered'=>false,
+        'striped'=>false,
+        'condensed'=>false,
+        'hover'=>true,
+        'tableOptions' => [
+            'class'=>'table-custom table-md'
+        ],
+        'panel' => [
+            'type' => GridView::TYPE_LIGHT,
+            'heading' => '<h6 class="panel-title mb-0">FORMATOS DEL PAT (SEGUIMIENTO DE PLAN DE ACCIÓN TUTORIAL)</h6>',
+            'headingOptions'=>[
+                'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
+            ],
+            'footer' => false,
+        ],
+        'headerContainer' => ['style' => 'top:50px', 'class' => 'kv-table-header'],
+        'toolbar' =>  [
+            'content' =>
+                Html::a('<i class="fas fa-plus"></i> Añadir', ['/pat/create'], [
+                    'class' => 'btn-export btn-sm-export btn-action-basics mr-2',
+                    ])
+        ],
+        'headerRowOptions'=>[
+            'class'=>'cell-data-tittle-nowidth p-2'
+        ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'filterOptions' =>[
+                    'class'=>'cell-data-tittle-nowidth'
+                ],
+            ],
             [
                 'attribute'=> 'id_semestre',
                 'format'=>'html',
                 'content' => function ($model) {
                     return Html::tag('span', $model->semestre->nombre);
                 },
+                'filterInputOptions' => [
+                    'class' => 'form-control form-control-sm',
+                    'placeholder' => 'Buscar...',
+                ],
+                'filterOptions' =>[
+                    'class'=>'cell-data-tittle-nowidth'
+                ],
             ],
-            'nombre',
-            'descripcion:ntext',
+            [
+                'attribute'=> 'nombre',
+                'filterInputOptions' => [
+                    'class' => 'form-control form-control-sm',
+                    'placeholder' => 'Buscar...',
+                ],
+                'filterOptions' =>[
+                    'class'=>'cell-data-tittle-nowidth'
+                ],
+            ],
+            [
+                'attribute'=> 'descripcion',
+                'format'=>'html',
+                'filterInputOptions' => [
+                    'class' => 'form-control form-control-sm',
+                    'placeholder' => 'Buscar...',
+                ],
+                'filterOptions' =>[
+                    'class'=>'cell-data-tittle-nowidth'
+                ],
+            ],
             [
                 'attribute'=> 'estatus',
                 'format'=>'html',
                 'content' => function ($model) {
                     return ($model->estatus != 0) ? Html::tag('span', 'ACTIVO', ['class'=>'font-weight-bold text-success text-uppercase p-2 w-75']) : Html::tag('span', 'INACTIVO', ['class'=>'font-weight-bold text-danger text-uppercase p-2']);
                 },
+                'filterInputOptions' => [
+                    'class' => 'form-control form-control-sm',
+                    'placeholder' => 'Buscar...',
+                ],
+                'filterOptions' =>[
+                    'class'=>'cell-data-tittle-nowidth'
+                ],
             ],
             [
                 'class' => ActionColumn::className(),

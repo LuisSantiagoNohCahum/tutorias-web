@@ -18,98 +18,135 @@ $this->params['breadcrumbs'][] = ['label' => 'Ciclos Escolares', 'url' => ['inde
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="ciclo-escolar-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="border rounded">
+    <div class="jumbotron jumbotron-fluid pt-3 pb-3 pl-4 pr-4 bg-light form-header">
+        <h1 class="display-6 text-black-50 text-uppercase form-tittle"><?= Html::encode($this->title) ?></h1>
+        <p class="lead">Información del ciclo escolar</p>
+    </div>
+    <div class="ciclo-escolar-view m-3">
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+        <p>
+            <?php if( strtoupper($model->estatus->nombre) == strtoupper("Activo") and count($model->periodoEscolars) < 2) : ?>
+                <?= Html::a('<b><i class="fas fa-plus"></i> Añadir periodo escolar</b>', ['periodo-escolar/create', 'id_ciclo' => $model->id], ['class' => 'btn-export btn-sm-export btn-action-basics']) ?>
+            <?php endif?>
+        </p>
+
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'nombre',
+                'fecha_inicial',
+                'fecha_final',
+                [
+                    'attribute'=> 'id_estatus',
+                    'value' => $model->estatus->nombre
+                ]
             ],
         ]) ?>
 
-    <?php if( strtoupper($model->estatus->nombre) == strtoupper("Activo") and count($model->periodoEscolars) < 2) : ?>
-        <?= Html::a('<b>Crear periodo</b>', ['periodo-escolar/create', 'id_ciclo' => $model->id], ['class' => 'btn btn-success text-white']) ?>
-    <?php endif?>
-    
-</p>
+        <hr class="dropdown-divider">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'nombre',
-            'fecha_inicial',
-            'fecha_final',
-            [
-                'attribute'=> 'id_estatus',
-                'value' => $model->estatus->nombre
-            ]
-        ],
-    ]) ?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'bordered'=>false,
+            'striped'=>false,
+            'condensed'=>false,
+            'hover'=>true,
+            'tableOptions' => [
+                'class'=>'table-custom table-md'
+            ],
+            'panel' => [
+                'type' => GridView::TYPE_LIGHT,
+                'heading' => '<h6 class="panel-title mb-0">PERIODOS ESCOLARES</h6>',
+                'headingOptions'=>[
+                    'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
+                ],
+                'footer' => false,
+            ],
+            'headerContainer' => ['style' => 'top:50px', 'class' => 'kv-table-header'],
+            'toolbar' =>  [
+                
+            ],
+            'headerRowOptions'=>[
+                'class'=>'cell-data-tittle-nowidth p-2'
+            ],
+            //'filterPosition'=>  GridView::FILTER_POS_HEADER,
+            'columns' => [
+                [
+                    'class' => 'yii\grid\SerialColumn',
+                    'filterOptions' =>[
+                        'class'=>'cell-data-tittle-nowidth'
+                    ],
+                ],
+                [
+                    'attribute' => 'nombre',
+                    'filterInputOptions' => [
+                        'class' => 'form-control form-control-sm',
+                        'placeholder' => 'Buscar...',
+                    ],
+                    'filterOptions' =>[
+                        'class'=>'cell-data-tittle-nowidth'
+                    ],
+                ],
+                [
+                    'attribute' => 'id_estatus',
+                    'width'  => '15%',
+                    'content'=> function ($model){
+                        return Html::tag('span', $model->estatus->nombre, ['class'=> str_contains($model->estatus->nombre, "Act") ? 'badge badge-success text-uppercase p-2' : 'badge badge-danger text-uppercase p-2']) ;
+                    },
+                    'vAlign' => 'middle',
+                    'filterInputOptions' => [
+                        'class' => 'form-control form-control-sm',
+                        'placeholder' => 'Buscar...',
+                    ],
+                    'filterOptions' =>[
+                        'class'=>'cell-data-tittle-nowidth'
+                    ],
+                ],
+                [
+                    'attribute' => 'letra_periodo',
+                    'filterInputOptions' => [
+                        'class' => 'form-control form-control-sm',
+                        'placeholder' => 'Buscar...',
+                    ],
+                    'filterOptions' =>[
+                        'class'=>'cell-data-tittle-nowidth'
+                    ],
+                ],
+                [
+                    'attribute' => 'date_start',
+                    'format'=> ['date'],
+                    'filterInputOptions' => [
+                        'class' => 'form-control form-control-sm',
+                        'placeholder' => 'Buscar...',
+                    ],
+                    'filterOptions' =>[
+                        'class'=>'cell-data-tittle-nowidth'
+                    ],
+                ],
+                [
+                    'attribute' => 'date_end',
+                    'format'=> ['date'],
+                    'filterInputOptions' => [
+                        'class' => 'form-control form-control-sm',
+                        'placeholder' => 'Buscar...',
+                    ],
+                    'filterOptions' =>[
+                        'class'=>'cell-data-tittle-nowidth'
+                    ],
+                ],
+                [
+                    //'class' => 'yii\grid\ActionColumn',
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, PeriodoEscolar $model, $key, $index, $column) {
+                        return Url::toRoute(['periodo-escolar/'.$action, 'id' => $model->id]);
+                    }
+                ],
+            ],
+        ]); ?>
 
-    <h3 class="text-uppercase text-black-50"><?= Html::encode("Periodos escolares") ?></h3>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        //'filterPosition'=>  GridView::FILTER_POS_HEADER,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute' => 'nombre',
-                'filterInputOptions' => [
-                    'class' => 'form-control form-control-sm',
-                    'placeholder' => 'Buscar...',
-                ],
-            ],
-            [
-                'attribute' => 'id_estatus',
-                'width'  => '15%',
-                'content'=> function ($model){
-                    return Html::tag('span', $model->estatus->nombre, ['class'=> str_contains($model->estatus->nombre, "Act") ? 'badge badge-success text-uppercase p-2' : 'badge badge-danger text-uppercase p-2']) ;
-                },
-                'vAlign' => 'middle',
-                'filterInputOptions' => [
-                    'class' => 'form-control form-control-sm',
-                    'placeholder' => 'Buscar...',
-                ],
-            ],
-            [
-                'attribute' => 'letra_periodo',
-                'filterInputOptions' => [
-                    'class' => 'form-control form-control-sm',
-                    'placeholder' => 'Buscar...',
-                ],
-            ],
-            [
-                'attribute' => 'date_start',
-                'format'=> ['date'],
-                'filterInputOptions' => [
-                    'class' => 'form-control form-control-sm',
-                    'placeholder' => 'Buscar...',
-                ],
-            ],
-            [
-                'attribute' => 'date_end',
-                'format'=> ['date'],
-                'filterInputOptions' => [
-                    'class' => 'form-control form-control-sm',
-                    'placeholder' => 'Buscar...',
-                ],
-            ],
-            [
-                //'class' => 'yii\grid\ActionColumn',
-                'class' => 'yii\grid\ActionColumn',
-                'urlCreator' => function ($action, PeriodoEscolar $model, $key, $index, $column) {
-                    return Url::toRoute(['periodo-escolar/'.$action, 'id' => $model->id]);
-                }
-            ],
-        ],
-    ]); ?>
-
-<!-- mostrar grid view de los periodos creados -->
+    <!-- mostrar grid view de los periodos creados -->
+    </div>
 </div>

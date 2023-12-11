@@ -9,11 +9,11 @@ use kartik\date\DatePicker;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="ciclo-escolar-form">
+<div class="ciclo-escolar-form m-3">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nombre')->textInput(['maxlength' => true, 'placeholder'=>'CICLO XXXX-XXXX']) ?>
 
     <?= $form->field($model, 'fecha_inicial')->widget(DatePicker::className(), [
         'name' => 'dp_1',
@@ -45,10 +45,10 @@ use kartik\date\DatePicker;
         ]
     ]) ?>
 
-    <?= $form->field($model, 'id_estatus')->dropDownList($model->getEstatusList(), ['prompt'=> 'Select', 'class'=> 'form-control form-control-md']) ?>
+    <?= $form->field($model, 'id_estatus')->dropDownList($model->getEstatusList(), ['prompt'=> 'Selecionar...', 'class'=> 'form-control form-control-md']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="fas fa-save"></i> Guardar registro', ['class' => 'btn btn-outline-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

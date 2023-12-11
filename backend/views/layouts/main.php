@@ -44,7 +44,7 @@ AppAsset::register($this);
         ]);
 
         $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Inicio', 'url' => ['/site/index']],
         ];
 
         if (Yii::$app->user->isGuest && Yii::$app->user->can('tutor')) {
@@ -89,15 +89,16 @@ AppAsset::register($this);
              */
             
             $menuItems[] = [
-                'label' => 'Grupos', 'url' => ['site/index'],
+                'label' => 'Administrar Grupos', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Ciclos y periodos', 'url' => ['/ciclo-escolar/index']],
-                    ['label' => 'Carreras', 'url' => ['/carreras/index']],
-                    '<hr class="dropdown-divider">',
+                    
                     ['label' => 'Grupos Activos', 'url' => ['/grupo-master/index']],
                     ['label' => 'Grupo Letras', 'url' => ['/grupo-letra/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label' => 'Ciclos y periodos', 'url' => ['/ciclo-escolar/index']],
+                    ['label' => 'Carreras', 'url' => ['/carreras/index']],
                     '<hr class="dropdown-divider">',
                     ['label'=> 'Semestre','url'=> ['/semestre/index']],
                 ],
@@ -109,15 +110,6 @@ AppAsset::register($this);
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
                     ['label' => 'Tutores', 'url' => ['/tutor/index']],
-                ],
-            ];
-
-            $menuItems[] = [
-                'label' => 'Alumnos', 'url' => ['site/index'],
-                'options' => ['class' => 'dropdown'],
-                'template' => '<a href="{url}" class="href_class">{label}</a>',
-                'items' => [
-                    ['label' => 'Alumnos', 'url' => ['/alumno/index']],
                 ],
             ];
 

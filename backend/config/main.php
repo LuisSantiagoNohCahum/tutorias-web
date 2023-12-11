@@ -8,9 +8,11 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'name'=>'SISTEMA DE CONTROL DE TUTORIAS',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'language'=>'es',
+    'sourceLanguage'=>'en',
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
@@ -21,6 +23,10 @@ return [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+        ],
+        'formatter' => [
+            'dateFormat' => 'dd-MM-yyyy',
+            'datetimeFormat' => 'php:d-m-Y H:i',
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
