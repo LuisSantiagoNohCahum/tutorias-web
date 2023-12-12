@@ -55,7 +55,7 @@ class Tutor extends \yii\db\ActiveRecord
             'correo' => 'Correo',
             'telefono' => 'Telefono',
             'genero' => 'Genero',
-            'id_user' => 'Id User',
+            'id_user' => 'Usuario',
         ];
     }
 
@@ -77,5 +77,12 @@ class Tutor extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'id_user']);
+    }
+
+    public function getGenero(){
+        return [
+            '0'=> "MASCULINO",
+            '1'=> "FEMENINO",
+        ];
     }
 }

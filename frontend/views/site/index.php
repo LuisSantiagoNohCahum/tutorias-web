@@ -7,12 +7,18 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron text-center bg-transparent" data-aos="fade-up">
+    <div class="jumbotron text-center bg-transparent" style="background-color: rgb(242, 246, 252);" data-aos="fade-up">
         <h1 class="display-4" style="color: rgb(244, 98, 58);"><b>PROGRAMA INSTITUCIONAL DE TUTORÍAS DEL ITSVA (PIT)</b></h1>
-    <hr>
-        <p class="lead">Contribuir a través de la acción tutorial, al mejoramiento del rendimiento académico, la disminución de los índices de reprobación, deserción, rezago educativo para favorecer la eficiencia terminal y la formación integral del estudiante del ITSVA. </p>
+        <hr>
+        <p class="lead">El objetivo es contribuir a través de la acción tutorial, al mejoramiento del rendimiento académico, la disminución de los índices de reprobación, deserción, rezago educativo para favorecer la eficiencia terminal y la formación integral del estudiante del ITSVA. </p>
         
-        <p><?= Html::a('Acceder', ['site/login'], ['class'=>'btn btn-lg btn-success']) ?></p>
+        <?php
+        if(Yii::$app->user->isGuest){ ?>
+            <p><?= Html::a('Acceder', ['site/login'], ['class'=>'btn btn-lg btn-success']) ?></p>
+        <?php }else{ ?>
+            <p><?= Html::a('<i class="fas fa-external-link-alt"></i> Ver PAT', ['pat/index'], ['class'=>'btn btn-lg btn-success']) ?></p>
+        <?php } ?>
+        
 
     </div>
 

@@ -3,6 +3,8 @@ namespace frontend\controllers;
 
 use app\models\GrupoMaster;
 use app\models\Tutor;
+use common\models\User;
+
 use Yii;
 
 class TutorController extends \yii\web\Controller
@@ -26,5 +28,35 @@ class TutorController extends \yii\web\Controller
         ]);
     }
 
+    public function actionUpdate($id){
+
+        $model = Tutor::findOne(['id' => $id]);
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->redirect('index', [
+            
+        ]);
+    }
+
+    public function actionActualizarUser($id){
+        
+        $model = User::findOne(['id' => $id]);
+
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+            if (!empty($_POST['password']) and isset($_POST['password'])) {
+                $model->setPassword($_POST['password']);
+            }
+            
+            if($model->save()) return $this->redirect(['index']);
+        }
+
+        return $this->redirect('index', [
+            
+        ]);
+    }
     /* En PAT Index No hay que mandar id */
 }

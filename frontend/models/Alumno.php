@@ -21,6 +21,9 @@ use Yii;
  * @property string $updated_at
  * @property int $id_grupo
  *
+ * @property Canalizacion[] $canalizacions
+ * @property Diagnostico[] $diagnosticos
+ * @property Evaluacion[] $evaluacions
  * @property GrupoMaster $grupo
  */
 class Alumno extends \yii\db\ActiveRecord
@@ -57,18 +60,48 @@ class Alumno extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nombres' => 'Nombres',
-            'apellidop' => 'Apellidop',
-            'apellidom' => 'Apellidom',
+            'apellidop' => 'Apellido paterno',
+            'apellidom' => 'Apellido materno',
             'matricula' => 'Matricula',
             'correo' => 'Correo',
             'telefono' => 'Telefono',
-            'fecha_nac' => 'Fecha Nac',
+            'fecha_nac' => 'Fecha de nacimiento',
             'ciudad' => 'Ciudad',
             'genero' => 'Genero',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'id_grupo' => 'Id Grupo',
+            'created_at' => 'Fecha de creación',
+            'updated_at' => 'Fecha de actualización',
+            'id_grupo' => 'Grupo',
         ];
+    }
+
+    /**
+     * Gets query for [[Canalizacions]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCanalizacions()
+    {
+        return $this->hasMany(Canalizacion::class, ['id_alumno' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Diagnosticos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDiagnosticos()
+    {
+        return $this->hasMany(Diagnostico::class, ['id_alumno' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Evaluacions]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEvaluacions()
+    {
+        return $this->hasMany(Evaluacion::class, ['id_alumno' => 'id']);
     }
 
     /**

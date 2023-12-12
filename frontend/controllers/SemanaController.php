@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\SemanaReal;
-
+use Yii;
 /**
  * SemanaController implements the CRUD actions for Semana model.
  */
@@ -82,11 +82,24 @@ class SemanaController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionViewAddSemana($id)
+    {
+        $id_grupo = Yii::$app->session->get('id_grupo');
+
+        $model = $this->findModel($id);
+
+        $modelSemanaReal = SemanaReal::find()->where(['id_semana' => $model->id, 'id_grupomaster' => $id_grupo])->one();
+
+        return $this->render('_viewAddSemana', [
+            'model' => $model,
+            'modelSemanaReal' => $modelSemanaReal
+        ]);
+    }
 
     public function actionDetailAddSemanaReal($id_grupo) {
         if (isset($_POST['expandRowKey'])) {
             $model = Semana::findOne($_POST['expandRowKey']);
-            $modelSemanaReal = SemanaReal::findOne($model->id);
+            $modelSemanaReal = SemanaReal::findOne(['id_semana'=>$model->id, 'id_grupomaster'=>$id_grupo]);
             return $this->renderPartial('_detailsAddSemanaReal', [
                 'model'=>$model,
                 'id_grupo'=> $id_grupo,

@@ -28,7 +28,7 @@ use yii\bootstrap4\ActiveForm;
             <?= $form->field($model, 'telefono')->textInput(['maxlength' => true, 'placeholder'=> 'No. Telefono / Celular']) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'genero')->dropDownList($model->getGenero(), ['prompt'=> 'Select...', 'class'=> 'form-control form-control-md']) ?>
+            <?= $form->field($model, 'genero')->dropDownList($model->getGenero(), ['prompt'=> 'Seleccionar...', 'class'=> 'form-control form-control-md']) ?>
         </div>
     </div>
 

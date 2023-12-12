@@ -66,8 +66,8 @@ class Canalizacion extends \yii\db\ActiveRecord
             'asunto' => 'Asunto',
             'cuerpo' => 'Cuerpo',
             'id_alumno' => 'Id Alumno',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Fecha de creación',
+            'updated_at' => 'Fecha de actualización',
         ];
     }
 

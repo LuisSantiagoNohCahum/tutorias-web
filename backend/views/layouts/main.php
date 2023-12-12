@@ -9,6 +9,7 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -44,11 +45,11 @@ AppAsset::register($this);
         ]);
 
         $menuItems = [
-            ['label' => 'Inicio', 'url' => ['/site/index']],
+            ['label' => 'INICIO', 'url' => ['/site/index']],
         ];
 
         if (Yii::$app->user->isGuest && Yii::$app->user->can('tutor')) {
-            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+            $menuItems[] = ['label' => 'INGRESAR', 'url' => ['/site/login']];
             
             //COLOCAR MENSAJE DE QUE NO SE TIENE ACCESO
 
@@ -56,17 +57,17 @@ AppAsset::register($this);
 
             
             $menuItems[] = [
-                'label' => 'Acceso', 'url' => ['site/index'],
+                'label' => 'ACCESO', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Usuarios', 'url' => ['/user/index']],
+                    ['label' => 'USUARIOS', 'url' => ['/user/index']],
                     '<hr class="dropdown-divider">',
-                    ['label'=> 'Asignación de acceso','url'=> ['/rbac/assignment']],
-                    ['label'=> 'Roles','url'=> ['/rbac/role']],
-                    ['label'=> 'Permisos','url'=> ['/rbac/permission']],
-                    ['label'=> 'Rutas','url'=> ['/rbac/route']],
-                    ['label'=> 'Reglas','url'=> ['/rbac/rule']],
+                    ['label'=> 'ASIGNACIÓN DE ACCESO','url'=> ['/rbac/assignment']],
+                    ['label'=> 'ROLES','url'=> ['/rbac/role']],
+                    ['label'=> 'PERMISOS','url'=> ['/rbac/permission']],
+                    ['label'=> 'RUTAS','url'=> ['/rbac/route']],
+                    ['label'=> 'REGLAS','url'=> ['/rbac/rule']],
                     
                 ],
             ];
@@ -89,46 +90,49 @@ AppAsset::register($this);
              */
             
             $menuItems[] = [
-                'label' => 'Administrar Grupos', 'url' => ['site/index'],
+                'label' => 'ADMINISTRAR GRUPOS', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
                     
-                    ['label' => 'Grupos Activos', 'url' => ['/grupo-master/index']],
-                    ['label' => 'Grupo Letras', 'url' => ['/grupo-letra/index']],
+                    ['label' => 'GRUPOS ACTIVOS', 'url' => ['/grupo-master/index']],
+                    ['label' => 'LETRAS DE GRUPO', 'url' => ['/grupo-letra/index']],
                     '<hr class="dropdown-divider">',
-                    ['label' => 'Ciclos y periodos', 'url' => ['/ciclo-escolar/index']],
-                    ['label' => 'Carreras', 'url' => ['/carreras/index']],
+                    ['label' => 'CICLOS Y PERIODOS', 'url' => ['/ciclo-escolar/index']],
                     '<hr class="dropdown-divider">',
-                    ['label'=> 'Semestre','url'=> ['/semestre/index']],
+                    ['label' => 'CARRERAS', 'url' => ['/carreras/index']],
+                    ['label'=> 'SEMESTRES','url'=> ['/semestre/index']],
                 ],
             ];
 
             $menuItems[] = [
-                'label' => 'Tutores', 'url' => ['site/index'],
+                'label' => 'TUTORES', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Tutores', 'url' => ['/tutor/index']],
+                    ['label' => 'TUTORES', 'url' => ['/tutor/index']],
                 ],
             ];
 
             $menuItems[] = [
-                'label' => 'Administración de tutorias', 'url' => ['site/index'],
+                'label' => 'CONFIGURACIÓN DE FORMATOS', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
                     //filtros -> select dependientes
                     ['label' => 'PAT', 'url' => ['/pat/index']],
                     '<hr class="dropdown-divider">',
-                    ['label' => 'Criterios', 'url' => ['/criterios/index']],
+                    ['label' => 'CRITERIOS', 'url' => ['/criterios/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label' => 'FORMATO DE IMPORTACIÓN EXCEL', 'url' => Url::to('../../uploads/FormatoImportacionExcel.xlsx')],
+                    //'<a href="../../uploads/FormatoImportacionExcel.xlsx">FORMATO DE IMPORTACION EXCEL</a>'
                 ],
             ];
 
             $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    '<b><i class="bi bi-box-arrow-in-right"></i> Logout (' . Yii::$app->user->identity->username . ')</b>',
+                    '<b><i class="bi bi-box-arrow-in-right"></i> SALIR (' . Yii::$app->user->identity->username . ')</b>',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -158,7 +162,7 @@ AppAsset::register($this);
 
     <footer class="footer mt-auto py-3 text-muted">
         <div class="container">
-            <p class="float-left">&copy; <?= Html::encode('ITSVA') ?> <?= date('Y') ?></p>
+            <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
             <p class="float-right"><?= Yii::powered() ?></p>
         </div>
     </footer>

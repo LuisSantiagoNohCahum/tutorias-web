@@ -41,7 +41,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Inicio', 'url' => ['/site/index']],
+        ['label' => 'INICIO', 'url' => ['/site/index']],
         
     ];
     if (Yii::$app->user->isGuest ) {
@@ -50,29 +50,40 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Contact', 'url' => ['/site/contact']];
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']]; 
         */
-        $menuItems[] = ['label' => 'Ingresar', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'INGRESAR', 'url' => ['/site/login']];
         
-    } elseif (Yii::$app->user->can('tutor')) {
-        $menuItems[] = ['label' => 'Perfil', 'url' => ['/tutor/index']];
-        $menuItems[] = ['label' => 'Grupo', 'url' => ['/pat/index']];
-        $menuItems[] = ['label' => 'PAT', 'url' => ['/pat/index']];
-        $menuItems[] = ['label' => 'Diagnostico', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Liberacion', 'url' => ['/site/login']];
-        $menuItems[] = ['label' => 'Contacto', 'url' => ['/site/login']];
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-            . Html::submitButton(
-                '<b>Logout (' . Yii::$app->user->identity->username . ')</b>',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+    } else{
+        if (Yii::$app->user->can('tutor')) {
+            $menuItems[] = ['label' => 'PERFIL', 'url' => ['/tutor/index']];
+            $menuItems[] = ['label' => 'GRUPO', 'url' => ['/grupo-master/index']];
+            $menuItems[] = ['label' => 'PAT', 'url' => ['/pat/index']];
+            $menuItems[] = ['label' => 'DIAGNÓSTICO', 'url' => ['/diagnostico/index']];
+            $menuItems[] = ['label' => 'LIBERACIÓN', 'url' => ['/evaluacion/index']];
+            $menuItems[] = ['label' => 'CONTACTO', 'url' => ['/canalizacion/index']];
+            $menuItems[] = '<li>'
+                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+                . Html::submitButton(
+                    '<b>SALIR (' . Yii::$app->user->identity->username . ')</b>',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>';
 
-            /*
-            si esta logeado
-            if(can tutor)
-            else no tutor
-             */
+                /*
+                si esta logeado
+                if(can tutor)
+                else no tutor
+                */
+        }else{
+            $menuItems[] = '<li>'
+                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+                . Html::submitButton(
+                    '<b>SALIR (' . Yii::$app->user->identity->username . ')</b>',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>';
+        }
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],

@@ -56,7 +56,7 @@ class Tutor extends \yii\db\ActiveRecord
             'correo' => 'Correo',
             'telefono' => 'Telefono',
             'genero' => 'Genero',
-            'id_user' => 'Id Usuario',
+            'id_user' => 'Usuario',
         ];
     }
 
