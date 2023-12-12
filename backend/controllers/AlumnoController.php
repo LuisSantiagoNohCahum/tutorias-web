@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use app\models\GrupoMaster;
 use Yii;
 
 /**
@@ -189,5 +190,43 @@ class AlumnoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionExportPdf($id_grupo){
+
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        $searchModelAlumnos = new AlumnoSearch();
+        $dataProviderAlumnos = $searchModelAlumnos->search($this->request->queryParams, $id_grupo);
+
+        $pdf = Yii::$app->pdf;
+        $content = $this->renderPartial('_reportv1', [
+            'modelGrupo' => $modelGrupo,
+            'searchModelAlumnos' => $searchModelAlumnos,
+            'dataProviderAlumnos' => $dataProviderAlumnos
+        ]);
+
+        $pdf->content = $content;
+        return $pdf->render();
+    }
+
+    public function actionExportExcel($id_grupo){
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        $searchModelAlumnos = new AlumnoSearch();
+        $dataProviderAlumnos = $searchModelAlumnos->search($this->request->queryParams, $id_grupo);
+        
+        $filename =  time() . ".xls";
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        
+        echo $this->renderPartial('_reportv1', [
+            'modelGrupo' => $modelGrupo,
+            'searchModelAlumnos' => $searchModelAlumnos,
+            'dataProviderAlumnos' => $dataProviderAlumnos,
+            'rExcel'=>true
+        ]);
+
+        exit;
     }
 }

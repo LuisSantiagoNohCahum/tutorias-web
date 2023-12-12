@@ -119,6 +119,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <table class="table-light"><!--class = 'mb-2' style="border: 1px solid #d3d3d3 !important;" -->
                     <tbody>
                         <tr>
+                            <td style="width: min-content; border-right:1px solid #d3d3d3; padding: 5px;" class="text-black-50">Exportar </td>
+                            <td style="padding: 5px;">
+                                <?= Html::a('<i class="bi bi-file-earmark-pdf-fill"></i> PDF', ['/alumno/export-pdf', 'id_grupo' => $model->id], ['class' => 'btn-export btn-sm-export btn-export-pdf',]) ?>
+                            </td>
+                            <td style="padding: 5px;">
+                                <?= Html::a('<i class="bi bi-file-earmark-excel-fill"></i> EXCEL', ['/alumno/export-excel', 'id_grupo' => $model->id], ['class' => 'btn-export btn-sm-export btn-export-excel',]) ?>
+                            </td>
                             <td style="width: min-content; border-right:1px solid #d3d3d3; padding: 5px;" class="text-black-50">Alumnos </td>
                             <td style="padding: 5px;">
                                 <?= Html::a("<i class='bi bi-person-fill-add'></i> Añadir", Url::toRoute(['alumno/create', 'id_grupo' => $model->id]), ['class' => 'btn-export btn-sm-export btn-action-basics']) ?>
