@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3308
--- Tiempo de generación: 11-12-2023 a las 03:36:01
+-- Tiempo de generación: 12-12-2023 a las 09:44:15
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.4.9
 
@@ -153,7 +153,8 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('admin', '12', 1701447599),
 ('admin', '9', 1694442604),
-('tutor', '11', 1701109434);
+('tutor', '11', 1701109434),
+('tutor', '24', 1702335265);
 
 -- --------------------------------------------------------
 
@@ -181,19 +182,34 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
 ('/*', 2, NULL, NULL, NULL, 1694441822, 1694441822),
+('/alumno/view', 2, NULL, NULL, NULL, 1702285572, 1702285572),
+('/alumnos/*', 2, NULL, NULL, NULL, 1702285852, 1702285852),
+('/canalizacion/*', 2, NULL, NULL, NULL, 1702306875, 1702306875),
 ('/ciclo-escolar/create', 2, NULL, NULL, NULL, 1701109223, 1701109223),
 ('/ciclo-escolar/delete', 2, NULL, NULL, NULL, 1701109223, 1701109223),
 ('/ciclo-escolar/index', 2, NULL, NULL, NULL, 1701109223, 1701109223),
 ('/ciclo-escolar/update', 2, NULL, NULL, NULL, 1701109223, 1701109223),
 ('/ciclo-escolar/view', 2, NULL, NULL, NULL, 1701109223, 1701109223),
+('/diagnostico/*', 2, NULL, NULL, NULL, 1702285832, 1702285832),
+('/evaluacion/bulk-evaluar', 2, NULL, NULL, NULL, 1702284508, 1702284508),
+('/evaluacion/export-excel', 2, NULL, NULL, NULL, 1702284508, 1702284508),
+('/evaluacion/export-pdf', 2, NULL, NULL, NULL, 1702284508, 1702284508),
+('/evaluacion/index', 2, NULL, NULL, NULL, 1702284469, 1702284469),
 ('/gii/*', 2, NULL, NULL, NULL, 1701123881, 1701123881),
+('/grupo-master/index', 2, NULL, NULL, NULL, 1702280982, 1702280982),
+('/pat/export-excel', 2, NULL, NULL, NULL, 1702281956, 1702281956),
+('/pat/export-pdf', 2, NULL, NULL, NULL, 1702281956, 1702281956),
 ('/pat/index', 2, NULL, NULL, NULL, 1701131244, 1701131244),
+('/performance/*', 2, NULL, NULL, NULL, 1702287837, 1702287837),
+('/rbac/*', 2, NULL, NULL, NULL, 1702320698, 1702320698),
+('/semana-real/*', 2, NULL, NULL, NULL, 1702283057, 1702283057),
 ('/semana-real/create', 2, NULL, NULL, NULL, 1701131244, 1701131244),
 ('/semana-real/delete', 2, NULL, NULL, NULL, 1701131244, 1701131244),
 ('/semana-real/update', 2, NULL, NULL, NULL, 1701131244, 1701131244),
 ('/semana/detail-add-semana-real', 2, NULL, NULL, NULL, 1701131244, 1701131244),
 ('/semana/view', 2, NULL, NULL, NULL, 1701132157, 1701132157),
 ('/semana/view-add-semana', 2, NULL, NULL, NULL, 1701131244, 1701131244),
+('/tutor/actualizar-user', 2, NULL, NULL, NULL, 1702320748, 1702320748),
 ('/tutor/index', 2, NULL, NULL, NULL, 1701124042, 1701124042),
 ('/tutor/update', 2, NULL, NULL, NULL, 1701124042, 1701124042),
 ('/tutor/view', 2, NULL, NULL, NULL, 1701124042, 1701124042),
@@ -222,14 +238,28 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
 
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('All', '/*'),
+('PTutor', '/alumno/view'),
+('PTutor', '/alumnos/*'),
+('PTutor', '/canalizacion/*'),
+('PTutor', '/diagnostico/*'),
+('PTutor', '/evaluacion/bulk-evaluar'),
+('PTutor', '/evaluacion/export-excel'),
+('PTutor', '/evaluacion/export-pdf'),
+('PTutor', '/evaluacion/index'),
 ('PTutor', '/gii/*'),
+('PTutor', '/grupo-master/index'),
+('PTutor', '/pat/export-excel'),
+('PTutor', '/pat/export-pdf'),
 ('PTutor', '/pat/index'),
+('PTutor', '/performance/*'),
+('PTutor', '/semana-real/*'),
 ('PTutor', '/semana-real/create'),
 ('PTutor', '/semana-real/delete'),
 ('PTutor', '/semana-real/update'),
 ('PTutor', '/semana/detail-add-semana-real'),
 ('PTutor', '/semana/view'),
 ('PTutor', '/semana/view-add-semana'),
+('PTutor', '/tutor/actualizar-user'),
 ('PTutor', '/tutor/index'),
 ('PTutor', '/tutor/update'),
 ('PTutor', '/tutor/view'),
@@ -268,14 +298,14 @@ CREATE TABLE IF NOT EXISTS `canalizacion` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_alumno` (`id_alumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `canalizacion`
 --
 
 INSERT INTO `canalizacion` (`id`, `estatus`, `asunto`, `cuerpo`, `id_alumno`, `created_at`, `updated_at`) VALUES
-(3, 1, '<p>Ninguno</p>', '<p>Ninguno</p>', 10, '2023-12-10 18:05:31', '2023-12-10 18:09:06');
+(3, 0, '<p>Ninguno</p>', '<p>Ninguno</p>', 10, '2023-12-10 18:05:31', '2023-12-11 09:17:42');
 
 -- --------------------------------------------------------
 
@@ -372,17 +402,18 @@ CREATE TABLE IF NOT EXISTS `diagnostico` (
   `especifique` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_alumno` (`id_alumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `diagnostico`
 --
 
 INSERT INTO `diagnostico` (`id`, `id_alumno`, `motivo`, `asignaturas`, `otro`, `especifique`) VALUES
-(1, 3, 2, '<ul><li>Programacion orientada a objetos</li><li>Programacion Funcional</li></ul>', '<p>Ninguna&nbsp;</p>', '<p>Ninguna</p>'),
+(1, 3, 4, '<ul><li>Programacion orientada a objetos</li><li>Programacion Funcional</li></ul>', '<p>Ninguna&nbsp;</p>', '<p>Ninguna</p>'),
 (2, 4, 2, '<ul><li>Algebra Lineal</li><li>Ecuaciones diferenciales</li><li>Calculo Integral</li></ul>', '<p>No participo en actividad complementaria</p>', '<p>Ninguna</p>'),
 (6, 9, 4, '<ul><li>Lenguajes y autómatas I</li></ul>', '<p>Ninguna</p>', '<p>Ninguna</p>'),
-(7, 5, 1, '<ul><li>Agregado hoy</li></ul>', '<p>Ninguna</p>', '<p>Ninguna</p>');
+(7, 5, 1, '<ul><li>Agregado hoy</li></ul>', '<p>Ninguna</p>', '<p>Ninguna</p>'),
+(8, 7, 4, '<ul><li>Ninguna<br></li></ul>', '<p>Ninguna<br></p>', '<p>Ninguna<br></p>');
 
 -- --------------------------------------------------------
 
@@ -434,14 +465,14 @@ INSERT INTO `evaluacion` (`id`, `calificacion`, `id_alumno`, `id_criterio`) VALU
 (19, 4, 5, 5),
 (20, 4, 5, 6),
 (21, 4, 5, 7),
-(22, 1, 10, 1),
+(22, 4, 10, 1),
 (23, 1, 10, 2),
 (24, 0, 10, 3),
 (25, 2, 10, 4),
 (26, 1, 10, 5),
 (27, 2, 10, 6),
 (28, 0, 10, 7),
-(29, 3, 8, 1),
+(29, 4, 8, 1),
 (30, 3, 8, 2),
 (31, 1, 8, 3),
 (32, 4, 8, 4),
@@ -462,19 +493,19 @@ INSERT INTO `evaluacion` (`id`, `calificacion`, `id_alumno`, `id_criterio`) VALU
 (47, 2, 4, 5),
 (48, 0, 4, 6),
 (49, 0, 4, 7),
-(50, 1, 3, 1),
+(50, 4, 3, 1),
 (51, 0, 3, 2),
 (52, 0, 3, 3),
 (53, 0, 3, 4),
 (54, 0, 3, 5),
 (55, 0, 3, 6),
 (56, 0, 3, 7),
-(64, 3, 7, 1),
-(65, 3, 7, 2),
-(66, 3, 7, 3),
-(67, 3, 7, 4),
-(68, 3, 7, 5),
-(69, 3, 7, 6),
+(64, 4, 7, 1),
+(65, 4, 7, 2),
+(66, 4, 7, 3),
+(67, 4, 7, 4),
+(68, 4, 7, 5),
+(69, 4, 7, 6),
 (70, 0, 7, 7),
 (71, 4, 6, 1),
 (72, 4, 6, 2),
@@ -533,7 +564,7 @@ CREATE TABLE IF NOT EXISTS `grupo_master` (
 --
 
 INSERT INTO `grupo_master` (`id`, `id_periodo`, `id_carrera`, `id_semestre`, `id_grupoLetra`, `id_tutor`) VALUES
-(1, 1, 1, 1, 1, 1),
+(1, 1, 1, 1, 1, 12),
 (2, 1, 1, 3, 1, NULL),
 (3, 4, 1, 1, 1, NULL);
 
@@ -623,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `performance` (
 --
 
 INSERT INTO `performance` (`id`, `id_grupo`, `eDesempeño`, `bDesempeño`, `arDesempeño`) VALUES
-(9, 1, 20, 6, 7);
+(9, 1, 20, 9, 7);
 
 -- --------------------------------------------------------
 
@@ -738,7 +769,7 @@ CREATE TABLE IF NOT EXISTS `semana_real` (
   PRIMARY KEY (`id`),
   KEY `idx_grupomaster` (`id_grupomaster`),
   KEY `idx_semana` (`id_semana`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `semana_real`
@@ -748,7 +779,8 @@ INSERT INTO `semana_real` (`id`, `id_grupomaster`, `id_semana`, `semana_atendida
 (7, 1, 1, 1, 1, 1, 1, 1, 1, 1, '../../uploads/Evidencia_tstrepo_1701383152.png', '<p>Se dio la tutoria</p>', NULL),
 (8, 1, 4, 1, 1, 1, 1, 1, 1, 1, '', '<p>D</p>', NULL),
 (9, 1, 5, 0, 0, 0, 0, 0, 0, 0, '', '<p>D</p>', NULL),
-(10, 1, 2, 1, 23, 2, 25, 10, 13, 23, '', '<p><i style=\"\"><font color=\"#000000\" style=\"background-color: rgb(255, 255, 0);\">Se realizo la actualización de expediente</font></i></p>', NULL);
+(10, 1, 2, 1, 23, 2, 25, 10, 13, 23, '../../uploads/Evidencia_move_img_1702283788.png', '<p><i style=\"\"><font color=\"#000000\" style=\"background-color: rgb(255, 255, 0);\">Se realizo la actualización de expediente</font></i></p>', NULL),
+(17, 1, 3, 1, 5, 6, 5, 3, 3, 2, '../../uploads/Evidencia_tuto3_1702283648.png;../../uploads/Evidencia_tuto2_1702283648.png;../../uploads/Evidencia_tuto1_1702283648.png;../../uploads/Evidencia_cal_1702283692.png', '<p>h,mh,<br></p>', NULL);
 
 -- --------------------------------------------------------
 
@@ -793,16 +825,16 @@ CREATE TABLE IF NOT EXISTS `tutor` (
   `id_user` smallint(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tutor`
 --
 
 INSERT INTO `tutor` (`id`, `nombre`, `apellido`, `correo`, `telefono`, `genero`, `id_user`) VALUES
-(1, 'LUIS SANTIAGO', 'NOH CAHUM', 'l19070049@valladolid.tecnm.mx', '9851142361', 0, 11),
 (2, 'Martha Elena', 'Manrique Rodriguez', 'l19070041@valladolid.tecnm.mx', '9851142361', 1, 12),
-(11, 'Jesus Israel', 'Gamboa Ake', 'santiagocahum25@gmail.com', '9851142361', 0, 23);
+(11, 'Jesus Israel', 'Gamboa Ake', 'santiagocahum25@gmail.com', '9851142361', 0, 23),
+(12, 'LUIS SANTIAGO', 'NOH CAHUM', 'l19070049@valladolid.tecnm.mx', '9851142361', 0, 24);
 
 -- --------------------------------------------------------
 
@@ -853,7 +885,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `user`
@@ -861,9 +893,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
 (9, 'root', 'El4u2OFmro6HdVohznDGhv45RhYiBoe8', '$2y$13$b3MlkEF5WmnTFIfdTzyTV.XTSCttIOBcKInVnAp9GlkDPZ0hFas0C', NULL, 'rusell.im@valladolid.tecnm.mx', 10, 1653351873, 1701108543, 'QnphEMrAbjb3aM5EGodGe7pCW1PPuhsl_1653351873'),
-(11, 'luis.nc', 'm3XEmH6t_-_cyYRFoZywJ_rNP5IF1-rI', '$2y$13$TY5V6KQV1IkBBYd5ldZPNeqlmxC76/QPZR0KrVAEwjLqObF2txBjG', NULL, 'l19070049@valladolid.tecnm.mx', 10, 1700430159, 1700452464, 'Iv7z2nBrWJkL65PR8Ec6O6uO7_ryGXd6_1700430159'),
 (12, 'martha.mr', 'ff04RFnYeYQ7U4ROw5xHrdjENz67K21i', '$2y$13$0.GB6l16XneGQt.hA0QZP.spNeDuiLpS8R483uJNadipAJSVewkRO', NULL, 'l19070041@valladolid.tecnm.mx', 10, 1701446225, 1701447515, 'oD0eTSwkScpLzfOg5gUiCouvNJNKCQ0Y_1701446225'),
-(23, 'jesus.ga', 'SG8nHrpacBwMhDeTNSoWwV6goMw5gOT2', '$2y$13$NP5CQZ2H2AkAV8rqP1XbIOJCxHbF71U8FihYQXoQG6I.XfAnGz8..', NULL, 'santiagocahum25@gmail.com', 9, 1702250967, 1702250967, '8mbC9NqR7IZGo6zld9M7lB7xRY7M68nw_1702250967');
+(23, 'jesus.ga', 'SG8nHrpacBwMhDeTNSoWwV6goMw5gOT2', '$2y$13$NP5CQZ2H2AkAV8rqP1XbIOJCxHbF71U8FihYQXoQG6I.XfAnGz8..', NULL, 'santiagocahum25@gmail.com', 9, 1702250967, 1702250967, '8mbC9NqR7IZGo6zld9M7lB7xRY7M68nw_1702250967'),
+(24, 'luis.nc', 'gyOBrnHEl5FLFf_0-wP1f6lfEr9tmU5y', '$2y$13$ikaf3xLkxg/8HQUbJjaSHeMCs/WeZLDb0dpAmc826x5CqyNAFQiFG', NULL, 'l19070049@valladolid.tecnm.mx', 10, 1702334738, 1702337709, 'yTiXwLoKmX6qxEob13E1d6eLOnVjfrdg_1702334738');
 
 --
 -- Restricciones para tablas volcadas
@@ -917,7 +949,7 @@ ALTER TABLE `diagnostico`
 --
 ALTER TABLE `evaluacion`
   ADD CONSTRAINT `fk_Evaluacion_idAlumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Evaluacion_idCriterio` FOREIGN KEY (`id_criterio`) REFERENCES `criterios` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_Evaluacion_idCriterio` FOREIGN KEY (`id_criterio`) REFERENCES `criterios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `grupo_master`
