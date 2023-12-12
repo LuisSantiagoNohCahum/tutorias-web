@@ -87,6 +87,7 @@ use yii\helpers\Url;
                     'showUpload' => false,
                     'showRemove' => true,
                 ],
+                'maxFileSize'=>50000
                 //'pluginEvents'=>['filedeleted' => 'function() { console.log("csdfbfb"); }',]
             ],
         ]); ?>
@@ -111,7 +112,8 @@ use yii\helpers\Url;
                 'fileActionSettings'=>[
                     'showUpload' => false,
                     'showRemove' => true,
-                ]
+                ],
+                'maxFileSize'=>50000
             ],
             
         ]) ?>

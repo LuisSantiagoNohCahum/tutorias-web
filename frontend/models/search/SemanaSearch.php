@@ -38,9 +38,13 @@ class SemanaSearch extends Semana
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $id_pat = null)
     {
-        $query = Semana::find();
+        if ($id_pat != null) {
+            $query = Semana::find()->where(['id_pat'=>$id_pat])->orderBy('num_semana');
+        }else{
+            $query = Semana::find();
+        }
 
         // add conditions that should always apply here
 

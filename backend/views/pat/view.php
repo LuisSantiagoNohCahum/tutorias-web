@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value'=> $model->semestre->nombre
                 ],
                 'nombre',
-                'descripcion:ntext',
+                'descripcion:html',
                 [
                     'attribute'=>'estatus',
                     'format'=>'html',

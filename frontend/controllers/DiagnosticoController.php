@@ -69,7 +69,7 @@ class DiagnosticoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $id_grupo]);
+                return $this->redirect(['grupo-master/index', 'id_grupo' => $id_grupo]);
             }
         } else {
             $model->loadDefaultValues();

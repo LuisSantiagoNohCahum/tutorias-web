@@ -38,9 +38,13 @@ class CanalizacionSearch extends Canalizacion
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $id_grupo = null)
     {
-        $query = Canalizacion::find();
+        if($id_grupo != null){
+            $query = Canalizacion::find()->alias('C')->innerJoin('alumno A', 'C.id_alumno = A.id')->where(['A.id_grupo'=>$id_grupo])->orderBy('A.apellidop ASC, A.apellidom ASC, A.nombres');
+        }else{
+            $query = Canalizacion::find();
+        }
 
         // add conditions that should always apply here
 
