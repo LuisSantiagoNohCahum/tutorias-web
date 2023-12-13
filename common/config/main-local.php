@@ -6,7 +6,7 @@ return [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;port=3306;dbname=tutorias',
             'username' => 'tutorias',
-            'password' => '@adm1n.sct',
+            'password' => '@adm1in.sct',
             'charset' => 'utf8', 
         ],
         'mailer' => [
