@@ -4,9 +4,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;port=3308;dbname=db_tutorias',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=localhost;port=3306;dbname=tutorias',
+            'username' => 'tutorias',
+            'password' => '@adm1n.sct',
             'charset' => 'utf8', 
         ],
         'mailer' => [
