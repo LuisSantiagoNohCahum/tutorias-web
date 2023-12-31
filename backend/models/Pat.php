@@ -88,15 +88,16 @@ class Pat extends \yii\db\ActiveRecord
     }
 
     public function getReportParcial($id_pat, $id_grupo, $rangeSemanas = [0, 1]){
+        //poner max en la consulta y en la vista donde se calculan los promedios de los parciales
         $report = (new Query())                 
         ->select([
             'IFNULL(SUM(CASE WHEN S.tipo_tutoria = 0 AND SR.semana_atendida = 1 THEN 1 ELSE 0 END), 0) as TGrupal',
             'IFNULL(SUM(CASE WHEN S.tipo_tutoria = 1 AND SR.semana_atendida = 1 THEN 1 ELSE 0 END), 0) as TIndividual',
             'IFNULL(SUM(CASE WHEN SR.semana_atendida = 0 THEN 1 ELSE 0 END), 0) as TNAtendida',
-            'IFNULL(SUM(SR.alumnos_atendidos), 0) as AAtendidos',
-            'IFNULL(SUM(SR.alumnos_faltantes), 0) as AFaltantes',
-            'IFNULL(SUM(SR.atendidos_hombres), 0) as AHombress',
-            'IFNULL(SUM(SR.atendidos_mujeres), 0) as AMujeres',
+            'IFNULL(MAX(SR.alumnos_atendidos), 0) as AAtendidos',
+            'IFNULL(MAX(SR.alumnos_faltantes), 0) as AFaltantes',
+            'IFNULL(MAX(SR.atendidos_hombres), 0) as AHombress',
+            'IFNULL(MAX(SR.atendidos_mujeres), 0) as AMujeres',
         ])
         ->from('semana S')
         ->innerJoin('semana_real SR', 'S.id = SR.id_semana')
