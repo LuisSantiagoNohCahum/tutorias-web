@@ -220,9 +220,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $TotalCol1 += intval($rParcial['TGrupal']);
                                 $TotalCol2 += intval($rParcial['TIndividual']);
                                 $TotalCol3 += intval($rParcial['TNAtendida']);
-                                $TotalCol4 += intval($rParcial['AMujeres']);
-                                $TotalCol5 += intval($rParcial['AHombress']);
-                                $TotalCol6 += intval($rParcial['AFaltantes']);
+                                $TotalCol4 = (intval($rParcial['AMujeres'])>$TotalCol4) ? intval($rParcial['AMujeres']) : $TotalCol4;
+                                $TotalCol5 = (intval($rParcial['AHombress'])>$TotalCol5) ? intval($rParcial['AHombress']) : $TotalCol5;
+                                $TotalCol6 = (intval($rParcial['AFaltantes'])>$TotalCol6) ? intval($rParcial['AFaltantes']) : $TotalCol6;
                             ?>
                             <tr class="text-center text-uppercase">
                                 <td style="vertical-align: middle !important;font-size:smaller; padding: 0.2rem;;" class="font-weight-bold"><?= $parcialNombre . ' ENTREGA PARCIAL' ?></td>
