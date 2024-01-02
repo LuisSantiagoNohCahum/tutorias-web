@@ -2,9 +2,12 @@
 
 namespace backend\controllers;
 
-use backend\models\Alumno;
+
 use backend\models\search\AlumnoSearch;
 use app\models\GrupoMaster;
+use app\models\PeriodoEscolar;
+use app\models\Semestre;
+use app\models\Alumno;
 use backend\models\search\GrupoMasterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -105,6 +108,99 @@ class GrupoMasterController extends Controller
     //añadir los botones de control de los alumnos en el grid igual - modificar o crear nuevas acciones de eleiminar y actualizar
     
 
+    public function actionMigrarGrupo($id_grupo){
+        $transaction = GrupoMaster::getDb()->beginTransaction();
+        try {
+            
+            $modelGrupo = $this->findModel($id_grupo);
+            
+            $pAnio = intval(substr($modelGrupo->periodo->nombre, 0, 4));
+            $pLetra = substr($modelGrupo->periodo->nombre, -1, 1);
+
+            if ($pLetra == 'A') {
+                $pLetra = 'B';
+            }else{
+                $pAnio += 1;
+                $pLetra = 'A';
+            }
+            $pFullname = $pAnio . $pLetra;
+
+            /* Opcional: Validar que este activo */
+            $modelPeriodo = PeriodoEscolar::find()->where(['nombre'=>$pFullname])->one();
+
+            if($modelPeriodo != null){
+
+                $numSemestre = $modelGrupo->semestre->num_semestre + 1;
+                $modelSemestre = Semestre::find()->where(['num_semestre'=>$numSemestre])->one();
+                
+                $modelNewGrupo = GrupoMaster::find()->where(['id_carrera'=>$modelGrupo->id_carrera,'id_grupoLetra'=>$modelGrupo->id_grupoLetra,'id_periodo'=>$modelPeriodo->id,'id_semestre'=>$modelSemestre->id,])->one();
+                
+                if ($modelNewGrupo == null) {
+                    $modelNewGrupo = new GrupoMaster();
+                    $modelNewGrupo->id_carrera = $modelGrupo->id_carrera;
+                    $modelNewGrupo->id_grupoLetra = $modelGrupo->id_grupoLetra;
+                    $modelNewGrupo->id_periodo = $modelPeriodo->id;
+                    $modelNewGrupo->id_semestre = $modelSemestre->id;
+                    $modelNewGrupo->id_tutor = null;
+
+                    /* Verificar si dio true al guardar */
+                    $modelNewGrupo->save();
+                }
+                
+                $idNewGrupo = $modelNewGrupo->id;
+
+                /* OBTENER ALUMNOS, ACTUALIZAR ID_GRUPO Y REINSERTAR [ISNEWRECORD]*/
+                $searchModelAlumnos = new AlumnoSearch();
+                $dataProviderAlumnos = $searchModelAlumnos->search($this->request->queryParams, $id_grupo);
+                /* O usar array de alumno que tiene el modelo de grupo */
+                $dataAlumnos = $dataProviderAlumnos->getModels();
+
+                /* Verificar si el nuevo grupo tiene alumnos, si es asi eliminarlos y volver a importar o simplemente no hacer nada*/
+                if (!empty($dataAlumnos) and empty($modelNewGrupo->alumnos)) {
+                    foreach ($dataAlumnos as $alumno) {
+
+                        $modelNewAlumno = new Alumno();
+                        $modelNewAlumno->nombres = $alumno->nombres;
+                        $modelNewAlumno->apellidop = $alumno->apellidop;
+                        $modelNewAlumno->apellidom = $alumno->apellidom;
+                        $modelNewAlumno->matricula = $alumno->matricula;
+                        $modelNewAlumno->correo = $alumno->correo;
+                        $modelNewAlumno->telefono = $alumno->telefono;
+                        $modelNewAlumno->fecha_nac = $alumno->fecha_nac;
+                        $modelNewAlumno->ciudad = $alumno->ciudad;
+                        $modelNewAlumno->genero = $alumno->genero;
+                        $modelNewAlumno->id_grupo = $idNewGrupo;
+
+                        $modelNewAlumno->save();
+                        
+                        
+                    }
+                }
+                
+
+                $modelGrupo->id_tutor = null;
+                $modelGrupo->save();
+                
+            }
+
+            $transaction->commit();
+
+            if($modelPeriodo != null){
+                return $this->redirect(['view', 'id'=>$modelNewGrupo->id]);
+                /* Al finalizar redirigir al nuevo grupo */
+            }else{
+                return $this->redirect(['view', 'id'=>$modelGrupo->id]);
+            }
+            
+        } catch(\Exception $e) {
+            $transaction->rollBack();
+            throw $e->getMessage();
+        } catch(\Throwable $e) {
+            $transaction->rollBack();
+            throw $e->getMessage();
+        }
+        /* Finally */
+    }
     /**
      * Updates an existing GrupoMaster model.
      * If update is successful, the browser will be redirected to the 'view' page.
