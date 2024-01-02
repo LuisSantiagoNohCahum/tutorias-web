@@ -100,7 +100,7 @@ class SemanaRealController extends Controller
                 $model->evidencias = $EvidenciasFullPath;
 
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['pat/index']);
                 }
                 
             }
@@ -163,7 +163,7 @@ class SemanaRealController extends Controller
             }
             
             if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['pat/index']);
             }
             
         }
