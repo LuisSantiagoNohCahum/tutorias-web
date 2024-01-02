@@ -129,6 +129,14 @@ AppAsset::register($this);
                 ],
             ];
 
+            $menuItems[] = [
+                'label' => '<i class="bi bi-question-circle"></i>', 'url' => ['site/index'],
+                'options' => ['class' => 'dropdown'],
+                'template' => '<a href="{url}" class="href_class">{label}</a>',
+                'items' => [
+                    ['label' => 'MANUAL DE USUARIO', 'url' => Url::to('../../uploads/Manual.pdf')],
+                ],
+            ];
             $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
@@ -139,6 +147,7 @@ AppAsset::register($this);
                 . '</li>';
         }
         echo Nav::widget([
+            'encodeLabels' => false,
             'options' => ['class' => 'navbar-nav ml-auto'],
             'items' => $menuItems,
         ]);
