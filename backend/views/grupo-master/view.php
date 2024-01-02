@@ -133,6 +133,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td style="padding: 5px;">
                                 <?= Html::a("<i class='bi bi-file-earmark-spreadsheet-fill'></i> Importar", Url::toRoute(['alumno/import-data-from-excel', 'id_grupo' => $model->id]), ['class' => 'btn-export btn-sm-export btn-export-excel']) ?>
                             </td>
+                            <td style="padding: 5px;">
+                                <?= Html::a("<i class='bi bi-upload'></i> Migrar", Url::toRoute(['grupo-master/migrar-grupo', 'id_grupo' => $model->id]), ['class' => 'btn-export btn-sm-export btn-action-basics']) ?>
+                            </td>
                             <?php if ($model->id_tutor != null) { ?>
                                 <td style="width: min-content; border-right:1px solid #d3d3d3; padding: 5px;" class="text-black-50">Tutoria </td>
                                 <td style="padding: 5px;">

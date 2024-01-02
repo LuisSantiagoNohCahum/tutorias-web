@@ -161,7 +161,7 @@ class PatController extends Controller
         /* VALIDAR QUE NO SE ACTULIZE A ESTATUS ACTIVO SI YA EXISTE UNO PREVIAMENTE EN ACTIVO EN EL MISMO SEMESTRE */
         if ($id_semestre != 0 && $estatus != 0) {
             if ($estatus != 0) {
-                if ($this->ExistActivePat($id_semestre)) {
+                if ($this->ExistActivePat($id_semestre, $model->id)) {
                     Yii::$app->getSession()->setFlash('err', 'Ya existe un PAT con estatus ACTIVO en el Semestre con ID ' . $id_semestre);
                     return $this->redirect(['index']);
                 }
@@ -212,9 +212,11 @@ class PatController extends Controller
 
     /* Verificar si existe al menos un pat en ese semestre que este activo */
 
-    public function ExistActivePat($id_semestre){
+    public function ExistActivePat($id_semestre, $id_pat = null){
 
-        $model = Pat::find()->where(['id_semestre'=>$id_semestre, 'estatus' => 1])->one();
+        $model = ($id_pat == null) ? 
+            Pat::find()->where(['id_semestre'=>$id_semestre, 'estatus' => 1])->one()
+            : Pat::find()->where(['and', ['id_semestre'=>$id_semestre], ['estatus' => 1], ['!=', 'id', $id_pat]])->one();
 
         if ($model != null) return true;
 
