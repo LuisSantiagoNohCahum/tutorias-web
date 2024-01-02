@@ -283,7 +283,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'class' => 'btn-export btn-sm-export btn-export-pdf text-uppercase',
                                 ]) ?>
                         </td>
-
+                        <td style="padding: 5px;">
+                            <?= Html::a('<i class="bi bi-file-earmark-pdf-fill"></i> CONSTANCIAS', ['/evaluacion/exportar-constancias', 'id_grupo'=>$modelGrupo->id], [
+                                    'class' => 'btn-export btn-sm-export btn-export-pdf text-uppercase',
+                                ]) ?>
+                        </td>
                         <td style="width: min-content; border-right:1px solid #d3d3d3; padding: 5px;vertical-align: middle !important;" class="text-black-50">Acciones </td>
                         <td style="padding: 5px; vertical-align: middle !important;"><?= Html::submitButton('Guardar', ['class' => 'btn-export btn-sm-export btn-export-excel']) ?></td>
                     </tr>

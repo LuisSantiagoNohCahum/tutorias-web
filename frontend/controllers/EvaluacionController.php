@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\GrupoMaster;
 use backend\models\search\AlumnoSearch;
 use backend\models\search\CriteriosSearch;
+use yii\helpers\Html;
 use Yii;
 /**
  * EvaluacionController implements the CRUD actions for Evaluacion model.
@@ -175,6 +176,33 @@ class EvaluacionController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionExportarConstancias($id_grupo){
+        $id_grupo = Yii::$app->session->get('id_grupo');
+
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+
+        $searchModelAlumnos = new AlumnoSearch();
+        $dataProviderAlumnos = $searchModelAlumnos->search($this->request->queryParams, $id_grupo);
+
+        $modelsAlumnos = $dataProviderAlumnos->getModels();
+        
+        $pdf = Yii::$app->pdf;
+        $pdf = $pdf->api;
+        foreach ($modelsAlumnos as $key => $alumno) {
+            $content = $this->renderPartial('_constancia', [
+                'modelGrupo' => $modelGrupo,
+                'modelAlumno' => $alumno,
+            ]);
+            $pdf->setAutoTopMargin = true;
+            $pdf->SetHTMLHeader(Html::img('@web/images/itsva.png', ['alt'=>'Itsva', 'class'=>'mb-2 mt-2 border-0', 'width'=>'75%', 'style' => 'opacity: 0.5;']));
+            $pdf->WriteHtml($content);
+
+            if ($key+1 != count($modelsAlumnos)) $pdf->addPage('','','','','','','',40,'',);
+        }
+
+        return $pdf->output();
     }
 
     public function actionExportPdf($id_grupo){
