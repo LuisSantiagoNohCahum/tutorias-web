@@ -62,16 +62,16 @@ class SemanaReal extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_grupomaster' => 'Id Grupomaster',
             'id_semana' => 'Id Semana',
-            'semana_atendida' => '¿Se atendio la tutoria?',
+            'semana_atendida' => '¿Se atendió la tutoría?',
             'alumnos_atendidos' => 'Alumnos Atendidos',
             'alumnos_faltantes' => 'Alumnos Faltantes',
             'total_alumnos' => 'Total de Alumnos',
             'atendidos_hombres' => 'Hombres',
             'atendidos_mujeres' => 'Mujeres',
             'total_gatendidos' => 'Total',
-            'evidencias' => 'Evidencias de la tutoria',
+            'evidencias' => 'Evidencias de la tutoría',
             'observaciones' => 'Observaciones',
-            'alumnos' => 'Alumnos Individiales Atendidos',
+            'alumnos' => 'Alumnos Individuales Atendidos',
         ];
     }
 

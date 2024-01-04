@@ -20,7 +20,7 @@ use yii\helpers\Url;
 
     <div class="form-row">
         <div class="col-md-4">
-            <?= $form->field($model, 'semana_atendida')->dropDownList($model->getSemanaAtendidaList(), ['prompt'=> 'Seleccionar...', 'class'=> 'form-control form-control-md'])->label('¿Se atendio la tutoria?') ?>
+            <?= $form->field($model, 'semana_atendida')->dropDownList($model->getSemanaAtendidaList(), ['prompt'=> 'Seleccionar...', 'class'=> 'form-control form-control-md'])->label('¿Se atendió la tutoría?') ?>
         </div>
     </div>
     
