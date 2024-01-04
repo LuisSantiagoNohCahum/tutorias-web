@@ -49,7 +49,7 @@ class PeriodoEscolar extends \yii\db\ActiveRecord
             [['id_estatus'], 'exist', 'skipOnError' => true, 'targetClass' => Estatus::class, 'targetAttribute' => ['id_estatus' => 'id']],
         ];
     }
-
+/* Comentario de prueba */
     public function behaviors()
     {
         return [
