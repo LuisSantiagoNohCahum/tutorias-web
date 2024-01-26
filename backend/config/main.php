@@ -15,6 +15,9 @@ return [
     'sourceLanguage'=>'en',
     'bootstrap' => ['log'],
     'modules' => [],
+    'aliases' => [
+        '@uploads' => dirname(dirname(__DIR__)).'/uploads',
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',

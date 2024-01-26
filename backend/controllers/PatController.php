@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\GrupoMaster;
+use app\models\Semana;
+use app\models\SemanaReal;
+use yii\helpers\Html;
 use Yii;
 
 /**
@@ -275,5 +278,50 @@ class PatController extends Controller
         exit;
     }
 
+    public function actionExportPatToExcel($id_grupo){
+        /*
+        Buscar las semanas del PAT y por cada semana buscar semana real y añadirselo en en array con formato [SemanaReal] = null|object 
+         */
+        $modelGrupo = $modelPat = $searchModelSemanas = $dataProviderSemanas = null;
+        $modelSemanas = $resultDataPAT = [];
+        $modelGrupo = GrupoMaster::find()->where(['id'=>$id_grupo])->one();
+        if ($modelGrupo != null) $modelPat = Pat::find()->where(['id_semestre' => $modelGrupo->semestre->id, 'estatus'=> 1])->one();
+        /* Buscar semanas, devolver dataprovider de semanas */
+        if ($modelPat != null){
+            $searchModelSemanas = new SemanaSearch();
+            $dataProviderSemanas = $searchModelSemanas->search($this->request->queryParams, $modelPat->id);
+            $modelSemanas = $dataProviderSemanas->getModels();
+            /* Por cada semana buscar su semana real en base al idsemana y grupo */
+            foreach ($modelSemanas as $semana) {
+                $modelSemanaReal = SemanaReal::findOne(['id_semana'=>$semana->id, 'id_grupomaster'=>$id_grupo]);
+                $tempResult = [];
+                $tempResult["SEMANA"] = $semana;
+                $tempResult["SEMANAREAL"] = $modelSemanaReal;
+                $resultDataPAT[] = $tempResult;
+            }
+        }
+
+        header('Content-Transfer-Encoding: binary');
+        header("Content-Type: application/octet-stream"); 
+        header("Content-Transfer-Encoding: binary"); 
+        header('Expires: '.gmdate('D, d M Y H:i:s').' GMT'); 
+        header('Content-Disposition: attachment; filename = "ExportPAT'.date("Y-m-d").'.xls"'); 
+        header('Pragma: no-cache'); 
+        
+        $htmlView = "";
+        try {
+            $htmlView = $this->renderPartial('_reportv2', [
+                'modelGrupo' => $modelGrupo,
+                'modelPat' => $modelPat,
+                'resultDataPAT' => $resultDataPAT,
+            ]);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+            die();
+        }
+        echo chr(255).chr(254).iconv("UTF-8", "UTF-16LE//IGNORE", $htmlView); 
+        exit;
+    }
     
+
 }
