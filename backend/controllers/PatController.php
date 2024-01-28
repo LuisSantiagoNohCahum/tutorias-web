@@ -299,6 +299,13 @@ class PatController extends Controller
                 $tempResult["SEMANAREAL"] = $modelSemanaReal;
                 $resultDataPAT[] = $tempResult;
             }
+
+            #Reportes Parciales
+            $reportParciales=[];
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [1, 6]);
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [7, 11]);
+            //hacer un count de semanas -get models para el ultimo
+            $reportParciales[]= $modelPat->getReportParcial($modelPat->id, $modelGrupo->id, [12, 16]);
         }
 
         header('Content-Transfer-Encoding: binary');
@@ -314,6 +321,7 @@ class PatController extends Controller
                 'modelGrupo' => $modelGrupo,
                 'modelPat' => $modelPat,
                 'resultDataPAT' => $resultDataPAT,
+                'reportParciales' => $reportParciales,
             ]);
         } catch (\Exception $ex) {
             echo $ex->getMessage();

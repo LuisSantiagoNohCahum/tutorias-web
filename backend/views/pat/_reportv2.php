@@ -164,6 +164,55 @@ use kartik\detail\DetailView;
         </table>
 
     <?php endforeach; ?>
-
-
+    <br>
+    <?php
+    $TotalCol1 = $TotalCol2 = $TotalCol3 = $TotalCol4 = $TotalCol5 = $TotalCol6 = 0;
+    ?>
+    <table class="table table-light table-sm table-striped table-hover">
+        <thead class="font-weight-bold text-center text-uppercase">
+            <tr>
+                <th style="vertical-align: middle !important;background-color: #1b4e81;color: whitesmoke;text-transform: uppercase;font-size: smaller;font-weight: bold;width: 15%;" class='cell-data-tittle'>PARCIALES</th>
+                <th style="vertical-align: middle !important;background-color: #1b4e81;color: whitesmoke;text-transform: uppercase;font-size: smaller;font-weight: bold;width: 15%;" class='cell-data-tittle'>TOTAL DE HORAS GRUPALES</th>
+                <th style="vertical-align: middle !important;background-color: #1b4e81;color: whitesmoke;text-transform: uppercase;font-size: smaller;font-weight: bold;width: 15%;" class='cell-data-tittle'>TOTAL DE HORAS INVIDUALES</th>
+                <th style="vertical-align: middle !important;background-color: #1b4e81;color: whitesmoke;text-transform: uppercase;font-size: smaller;font-weight: bold;width: 15%;" class='cell-data-tittle'>TOTAL HORAS NO IMPARTIDAS </th>
+                <th style="vertical-align: middle !important;background-color: #1b4e81;color: whitesmoke;text-transform: uppercase;font-size: smaller;font-weight: bold;width: 15%;" class='cell-data-tittle'>TOTAL MUJERES</th>
+                <th style="vertical-align: middle !important;background-color: #1b4e81;color: whitesmoke;text-transform: uppercase;font-size: smaller;font-weight: bold;width: 15%;" class='cell-data-tittle'>TOTAL HOMBRES</th>
+                <th style="vertical-align: middle !important;background-color: #1b4e81;color: whitesmoke;text-transform: uppercase;font-size: smaller;font-weight: bold;width: 15%;" class='cell-data-tittle'>ALUMNOS QUE FALTARON</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($reportParciales as $key => $rParcial) {
+                if ($key == 0) $parcialNombre = 'PRIMERA';
+                elseif ($key == 1) $parcialNombre = 'SEGUNDA';
+                else $parcialNombre = 'TERCERA';
+                $TotalCol1 += intval($rParcial['TGrupal']);
+                $TotalCol2 += intval($rParcial['TIndividual']);
+                $TotalCol3 += intval($rParcial['TNAtendida']);
+                $TotalCol4 += intval($rParcial['AMujeres']);
+                $TotalCol5 += intval($rParcial['AHombress']);
+                $TotalCol6 += intval($rParcial['AFaltantes']);
+            ?>
+                <tr class="text-center text-uppercase">
+                    <td style="text-align: center; vertical-align: middle !important;font-size:smaller; padding: 0.2rem;;" class="font-weight-bold"><?= $parcialNombre . ' ENTREGA PARCIAL' ?></td>
+                    <td style="text-align: center; vertical-align: middle !important; padding: 0.2rem;"><?= $rParcial['TGrupal'] ?></td>
+                    <td style="text-align: center; vertical-align: middle !important; padding: 0.2rem;"><?= $rParcial['TIndividual'] ?></td>
+                    <td style="text-align: center; vertical-align: middle !important; padding: 0.2rem;"><?= $rParcial['TNAtendida'] ?></td>
+                    <td style="text-align: center; vertical-align: middle !important; padding: 0.2rem;"><?= $rParcial['AMujeres'] ?></td>
+                    <td style="text-align: center; vertical-align: middle !important; padding: 0.2rem;"><?= $rParcial['AHombress'] ?></td>
+                    <td style="text-align: center; vertical-align: middle !important; padding: 0.2rem;"><?= $rParcial['AFaltantes'] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+        <tfoot>
+            <tr class="text-center text-uppercase">
+                <th style="vertical-align: middle !important;font-size:smaller" class="font-weight-bold">TOTAL</th>
+                <th><?= $TotalCol1 ?></th>
+                <th><?= $TotalCol2 ?></th>
+                <th><?= $TotalCol3 ?> </th>
+                <th><?= $TotalCol4 ?></th>
+                <th><?= $TotalCol5 ?></th>
+                <th><?= $TotalCol6 ?></th>
+            </tr>
+        </tfoot>
+    </table>
 </div>
