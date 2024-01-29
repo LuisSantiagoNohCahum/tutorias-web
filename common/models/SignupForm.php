@@ -82,7 +82,7 @@ class SignupForm extends Model
                             <p>
                                 Por favor, espera a que el administrador active tu cuenta para poder ingresar al sistema.
                                 <br>
-                                <a href="http://sct.valladolid.tecnm.mx/">http://sct.valladolid.tecnm.mx/</a>
+                                <a href="http://tutorias.valladolid.tecnm.mx/">http://tutorias.valladolid.tecnm.mx/</a>
                             </p>
                         </div>
                         ')
