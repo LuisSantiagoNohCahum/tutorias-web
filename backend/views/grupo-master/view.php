@@ -223,7 +223,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
                     ],
                     'before'=>'<b>IMPORTANTE: </b><em>Selecione un alumno antes de realizar alguna acción</em>',
-                    'footer' => false,
+                    'footer' => '',
                 ],
                 'headerContainer' => ['style' => 'top:50px', 'class' => 'kv-table-header'],
                 'toolbar' =>  [
