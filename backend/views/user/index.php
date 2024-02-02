@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'headingOptions'=>[
                 'style'=>'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
             ],
-            'footer' => false,
+            'footer' => '',
         ],
         'headerContainer' => ['style' => 'top:50px', 'class' => 'kv-table-header'],
         'toolbar' =>  [

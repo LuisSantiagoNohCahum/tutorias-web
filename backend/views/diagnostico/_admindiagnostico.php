@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'headingOptions' => [
             'style' => 'font-size: small !important; margin:0; padding: 0.5rem 1.25rem;'
         ],
-        'footer' => false,
+        'footer' => '',
     ],
     'toolbar' =>  [],
     'columns' => [
