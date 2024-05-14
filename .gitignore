@@ -1,3 +1,6 @@
+#Uploads
+uploads
+
 # yii console commands
 /yii
 /yii_test
@@ -18,7 +21,6 @@ nbproject
 Thumbs.db
 
 # composer vendor dir
-/vendor
 
 # composer itself is not needed
 composer.phar
@@ -41,4 +43,4 @@ phpunit.phar
 #/backend/web/index.php
 #/backend/web/index-test.php
 #/backend/web/robots.txt
-/common/config/main-local.php
+

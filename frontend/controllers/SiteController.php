@@ -16,6 +16,9 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
+use app\models\GrupoMaster;
+use app\models\Tutor;
+
 /**
  * Site controller
  */
@@ -75,6 +78,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'blank';
         return $this->render('index');
     }
 
@@ -85,12 +89,23 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
+        $this->layout = 'blank';
+
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+            $modelUser = Yii::$app->user->identity;
+            $modelTutor = Tutor::find()->where(['id_user'=>$modelUser->id])->one();
+            $modelGrupo = GrupoMaster::find()->where(['id_tutor'=>$modelTutor->id])->one();
+            
+            /* Establecemos la variable id_grupo que nos va a permitir navegar */
+            if($modelGrupo != null) Yii::$app->session->set('id_grupo',$modelGrupo->id);
+
             return $this->goBack();
         }
 
@@ -153,6 +168,7 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        $this->layout = 'blank';
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');

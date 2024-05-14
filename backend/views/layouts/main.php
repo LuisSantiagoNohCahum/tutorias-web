@@ -9,6 +9,7 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -22,6 +23,9 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- BS ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <!-- FONT AWESOME - PARA CARGAR LOS ICONOS DEL GRIDVIEW -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -41,51 +45,109 @@ AppAsset::register($this);
         ]);
 
         $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'INICIO', 'url' => ['/site/index']],
         ];
 
-        if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-        } else {
+        if (Yii::$app->user->isGuest && Yii::$app->user->can('tutor')) {
+            $menuItems[] = ['label' => 'INGRESAR', 'url' => ['/site/login']];
+            
+            //COLOCAR MENSAJE DE QUE NO SE TIENE ACCESO
+
+        } elseif(Yii::$app->user->can('admin')) {
+
+            
             $menuItems[] = [
-                'label' => 'Tutores', 'url' => ['site/index'],
+                'label' => 'ACCESO', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Usuarios', 'url' => ['user/index']],
+                    ['label' => 'USUARIOS', 'url' => ['/user/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label'=> 'ASIGNACIÓN DE ACCESO','url'=> ['/rbac/assignment']],
+                    ['label'=> 'ROLES','url'=> ['/rbac/role']],
+                    ['label'=> 'PERMISOS','url'=> ['/rbac/permission']],
+                    ['label'=> 'RUTAS','url'=> ['/rbac/route']],
+                    ['label'=> 'REGLAS','url'=> ['/rbac/rule']],
                     
                 ],
             ];
+
+            /*
+                                [
+                        'label' => 'RBAC', 
+                        'url' => ['site/index'],
+                        'options' => ['class' => 'dropdown'],
+                        'submenuTemplate' => '<a href="{url}" class="href_class">{label}</a>',
+                        'items'=> [
+                            ['label'=> 'Asignación de acceso','url'=> ['rbac/assignment']],
+                            '<hr class="dropdown-divider">',
+                            ['label'=> 'Roles','url'=> ['rbac/role']],
+                            ['label'=> 'Permisos','url'=> ['rbac/permission']],
+                            ['label'=> 'Rutas','url'=> ['rbac/route']],
+                            ['label'=> 'Reglas','url'=> ['rbac/rule']],
+                        ],
+                    ],
+             */
+            
             $menuItems[] = [
-                'label' => 'Grupos', 'url' => ['site/index'],
+                'label' => 'ADMINISTRAR GRUPOS', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Carreras', 'url' => ['rol/index']],
-                    ['label' => 'Grupos activos', 'url' => ['clientes/index']],
+                    
+                    ['label' => 'GRUPOS ACTIVOS', 'url' => ['/grupo-master/index']],
+                    ['label' => 'LETRAS DE GRUPO', 'url' => ['/grupo-letra/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label' => 'CICLOS Y PERIODOS', 'url' => ['/ciclo-escolar/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label' => 'CARRERAS', 'url' => ['/carreras/index']],
+                    ['label'=> 'SEMESTRES','url'=> ['/semestre/index']],
                 ],
             ];
 
             $menuItems[] = [
-                'label' => 'PAT', 'url' => ['site/index'],
+                'label' => 'TUTORES', 'url' => ['site/index'],
                 'options' => ['class' => 'dropdown'],
                 'template' => '<a href="{url}" class="href_class">{label}</a>',
                 'items' => [
-                    ['label' => 'Plantillas', 'url' => ['clientes/index']],
-                    ['label' => 'Administracion del PAT', 'url' => ['clientes/index']],
+                    ['label' => 'TUTORES', 'url' => ['/tutor/index']],
                 ],
             ];
 
+            $menuItems[] = [
+                'label' => 'CONFIGURACIÓN DE FORMATOS', 'url' => ['site/index'],
+                'options' => ['class' => 'dropdown'],
+                'template' => '<a href="{url}" class="href_class">{label}</a>',
+                'items' => [
+                    //filtros -> select dependientes
+                    ['label' => 'PAT', 'url' => ['/pat/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label' => 'CRITERIOS', 'url' => ['/criterios/index']],
+                    '<hr class="dropdown-divider">',
+                    ['label' => 'FORMATO DE IMPORTACIÓN EXCEL', 'url' => Url::to('../../uploads/FormatoImportacionExcel.xlsx')],
+                    //'<a href="../../uploads/FormatoImportacionExcel.xlsx">FORMATO DE IMPORTACION EXCEL</a>'
+                ],
+            ];
+
+            $menuItems[] = [
+                'label' => '<i class="bi bi-question-circle"></i>', 'url' => ['site/index'],
+                'options' => ['class' => 'dropdown'],
+                'template' => '<a href="{url}" class="href_class">{label}</a>',
+                'items' => [
+                    ['label' => 'MANUAL DE USUARIO', 'url' => Url::to('../../uploads/Manual.pdf')],
+                ],
+            ];
             $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    '<b><i class="bi bi-box-arrow-in-right"></i> Logout (' . Yii::$app->user->identity->username . ')</b>',
+                    '<b><i class="bi bi-box-arrow-in-right"></i> SALIR (' . Yii::$app->user->identity->username . ')</b>',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>';
         }
         echo Nav::widget([
+            'encodeLabels' => false,
             'options' => ['class' => 'navbar-nav ml-auto'],
             'items' => $menuItems,
         ]);
@@ -109,7 +171,7 @@ AppAsset::register($this);
 
     <footer class="footer mt-auto py-3 text-muted">
         <div class="container">
-            <p class="float-left">&copy; <?= Html::encode('ITSVA') ?> <?= date('Y') ?></p>
+            <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
             <p class="float-right"><?= Yii::powered() ?></p>
         </div>
     </footer>

@@ -14,6 +14,7 @@ class LoginForm extends Model
     public $password;
     public $rememberMe = true;
 
+    public $is_admin = false;
     private $_user;
 
 
@@ -70,8 +71,9 @@ class LoginForm extends Model
      */
     protected function getUser()
     {
+
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByUsername($this->username, $this->is_admin);
         }
 
         return $this->_user;

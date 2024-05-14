@@ -17,7 +17,13 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
+    <link rel="icon" href="./images/tutorias.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- BS ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <!-- FONT AWESOME - PARA CARGAR LOS ICONOS DEL GRIDVIEW -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -35,22 +41,49 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'INICIO', 'url' => ['/site/index']],
+        
     ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+    if (Yii::$app->user->isGuest ) {
+        /* 
+        $menuItems[] = ['label' => 'About', 'url' => ['/site/about']];
+        $menuItems[] = ['label' => 'Contact', 'url' => ['/site/contact']];
+        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']]; 
+        */
+        $menuItems[] = ['label' => 'INGRESAR', 'url' => ['/site/login']];
+        
+    } else{
+        if (Yii::$app->user->can('tutor')) {
+            $menuItems[] = ['label' => 'PERFIL', 'url' => ['/tutor/index']];
+            $menuItems[] = ['label' => 'GRUPO', 'url' => ['/grupo-master/index']];
+            $menuItems[] = ['label' => 'PAT', 'url' => ['/pat/index']];
+            $menuItems[] = ['label' => 'DIAGNÓSTICO', 'url' => ['/diagnostico/index']];
+            $menuItems[] = ['label' => 'LIBERACIÓN', 'url' => ['/evaluacion/index']];
+            $menuItems[] = ['label' => 'CONTACTO', 'url' => ['/canalizacion/index']];
+            $menuItems[] = '<li>'
+                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+                . Html::submitButton(
+                    '<b>SALIR (' . Yii::$app->user->identity->username . ')</b>',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>';
+
+                /*
+                si esta logeado
+                if(can tutor)
+                else no tutor
+                */
+        }else{
+            $menuItems[] = '<li>'
+                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+                . Html::submitButton(
+                    '<b>SALIR (' . Yii::$app->user->identity->username . ')</b>',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>';
+        }
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
@@ -61,7 +94,8 @@ AppAsset::register($this);
 </header>
 
 <main role="main" class="flex-shrink-0">
-    <div class="container">
+    <div class="container main-info">
+        <?= Html::img('@web/images/itsva.png', ['alt'=>'Itsva', 'class'=>'img-thumbnail mb-2 mt-2 border-0', 'width'=>'50%']);?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

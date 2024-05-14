@@ -51,6 +51,22 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Usuario',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Contraseña Cifrada',
+            'password_reset_token' => 'Password Reset Token',
+            'email' => 'Correo Electronico',
+            'status' => 'Estado',
+            'created_at' => 'Fecha De Creación',
+            'updated_at' => 'Fecha De Actualización',
+            'verification_token' => 'Token De Verificación ',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -86,8 +102,13 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername($username, $is_admin)
     {
+        /* VALIDAR QUE SEA ADMIN Y TENGA ASIGANDO ROL */
+        if ($is_admin) {
+            return static::find()->alias('U')->innerJoin('auth_assignment AA', 'U.id = AA.user_id')->where(['username' => $username, 'status' => self::STATUS_ACTIVE, 'AA.item_name' => 'admin'])->one();
+        }
+        /* VALIDAR QUE TENGA TUTOR Y GRUPO ASIGNADO ESTE USER */
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
@@ -219,6 +240,13 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByEmail($email)
     {
         return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    public function getStatusList()  {
+        return [
+            '10' => 'ACTIVO',
+            '9' => 'INACTIVO'
+        ];
     }
 
     /**
